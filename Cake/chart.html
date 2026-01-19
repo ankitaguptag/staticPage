@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Chat | Caking Admin</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #8B4513;
+      --secondary-color: #D4AF37;
+      --dark-color: #2C1810;
+      --light-bg: #FFF8F0;
+      --text-dark: #3E2723;
+      --sidebar-width: 280px;
+      --topbar-height: 70px;
+      --success-color: #27AE60;
+      --warning-color: #F39C12;
+      --error-color: #E74C3C;
+      --info-color: #3498DB;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      background: #f5f6fa;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* Sidebar & Topbar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: linear-gradient(180deg, var(--dark-color) 0%, #1a0f0a 100%);
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--secondary-color) 0%, #ffd700 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--dark-color);
+    }
+
+    .logo-text h4 {
+      color: white;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .logo-text p {
+      color: var(--secondary-color);
+      margin: 0;
+      font-size: 0.75rem;
+    }
+
+    .sidebar-menu {
+      padding: 1.5rem 0;
+    }
+
+    .menu-section-title {
+      padding: 1rem 1.5rem 0.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    .menu-item:hover,
+    .menu-item.active {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--secondary-color);
+    }
+
+    .menu-item.active::before {
+      width: 4px;
+    }
+
+    .menu-item i {
+      font-size: 1.3rem;
+      width: 24px;
+    }
+
+    .menu-badge {
+      background: var(--error-color);
+      color: white;
+      padding: 0.2rem 0.5rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .topbar {
+      position: fixed;
+      left: var(--sidebar-width);
+      top: 0;
+      right: 0;
+      height: var(--topbar-height);
+      background: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      z-index: 999;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .menu-toggle {
+      width: 45px;
+      height: 45px;
+      border: none;
+      background: var(--light-bg);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .breadcrumb-custom {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      background: none;
+      padding: 0;
+    }
+
+    .breadcrumb-custom li {
+      display: flex;
+      align-items: center;
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumb-custom li.active {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .topbar-right {
+      margin-left: auto;
+    }
+
+    .main-content {
+      margin-left: var(--sidebar-width);
+      margin-top: var(--topbar-height);
+      padding: 0;
+      height: calc(100vh - var(--topbar-height));
+    }
+
+    /* Chat Layout */
+    .chat-container {
+      display: flex;
+      height: 100%;
+    }
+
+    /* Chat List (Left Panel) */
+    .chat-list {
+      width: 350px;
+      background: white;
+      border-right: 1px solid #e0e0e0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-list-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .chat-list-header h5 {
+      margin: 0 0 1rem 0;
+      color: var(--dark-color);
+    }
+
+    .chat-search {
+      position: relative;
+    }
+
+    .chat-search input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 50px;
+    }
+
+    .chat-search i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+    }
+
+    .chat-list-body {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .chat-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid #f0f0f0;
+      position: relative;
+    }
+
+    .chat-item:hover {
+      background: var(--light-bg);
+    }
+
+    .chat-item.active {
+      background: var(--light-bg);
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .chat-item.unread {
+      background: rgba(212, 175, 55, 0.05);
+    }
+
+    .chat-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--info-color) 0%, #2874a6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .status-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      border: 2px solid white;
+    }
+
+    .status-indicator.online {
+      background: var(--success-color);
+    }
+
+    .status-indicator.offline {
+      background: #ccc;
+    }
+
+    .chat-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .chat-info-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.25rem;
+    }
+
+    .chat-name {
+      font-weight: 600;
+      color: var(--dark-color);
+      font-size: 0.95rem;
+    }
+
+    .chat-time {
+      color: #999;
+      font-size: 0.75rem;
+    }
+
+    .chat-preview {
+      color: #6b5d57;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .unread-badge {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--error-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    /* Chat Window (Center Panel) */
+    .chat-window {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #f8f9fa;
+    }
+
+    .chat-window-header {
+      background: white;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-user-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .chat-user-details h6 {
+      margin: 0;
+      color: var(--dark-color);
+    }
+
+    .chat-user-status {
+      color: var(--success-color);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .chat-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .action-icon {
+      width: 35px;
+      height: 35px;
+      border-radius: 8px;
+      border: none;
+      background: var(--light-bg);
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 2rem;
+    }
+
+    .message {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .message.sent {
+      flex-direction: row-reverse;
+    }
+
+    .message-avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: var(--info-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .message.sent .message-avatar {
+      background: var(--primary-color);
+    }
+
+    .message-content {
+      max-width: 60%;
+    }
+
+    .message.sent .message-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .message-bubble {
+      background: white;
+      padding: 0.85rem 1.25rem;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      margin-bottom: 0.5rem;
+    }
+
+    .message.sent .message-bubble {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+    }
+
+    .message-text {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .message-time {
+      font-size: 0.75rem;
+      color: #999;
+    }
+
+    .chat-input-area {
+      background: white;
+      padding: 1.5rem 2rem;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .chat-input-wrapper {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 0.85rem 1.25rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 50px;
+      resize: none;
+      font-family: inherit;
+    }
+
+    .chat-input:focus {
+      border-color: var(--secondary-color);
+      outline: none;
+    }
+
+    .input-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .input-action-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: var(--light-bg);
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .send-btn {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+    }
+
+    .send-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* Customer Info Panel (Right) */
+    .customer-info-panel {
+      width: 320px;
+      background: white;
+      border-left: 1px solid #e0e0e0;
+      overflow-y: auto;
+    }
+
+    .customer-profile {
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--info-color) 0%, #2874a6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 2rem;
+      margin: 0 auto 1rem;
+    }
+
+    .profile-name {
+      font-size: 1.3rem;
+      color: var(--dark-color);
+      margin-bottom: 0.25rem;
+    }
+
+    .profile-email {
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    .info-section {
+      padding: 1.5rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .info-section-title {
+      font-size: 0.9rem;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      color: #6b5d57;
+      font-size: 0.85rem;
+    }
+
+    .info-value {
+      color: var(--dark-color);
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 1200px) {
+      .customer-info-panel {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -280px;
+      }
+
+      .topbar {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .chat-list {
+        width: 100%;
+      }
+
+      .chat-window {
+        display: none;
+      }
+
+      .chat-window.active {
+        display: flex;
+      }
+
+      .chat-list.hidden {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====== Sidebar ====== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <i class='bx bxs-cake'></i>
+        </div>
+        <div class="logo-text">
+          <h4>Caking</h4>
+          <p>ADMIN PANEL</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <div class="menu-section-title">Main Menu</div>
+      
+      <a href="admin-dashboard.html" class="menu-item">
+        <i class='bx bxs-dashboard'></i>
+        <span>Dashboard</span>
+      </a>
+
+      <div class="menu-section-title">Customers</div>
+
+      <a href="chat.html" class="menu-item active">
+        <i class='bx bxs-message-dots'></i>
+        <span>Customer Chat</span>
+        <span class="menu-badge">3</span>
+      </a>
+
+      <a href="reviews-management.html" class="menu-item">
+        <i class='bx bxs-star'></i>
+        <span>Reviews</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ====== Top Navbar ====== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="menu-toggle">
+        <i class='bx bx-menu'></i>
+      </button>
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb-custom">
+          <li><i class='bx bx-home-alt'></i></li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>Customers</li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li class="active">Customer Chat</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="topbar-right">
+      <div style="color: var(--dark-color); font-weight: 600;">
+        <i class='bx bx-user-circle' style="font-size: 1.5rem;"></i>
+        Admin
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== Main Content ====== -->
+  <main class="main-content">
+    <div class="chat-container">
+      
+      <!-- Chat List -->
+      <div class="chat-list">
+        <div class="chat-list-header">
+          <h5>Messages</h5>
+          <div class="chat-search">
+            <i class='bx bx-search'></i>
+            <input type="text" placeholder="Search conversations...">
+          </div>
+        </div>
+
+        <div class="chat-list-body">
+          <!-- Chat Item 1 - Active & Unread -->
+          <div class="chat-item active unread">
+            <div class="chat-avatar">
+              SJ
+              <span class="status-indicator online"></span>
+            </div>
+            <div class="chat-info">
+              <div class="chat-info-header">
+                <span class="chat-name">Sarah Johnson</span>
+                <span class="chat-time">2m ago</span>
+              </div>
+              <div class="chat-preview">Hi! Can I customize my cake design?</div>
+            </div>
+            <span class="unread-badge">2</span>
+          </div>
+
+          <!-- Chat Item 2 - Unread -->
+          <div class="chat-item unread">
+            <div class="chat-avatar" style="background: linear-gradient(135deg, var(--success-color) 0%, #1d8348 100%);">
+              MR
+              <span class="status-indicator online"></span>
+            </div>
+            <div class="chat-info">
+              <div class="chat-info-header">
+                <span class="chat-name">Michael Roberts</span>
+                <span class="chat-time">15m ago</span>
+              </div>
+              <div class="chat-preview">When will my order be delivered?</div>
+            </div>
+            <span class="unread-badge">1</span>
+          </div>
+
+          <!-- Chat Item 3 - Online -->
+          <div class="chat-item">
+            <div class="chat-avatar" style="background: linear-gradient(135deg, var(--warning-color) 0%, #d68910 100%);">
+              EC
+              <span class="status-indicator online"></span>
+            </div>
+            <div class="chat-info">
+              <div class="chat-info-header">
+                <span class="chat-name">Emily Chen</span>
+                <span class="chat-time">1h ago</span>
+              </div>
+              <div class="chat-preview">Thank you for the amazing cake!</div>
+            </div>
+          </div>
+
+          <!-- Chat Item 4 - Offline -->
+          <div class="chat-item">
+            <div class="chat-avatar" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">
+              DW
+              <span class="status-indicator offline"></span>
+            </div>
+            <div class="chat-info">
+              <div class="chat-info-header">
+                <span class="chat-name">David Wilson</span>
+                <span class="chat-time">3h ago</span>
+              </div>
+              <div class="chat-preview">What flavors do you have?</div>
+            </div>
+          </div>
+
+          <!-- Chat Item 5 -->
+          <div class="chat-item">
+            <div class="chat-avatar" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
+              AB
+              <span class="status-indicator offline"></span>
+            </div>
+            <div class="chat-info">
+              <div class="chat-info-header">
+                <span class="chat-name">Amanda Brown</span>
+                <span class="chat-time">Yesterday</span>
+              </div>
+              <div class="chat-preview">Is there a gluten-free option?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Window -->
+      <div class="chat-window">
+        <div class="chat-window-header">
+          <div class="chat-user-info">
+            <div class="chat-avatar">
+              SJ
+              <span class="status-indicator online"></span>
+            </div>
+            <div class="chat-user-details">
+              <h6>Sarah Johnson</h6>
+              <div class="chat-user-status">
+                <i class='bx bxs-circle' style="font-size: 0.5rem;"></i>
+                Online
+              </div>
+            </div>
+          </div>
+          <div class="chat-actions">
+            <button class="action-icon" title="Call">
+              <i class='bx bx-phone'></i>
+            </button>
+            <button class="action-icon" title="Video Call">
+              <i class='bx bx-video'></i>
+            </button>
+            <button class="action-icon" title="More Options">
+              <i class='bx bx-dots-vertical-rounded'></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="chat-messages">
+          <!-- Received Message -->
+          <div class="message">
+            <div class="message-avatar">SJ</div>
+            <div class="message-content">
+              <div class="message-bubble">
+                <p class="message-text">Hi! I'm interested in ordering a custom birthday cake for my daughter.</p>
+              </div>
+              <span class="message-time">10:30 AM</span>
+            </div>
+          </div>
+
+          <!-- Sent Message -->
+          <div class="message sent">
+            <div class="message-avatar">A</div>
+            <div class="message-content">
+              <div class="message-bubble">
+                <p class="message-text">Hello Sarah! I'd be happy to help you with a custom birthday cake. What's the occasion and how many people will be serving?</p>
+              </div>
+              <span class="message-time">10:31 AM</span>
+            </div>
+          </div>
+
+          <!-- Received Message -->
+          <div class="message">
+            <div class="message-avatar">SJ</div>
+            <div class="message-content">
+              <div class="message-bubble">
+                <p class="message-text">It's for her 10th birthday, we'll need it for about 25 people. She loves unicorns!</p>
+              </div>
+              <span class="message-time">10:32 AM</span>
+            </div>
+          </div>
+
+          <!-- Sent Message -->
+          <div class="message sent">
+            <div class="message-avatar">A</div>
+            <div class="message-content">
+              <div class="message-bubble">
+                <p class="message-text">Perfect! We can create a beautiful unicorn-themed cake for 25 people. Would you like vanilla, chocolate, or red velvet flavor?</p>
+              </div>
+              <span class="message-time">10:33 AM</span>
+            </div>
+          </div>
+
+          <!-- Received Message -->
+          <div class="message">
+            <div class="message-avatar">SJ</div>
+            <div class="message-content">
+              <div class="message-bubble">
+                <p class="message-text">Vanilla would be great! Can I customize the design?</p>
+              </div>
+              <span class="message-time">10:35 AM</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-area">
+          <div class="chat-input-wrapper">
+            <textarea class="chat-input" placeholder="Type your message..." rows="1"></textarea>
+            <div class="input-actions">
+              <button class="input-action-btn" title="Attach File">
+                <i class='bx bx-paperclip'></i>
+              </button>
+              <button class="input-action-btn" title="Emoji">
+                <i class='bx bx-smile'></i>
+              </button>
+              <button class="input-action-btn send-btn" title="Send Message">
+                <i class='bx bx-send'></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Info Panel -->
+      <div class="customer-info-panel">
+        <div class="customer-profile">
+          <div class="profile-avatar">SJ</div>
+          <h6 class="profile-name">Sarah Johnson</h6>
+          <p class="profile-email">sarah.johnson@email.com</p>
+        </div>
+
+        <div class="info-section">
+          <h6 class="info-section-title">Contact Information</h6>
+          <div class="info-item">
+            <span class="info-label">Phone</span>
+            <span class="info-value">+1 (555) 123-4567</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Location</span>
+            <span class="info-value">New York, NY</span>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h6 class="info-section-title">Customer Details</h6>
+          <div class="info-item">
+            <span class="info-label">Total Orders</span>
+            <span class="info-value">24</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Total Spent</span>
+            <span class="info-value">$1,245.00</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Member Since</span>
+            <span class="info-value">Oct 15, 2024</span>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h6 class="info-section-title">Quick Actions</h6>
+          <button style="width: 100%; padding: 0.75rem; background: var(--light-bg); border: none; border-radius: 10px; color: var(--primary-color); font-weight: 600; cursor: pointer; margin-bottom: 0.5rem;">
+            <i class='bx bx-user'></i> View Profile
+          </button>
+          <button style="width: 100%; padding: 0.75rem; background: var(--light-bg); border: none; border-radius: 10px; color: var(--primary-color); font-weight: 600; cursor: pointer; margin-bottom: 0.5rem;">
+            <i class='bx bx-shopping-bag'></i> View Orders
+          </button>
+          <button style="width: 100%; padding: 0.75rem; background: var(--light-bg); border: none; border-radius: 10px; color: var(--primary-color); font-weight: 600; cursor: pointer;">
+            <i class='bx bx-block'></i> Block User
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Chat item selection
+    document.querySelectorAll('.chat-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.chat-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+        this.classList.remove('unread');
+        const badge = this.querySelector('.unread-badge');
+        if (badge) badge.remove();
+      });
+    });
+
+    // Send message
+    const chatInput = document.querySelector('.chat-input');
+    const sendBtn = document.querySelector('.send-btn');
+    const chatMessages = document.querySelector('.chat-messages');
+
+    sendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    function sendMessage() {
+      const text = chatInput.value.trim();
+      if (text) {
+        const messageHTML = `
+          <div class="message sent">
+            <div class="message-avatar">A</div>
+            <div class="message-content">
+              <div class="message-bubble">
+                <p class="message-text">${text}</p>
+              </div>
+              <span class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+            </div>
+          </div>
+        `;
+        chatMessages.insertAdjacentHTML('beforeend', messageHTML);
+        chatInput.value = '';
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    }
+  </script>
+
+</body>
+</html>

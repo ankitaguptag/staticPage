@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart | Caking Premium Bakery</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap JS -->
+  <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #8B4513;
+      --secondary-color: #D4AF37;
+      --accent-color: #FFB6C1;
+      --dark-color: #2C1810;
+      --light-bg: #FFF8F0;
+      --text-dark: #3E2723;
+      --success-color: #27AE60;
+      --error-color: #E74C3C;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      background: #fafafa;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* Navbar Premium Styling */
+    .navbar-premium {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 1.2rem 0;
+    }
+
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color) !important;
+      letter-spacing: 1px;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      color: var(--text-dark) !important;
+      margin: 0 0.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--primary-color) !important;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 80%;
+    }
+
+    .btn-premium {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+    }
+
+    .btn-premium:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(139, 69, 19, 0.4);
+      color: white;
+    }
+
+    .search-box {
+      border-radius: 50px;
+      border: 2px solid #e0e0e0;
+      transition: all 0.3s ease;
+    }
+
+    .search-box:focus {
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    }
+
+    /* Page Header */
+    .page-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      padding: 3rem 0;
+      color: white;
+      text-align: center;
+      position: relative;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* Progress Steps */
+    .checkout-progress {
+      background: white;
+      padding: 2rem 0;
+      margin-bottom: 3rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .progress-steps::before {
+      content: '';
+      position: absolute;
+      top: 25px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #e0e0e0;
+      z-index: 0;
+    }
+
+    .progress-fill {
+      position: absolute;
+      top: 25px;
+      left: 0;
+      height: 3px;
+      background: var(--secondary-color);
+      z-index: 1;
+      transition: width 0.3s ease;
+    }
+
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: #999;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .step-item.active .step-circle {
+      border-color: var(--secondary-color);
+      background: var(--secondary-color);
+      color: var(--dark-color);
+    }
+
+    .step-item.completed .step-circle {
+      border-color: var(--success-color);
+      background: var(--success-color);
+      color: white;
+    }
+
+    .step-label {
+      font-size: 0.9rem;
+      color: #999;
+      font-weight: 500;
+    }
+
+    .step-item.active .step-label,
+    .step-item.completed .step-label {
+      color: var(--text-dark);
+    }
+
+    /* Free Shipping Banner */
+    .shipping-banner {
+      background: linear-gradient(135deg, var(--light-bg) 0%, #fff3e0 100%);
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-left: 4px solid var(--secondary-color);
+    }
+
+    .shipping-icon {
+      font-size: 2rem;
+      color: var(--secondary-color);
+    }
+
+    .shipping-text {
+      flex: 1;
+    }
+
+    .shipping-text h6 {
+      color: var(--dark-color);
+      margin-bottom: 0.25rem;
+      font-size: 1.1rem;
+    }
+
+    .shipping-progress-bar {
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    .shipping-progress-fill {
+      height: 100%;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    /* Cart Items */
+    .cart-section {
+      padding: 2rem 0;
+    }
+
+    .cart-items-wrapper {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: var(--dark-color);
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--light-bg);
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid #f0f0f0;
+      position: relative;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .item-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .item-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .item-category {
+      color: var(--secondary-color);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .item-name {
+      font-size: 1.3rem;
+      color: var(--dark-color);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .item-options {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .option-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    .option-detail i {
+      color: var(--primary-color);
+    }
+
+    .item-actions {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-top: auto;
+    }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      border: 2px solid #e0e0e0;
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+    .qty-btn {
+      width: 35px;
+      height: 35px;
+      border: none;
+      background: white;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--text-dark);
+      transition: all 0.3s ease;
+    }
+
+    .qty-btn:hover {
+      background: var(--light-bg);
+      color: var(--primary-color);
+    }
+
+    .qty-display {
+      min-width: 45px;
+      text-align: center;
+      font-weight: 600;
+      padding: 0 0.5rem;
+    }
+
+    .item-price-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+
+    .item-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .item-original-price {
+      font-size: 1rem;
+      color: #999;
+      text-decoration: line-through;
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      color: var(--error-color);
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: all 0.3s ease;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .remove-btn:hover {
+      color: #c0392b;
+      text-decoration: underline;
+    }
+
+    /* Coupon Section */
+    .coupon-section {
+      background: var(--light-bg);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .coupon-input-group {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .coupon-input {
+      flex: 1;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .coupon-input:focus {
+      border-color: var(--secondary-color);
+      outline: none;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    }
+
+    .btn-apply-coupon {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .btn-apply-coupon:hover {
+      background: var(--dark-color);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+    }
+
+    /* Cart Summary */
+    .cart-summary {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 120px;
+    }
+
+    .summary-title {
+      font-size: 1.8rem;
+      color: var(--dark-color);
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--light-bg);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      color: var(--text-dark);
+    }
+
+    .summary-label {
+      font-size: 1rem;
+      color: #6b5d57;
+    }
+
+    .summary-value {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .discount-value {
+      color: var(--success-color);
+    }
+
+    .summary-divider {
+      height: 1px;
+      background: #f0f0f0;
+      margin: 1rem 0;
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      border-top: 2px solid var(--light-bg);
+      margin-top: 1rem;
+    }
+
+    .total-label {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--dark-color);
+    }
+
+    .total-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .btn-checkout {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      border: none;
+      padding: 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .btn-checkout:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+    }
+
+    .btn-continue {
+      width: 100%;
+      background: white;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      padding: 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-continue:hover {
+      background: var(--light-bg);
+    }
+
+    /* Trust Badges */
+    .trust-badges {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .trust-icon {
+      width: 35px;
+      height: 35px;
+      background: var(--light-bg);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+    }
+
+    .trust-text {
+      font-size: 0.85rem;
+      color: #6b5d57;
+      line-height: 1.4;
+    }
+
+    /* Empty Cart */
+    .empty-cart {
+      background: white;
+      border-radius: 20px;
+      padding: 4rem 2rem;
+      text-align: center;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .empty-cart-icon {
+      font-size: 5rem;
+      color: #e0e0e0;
+      margin-bottom: 1.5rem;
+    }
+
+    .empty-cart h3 {
+      color: var(--dark-color);
+      margin-bottom: 1rem;
+    }
+
+    .empty-cart p {
+      color: #6b5d57;
+      margin-bottom: 2rem;
+    }
+
+    /* Recommended Products */
+    .recommended-section {
+      padding: 4rem 0;
+      background: white;
+      margin-top: 3rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-subtitle {
+      color: var(--secondary-color);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .recommended-title {
+      font-size: 2.5rem;
+      color: var(--dark-color);
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-image-wrapper {
+      position: relative;
+      overflow: hidden;
+      padding-top: 100%;
+      background: var(--light-bg);
+    }
+
+    .product-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.4s ease;
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.1);
+    }
+
+    .product-info {
+      padding: 1.5rem;
+    }
+
+    .product-category {
+      color: var(--secondary-color);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-name {
+      font-size: 1.2rem;
+      color: var(--dark-color);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .product-price-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .btn-quick-add {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-quick-add:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+    }
+
+    /* Footer Premium */
+    .footer-premium {
+      background: linear-gradient(135deg, var(--dark-color) 0%, #1a0f0a 100%);
+      color: #d4c5be;
+      padding: 4rem 0 2rem;
+      margin-top: 5rem;
+    }
+
+    .footer-logo {
+      width: 180px;
+      margin-bottom: 1.5rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-premium h5 {
+      color: var(--secondary-color);
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.75rem;
+    }
+
+    .footer-premium h5::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--secondary-color);
+    }
+
+    .footer-link {
+      color: #d4c5be;
+      text-decoration: none;
+      display: block;
+      padding: 0.5rem 0;
+      transition: all 0.3s ease;
+      font-weight: 300;
+    }
+
+    .footer-link:hover {
+      color: var(--secondary-color);
+      padding-left: 10px;
+    }
+
+    .social-icons i {
+      color: #d4c5be;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .social-icons i:hover {
+      color: var(--secondary-color);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      padding-top: 2rem;
+      margin-top: 3rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .cart-summary {
+        position: relative;
+        top: 0;
+        margin-top: 2rem;
+      }
+
+      .cart-item {
+        flex-direction: column;
+      }
+
+      .item-image {
+        width: 100%;
+        height: 200px;
+      }
+
+      .item-price-section {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .trust-badges {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 2rem;
+      }
+
+      .progress-steps {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .coupon-input-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====== Premium Navbar ====== -->
+  <nav class="navbar navbar-expand-lg navbar-premium sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Caking</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="products.html">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#gallery">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control search-box me-2" type="search" placeholder="Search products..." aria-label="Search">
+          <button class="btn btn-premium" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====== Page Header ====== -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Shopping Cart</h1>
+      <p>Review your items and proceed to checkout</p>
+    </div>
+  </section>
+
+  <!-- ====== Checkout Progress ====== -->
+  <section class="checkout-progress">
+    <div class="container">
+      <div class="progress-steps">
+        <div class="progress-fill" style="width: 33%;"></div>
+        
+        <div class="step-item active">
+          <div class="step-circle">
+            <i class='bx bx-cart'></i>
+          </div>
+          <span class="step-label">Shopping Cart</span>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-circle">
+            <i class='bx bx-credit-card'></i>
+          </div>
+          <span class="step-label">Checkout</span>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-circle">
+            <i class='bx bx-check-circle'></i>
+          </div>
+          <span class="step-label">Order Complete</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Cart Section ====== -->
+  <section class="cart-section">
+    <div class="container">
+
+      <!-- Free Shipping Banner -->
+      <div class="shipping-banner">
+        <i class='bx bxs-truck shipping-icon'></i>
+        <div class="shipping-text">
+          <h6>You're $15.00 away from FREE SHIPPING!</h6>
+          <p class="mb-0" style="color: #6b5d57; font-size: 0.9rem;">Add $15.00 more to your cart to qualify for free delivery.</p>
+          <div class="shipping-progress-bar">
+            <div class="shipping-progress-fill" style="width: 70%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        
+        <!-- Cart Items -->
+        <div class="col-lg-8">
+          <div class="cart-items-wrapper">
+            <h2 class="section-title">Your Cart (3 items)</h2>
+
+            <!-- Cart Item 1 -->
+            <div class="cart-item">
+              <div class="item-image">
+                <img src="./image/s2_d8314e19-80cc-4836-a346-4db65fdea857_1.png" alt="Chocolate Delight Cake">
+              </div>
+              <div class="item-details">
+                <span class="item-category">Custom Cakes</span>
+                <h4 class="item-name">Chocolate Delight Cake</h4>
+                <div class="item-options">
+                  <div class="option-detail">
+                    <i class='bx bx-shape-circle'></i>
+                    <span>Size: 8 inch</span>
+                  </div>
+                  <div class="option-detail">
+                    <i class='bx bx-palette'></i>
+                    <span>Flavor: Dark Chocolate</span>
+                  </div>
+                </div>
+                <div class="item-actions">
+                  <div class="quantity-control">
+                    <button class="qty-btn" onclick="updateQuantity(this, -1)">
+                      <i class='bx bx-minus'></i>
+                    </button>
+                    <span class="qty-display">1</span>
+                    <button class="qty-btn" onclick="updateQuantity(this, 1)">
+                      <i class='bx bx-plus'></i>
+                    </button>
+                  </div>
+                  <button class="remove-btn" onclick="removeItem(this)">
+                    <i class='bx bx-trash'></i>
+                    Remove
+                  </button>
+                </div>
+              </div>
+              <div class="item-price-section">
+                <div class="item-price">$45.00</div>
+                <div class="item-original-price">$60.00</div>
+              </div>
+            </div>
+
+            <!-- Cart Item 2 -->
+            <div class="cart-item">
+              <div class="item-image">
+                <img src="./image/instagram1 (1).jpg" alt="Vanilla Dream Cupcakes">
+              </div>
+              <div class="item-details">
+                <span class="item-category">Cupcakes</span>
+                <h4 class="item-name">Vanilla Dream Cupcakes</h4>
+                <div class="item-options">
+                  <div class="option-detail">
+                    <i class='bx bx-box'></i>
+                    <span>Pack of 12</span>
+                  </div>
+                  <div class="option-detail">
+                    <i class='bx bx-palette'></i>
+                    <span>Classic Vanilla</span>
+                  </div>
+                </div>
+                <div class="item-actions">
+                  <div class="quantity-control">
+                    <button class="qty-btn" onclick="updateQuantity(this, -1)">
+                      <i class='bx bx-minus'></i>
+                    </button>
+                    <span class="qty-display">2</span>
+                    <button class="qty-btn" onclick="updateQuantity(this, 1)">
+                      <i class='bx bx-plus'></i>
+                    </button>
+                  </div>
+                  <button class="remove-btn" onclick="removeItem(this)">
+                    <i class='bx bx-trash'></i>
+                    Remove
+                  </button>
+                </div>
+              </div>
+              <div class="item-price-section">
+                <div class="item-price">$48.00</div>
+              </div>
+            </div>
+
+            <!-- Cart Item 3 -->
+            <div class="cart-item">
+              <div class="item-image">
+                <img src="./image/instagram3.jpg" alt="Lemon Bliss Cookies">
+              </div>
+              <div class="item-details">
+                <span class="item-category">Cookies</span>
+                <h4 class="item-name">Lemon Bliss Cookies</h4>
+                <div class="item-options">
+                  <div class="option-detail">
+                    <i class='bx bx-box'></i>
+                    <span>Pack of 24</span>
+                  </div>
+                  <div class="option-detail">
+                    <i class='bx bx-leaf'></i>
+                    <span>Organic</span>
+                  </div>
+                </div>
+                <div class="item-actions">
+                  <div class="quantity-control">
+                    <button class="qty-btn" onclick="updateQuantity(this, -1)">
+                      <i class='bx bx-minus'></i>
+                    </button>
+                    <span class="qty-display">1</span>
+                    <button class="qty-btn" onclick="updateQuantity(this, 1)">
+                      <i class='bx bx-plus'></i>
+                    </button>
+                  </div>
+                  <button class="remove-btn" onclick="removeItem(this)">
+                    <i class='bx bx-trash'></i>
+                    Remove
+                  </button>
+                </div>
+              </div>
+              <div class="item-price-section">
+                <div class="item-price">$15.00</div>
+              </div>
+            </div>
+
+            <!-- Coupon Section -->
+            <div class="coupon-section">
+              <h6 style="margin-bottom: 1rem; color: var(--dark-color); font-weight: 600;">
+                <i class='bx bxs-discount' style="color: var(--secondary-color);"></i>
+                Have a coupon code?
+              </h6>
+              <div class="coupon-input-group">
+                <input type="text" class="coupon-input" placeholder="Enter coupon code">
+                <button class="btn-apply-coupon">Apply Coupon</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cart Summary -->
+        <div class="col-lg-4">
+          <div class="cart-summary">
+            <h3 class="summary-title">Order Summary</h3>
+
+            <div class="summary-row">
+              <span class="summary-label">Subtotal (3 items)</span>
+              <span class="summary-value">$108.00</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Discount</span>
+              <span class="summary-value discount-value">-$15.00</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Shipping</span>
+              <span class="summary-value">$8.00</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Tax (10%)</span>
+              <span class="summary-value">$10.10</span>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-total">
+              <span class="total-label">Total</span>
+              <span class="total-value">$111.10</span>
+            </div>
+
+            <button class="btn-checkout">
+              <i class='bx bx-lock-alt'></i>
+              Proceed to Checkout
+            </button>
+
+            <button class="btn-continue">Continue Shopping</button>
+
+            <!-- Trust Badges -->
+            <div class="trust-badges">
+              <div class="trust-item">
+                <div class="trust-icon">
+                  <i class='bx bx-shield-check'></i>
+                </div>
+                <span class="trust-text">Secure Payment</span>
+              </div>
+              <div class="trust-item">
+                <div class="trust-icon">
+                  <i class='bx bx-package'></i>
+                </div>
+                <span class="trust-text">Free Returns</span>
+              </div>
+              <div class="trust-item">
+                <div class="trust-icon">
+                  <i class='bx bx-time'></i>
+                </div>
+                <span class="trust-text">24/7 Support</span>
+              </div>
+              <div class="trust-item">
+                <div class="trust-icon">
+                  <i class='bx bx-check-circle'></i>
+                </div>
+                <span class="trust-text">Quality Assured</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Recommended Products ====== -->
+  <section class="recommended-section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-subtitle">Complete Your Order</p>
+        <h2 class="recommended-title">You May Also Like</h2>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="./image/instagram2 (1).jpg" class="product-image" alt="Red Velvet">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Custom Cakes</div>
+              <h5 class="product-name">Red Velvet Elegance</h5>
+              <div class="product-price-section">
+                <span class="product-price">$40.00</span>
+                <button class="btn-quick-add">
+                  <i class='bx bx-cart'></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="./image/instagram4 (1).jpg" class="product-image" alt="Strawberry">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Custom Cakes</div>
+              <h5 class="product-name">Strawberry Shortcake</h5>
+              <div class="product-price-section">
+                <span class="product-price">$38.00</span>
+                <button class="btn-quick-add">
+                  <i class='bx bx-cart'></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="./image/instagram5 (1).jpg" class="product-image" alt="Chocolate Chip">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Cookies</div>
+              <h5 class="product-name">Classic Chocolate Chip</h5>
+              <div class="product-price-section">
+                <span class="product-price">$18.00</span>
+                <button class="btn-quick-add">
+                  <i class='bx bx-cart'></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="./image/instagram6 (1).jpg" class="product-image" alt="Tiramisu">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Custom Cakes</div>
+              <h5 class="product-name">Italian Tiramisu</h5>
+              <div class="product-price-section">
+                <span class="product-price">$42.00</span>
+                <button class="btn-quick-add">
+                  <i class='bx bx-cart'></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Premium Footer ====== -->
+  <footer class="footer-premium">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <img src="./image/CakingLogoBlack (2).png" class="footer-logo" alt="Caking Logo">
+          <p class="mb-4">Crafting sweet memories with every bite. Premium artisan cakes and bakery items made with love and the finest ingredients.</p>
+          <div class="social-icons">
+            <i class='bx bxl-facebook-circle'></i>
+            <i class='bx bxl-twitter'></i>
+            <i class='bx bxl-pinterest'></i>
+            <i class='bx bxl-instagram'></i>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Quick Links</h5>
+          <a href="#" class="footer-link">Custom Service</a>
+          <a href="#" class="footer-link">FAQs</a>
+          <a href="#" class="footer-link">Order Tracking</a>
+          <a href="#" class="footer-link">Contact Us</a>
+          <a href="#" class="footer-link">Events</a>
+          <a href="#" class="footer-link">Blog</a>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Services</h5>
+          <a href="#" class="footer-link">Custom Cakes</a>
+          <a href="#" class="footer-link">Wedding Cakes</a>
+          <a href="#" class="footer-link">Corporate Orders</a>
+          <a href="#" class="footer-link">Cake Delivery</a>
+          <a href="#" class="footer-link">Gift Hampers</a>
+          <a href="#" class="footer-link">Cake Classes</a>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Information</h5>
+          <a href="#" class="footer-link">About Us</a>
+          <a href="#" class="footer-link">Delivery Information</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms & Conditions</a>
+          <a href="#" class="footer-link">Careers</a>
+          <a href="#" class="footer-link">Affiliate Program</a>
+        </div>
+      </div>
+
+      <div class="row footer-bottom align-items-center">
+        <div class="col-lg-6 col-md-6 mb-3 mb-md-0">
+          <p class="mb-0">© 2025 Caking Premium Bakery. All Rights Reserved.</p>
+        </div>
+        <div class="col-lg-6 col-md-6 text-end">
+          <img src="./image/paymet (1).png" class="img-fluid" style="max-width: 250px;" alt="Payment Options">
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Update quantity
+    function updateQuantity(button, change) {
+      const qtyDisplay = button.parentElement.querySelector('.qty-display');
+      let currentQty = parseInt(qtyDisplay.textContent);
+      let newQty = currentQty + change;
+      
+      if (newQty >= 1) {
+        qtyDisplay.textContent = newQty;
+        updateCartTotals();
+      }
+    }
+
+    // Remove item
+    function removeItem(button) {
+      if (confirm('Are you sure you want to remove this item from your cart?')) {
+        const cartItem = button.closest('.cart-item');
+        cartItem.style.opacity = '0';
+        cartItem.style.transform = 'translateX(-20px)';
+        setTimeout(() => {
+          cartItem.remove();
+          updateCartTotals();
+          updateCartCount();
+        }, 300);
+      }
+    }
+
+    // Update cart totals (simplified version)
+    function updateCartTotals() {
+      // In a real implementation, this would calculate actual totals
+      console.log('Cart totals updated');
+    }
+
+    // Update cart item count
+    function updateCartCount() {
+      const cartItems = document.querySelectorAll('.cart-item');
+      const countText = document.querySelector('.section-title');
+      countText.textContent = `Your Cart (${cartItems.length} items)`;
+      
+      // Update shipping progress
+      const shippingFill = document.querySelector('.shipping-progress-fill');
+      const progressPercent = Math.min((cartItems.length / 4) * 100, 100);
+      shippingFill.style.width = progressPercent + '%';
+    }
+
+    // Apply coupon
+    document.querySelector('.btn-apply-coupon').addEventListener('click', function() {
+      const couponInput = document.querySelector('.coupon-input');
+      const couponCode = couponInput.value.trim();
+      
+      if (couponCode) {
+        alert('Coupon "' + couponCode + '" applied successfully!');
+        // In real implementation, validate and apply coupon
+      } else {
+        alert('Please enter a coupon code');
+      }
+    });
+
+    // Checkout button
+    document.querySelector('.btn-checkout').addEventListener('click', function() {
+      window.location.href = 'checkout.html';
+    });
+
+    // Continue shopping button
+    document.querySelector('.btn-continue').addEventListener('click', function() {
+      window.location.href = 'products.html';
+    });
+  </script>
+
+</body>
+</html>

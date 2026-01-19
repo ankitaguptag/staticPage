@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chocolate Delight Cake | Caking Premium Bakery</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap JS -->
+  <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #8B4513;
+      --secondary-color: #D4AF37;
+      --accent-color: #FFB6C1;
+      --dark-color: #2C1810;
+      --light-bg: #FFF8F0;
+      --text-dark: #3E2723;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      background: #fafafa;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* Navbar Premium Styling */
+    .navbar-premium {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 1.2rem 0;
+    }
+
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color) !important;
+      letter-spacing: 1px;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      color: var(--text-dark) !important;
+      margin: 0 0.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--primary-color) !important;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 80%;
+    }
+
+    .btn-premium {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+    }
+
+    .btn-premium:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(139, 69, 19, 0.4);
+      color: white;
+    }
+
+    .search-box {
+      border-radius: 50px;
+      border: 2px solid #e0e0e0;
+      transition: all 0.3s ease;
+    }
+
+    .search-box:focus {
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    }
+
+    /* Breadcrumb */
+    .breadcrumb-section {
+      background: white;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .breadcrumb-custom {
+      background: transparent;
+      margin-bottom: 0;
+    }
+
+    .breadcrumb-custom .breadcrumb-item a {
+      color: var(--text-dark);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .breadcrumb-custom .breadcrumb-item a:hover {
+      color: var(--primary-color);
+    }
+
+    .breadcrumb-custom .breadcrumb-item.active {
+      color: #999;
+    }
+
+    /* Product Detail Section */
+    .product-detail-section {
+      padding: 4rem 0;
+    }
+
+    /* Image Gallery */
+    .product-gallery {
+      position: sticky;
+      top: 120px;
+    }
+
+    .main-image-wrapper {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+      margin-bottom: 1.5rem;
+      background: white;
+    }
+
+    .main-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: var(--secondary-color);
+      color: var(--dark-color);
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .wishlist-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: white;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+      color: var(--text-dark);
+      font-size: 1.5rem;
+    }
+
+    .wishlist-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .thumbnail-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .thumbnail {
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .thumbnail:hover,
+    .thumbnail.active {
+      border-color: var(--secondary-color);
+      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Product Info */
+    .product-info-wrapper {
+      background: white;
+      padding: 3rem;
+      border-radius: 20px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .product-category-label {
+      color: var(--secondary-color);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .product-title {
+      font-size: 2.5rem;
+      color: var(--dark-color);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .product-rating-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .stars {
+      color: var(--secondary-color);
+      font-size: 1.1rem;
+      display: flex;
+      gap: 0.2rem;
+    }
+
+    .rating-text {
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+
+    .review-count {
+      color: #999;
+    }
+
+    .review-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .review-link:hover {
+      color: var(--dark-color);
+    }
+
+    .price-section {
+      margin-bottom: 2rem;
+    }
+
+    .current-price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-right: 1rem;
+    }
+
+    .original-price {
+      font-size: 1.5rem;
+      color: #999;
+      text-decoration: line-through;
+      margin-right: 1rem;
+    }
+
+    .discount-badge {
+      background: #E74C3C;
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .product-description {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #6b5d57;
+      margin-bottom: 2rem;
+    }
+
+    /* Product Options */
+    .option-group {
+      margin-bottom: 2rem;
+    }
+
+    .option-label {
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    .size-options,
+    .flavor-options {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .option-btn {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid #e0e0e0;
+      background: white;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+
+    .option-btn:hover {
+      border-color: var(--secondary-color);
+      background: var(--light-bg);
+    }
+
+    .option-btn.active {
+      border-color: var(--primary-color);
+      background: var(--primary-color);
+      color: white;
+    }
+
+    /* Quantity Selector */
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      border: 2px solid #e0e0e0;
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+    .qty-btn {
+      width: 45px;
+      height: 45px;
+      border: none;
+      background: white;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      transition: all 0.3s ease;
+    }
+
+    .qty-btn:hover {
+      background: var(--light-bg);
+      color: var(--primary-color);
+    }
+
+    .qty-input {
+      width: 60px;
+      text-align: center;
+      border: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn-add-cart {
+      flex: 1;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .btn-add-cart:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+    }
+
+    .btn-buy-now {
+      flex: 1;
+      background: white;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-buy-now:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    /* Product Features */
+    .product-features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      padding: 2rem 0;
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 2rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .feature-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--light-bg);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+    }
+
+    .feature-text h6 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      color: var(--dark-color);
+    }
+
+    .feature-text p {
+      font-size: 0.9rem;
+      color: #999;
+      margin: 0;
+    }
+
+    /* Share Section */
+    .share-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .share-label {
+      font-weight: 600;
+      color: var(--dark-color);
+    }
+
+    .share-icons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .share-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #e0e0e0;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--text-dark);
+    }
+
+    .share-btn:hover {
+      border-color: var(--primary-color);
+      background: var(--light-bg);
+      color: var(--primary-color);
+    }
+
+    /* Tabs Section */
+    .product-tabs-section {
+      margin-top: 4rem;
+    }
+
+    .nav-tabs {
+      border-bottom: 2px solid #e0e0e0;
+      margin-bottom: 2rem;
+    }
+
+    .nav-tabs .nav-link {
+      border: none;
+      color: var(--text-dark);
+      font-weight: 500;
+      padding: 1rem 2rem;
+      margin-right: 1rem;
+      border-radius: 0;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .nav-tabs .nav-link:hover {
+      color: var(--primary-color);
+    }
+
+    .nav-tabs .nav-link.active {
+      color: var(--primary-color);
+      background: transparent;
+    }
+
+    .nav-tabs .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary-color);
+    }
+
+    .tab-content-box {
+      background: white;
+      padding: 3rem;
+      border-radius: 20px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .tab-content-box h4 {
+      color: var(--dark-color);
+      margin-bottom: 1.5rem;
+    }
+
+    .tab-content-box p {
+      line-height: 1.8;
+      color: #6b5d57;
+      margin-bottom: 1rem;
+    }
+
+    /* Specifications Table */
+    .specs-table {
+      width: 100%;
+    }
+
+    .specs-table tr {
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .specs-table td {
+      padding: 1rem 0;
+    }
+
+    .specs-table td:first-child {
+      font-weight: 600;
+      color: var(--dark-color);
+      width: 200px;
+    }
+
+    .specs-table td:last-child {
+      color: #6b5d57;
+    }
+
+    /* Reviews Section */
+    .reviews-summary {
+      display: flex;
+      gap: 3rem;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: var(--light-bg);
+      border-radius: 15px;
+    }
+
+    .rating-overview {
+      text-align: center;
+    }
+
+    .overall-rating {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .rating-bars {
+      flex: 1;
+    }
+
+    .rating-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .bar-label {
+      width: 60px;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+    }
+
+    .bar-wrapper {
+      flex: 1;
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    .bar-count {
+      width: 40px;
+      text-align: right;
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    /* Review Card */
+    .review-card {
+      padding: 2rem;
+      background: white;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .reviewer-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--light-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+    }
+
+    .reviewer-name {
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.25rem;
+    }
+
+    .review-date {
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    .review-rating {
+      display: flex;
+      gap: 0.2rem;
+    }
+
+    .review-text {
+      line-height: 1.8;
+      color: #6b5d57;
+    }
+
+    /* Related Products */
+    .related-products-section {
+      padding: 4rem 0;
+      background: white;
+      margin-top: 4rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-subtitle {
+      color: var(--secondary-color);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      color: var(--dark-color);
+    }
+
+    /* Product Card */
+    .product-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s ease;
+      height: 100%;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-image-wrapper {
+      position: relative;
+      overflow: hidden;
+      padding-top: 100%;
+      background: var(--light-bg);
+    }
+
+    .product-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.4s ease;
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.1);
+    }
+
+    .product-info {
+      padding: 1.5rem;
+    }
+
+    .product-category {
+      color: var(--secondary-color);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-name {
+      font-size: 1.2rem;
+      color: var(--dark-color);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .product-name a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .product-price-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .btn-quick-add {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-quick-add:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+    }
+
+    /* Footer Premium */
+    .footer-premium {
+      background: linear-gradient(135deg, var(--dark-color) 0%, #1a0f0a 100%);
+      color: #d4c5be;
+      padding: 4rem 0 2rem;
+      margin-top: 5rem;
+    }
+
+    .footer-logo {
+      width: 180px;
+      margin-bottom: 1.5rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-premium h5 {
+      color: var(--secondary-color);
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.75rem;
+    }
+
+    .footer-premium h5::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--secondary-color);
+    }
+
+    .footer-link {
+      color: #d4c5be;
+      text-decoration: none;
+      display: block;
+      padding: 0.5rem 0;
+      transition: all 0.3s ease;
+      font-weight: 300;
+    }
+
+    .footer-link:hover {
+      color: var(--secondary-color);
+      padding-left: 10px;
+    }
+
+    .social-icons i {
+      color: #d4c5be;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .social-icons i:hover {
+      color: var(--secondary-color);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      padding-top: 2rem;
+      margin-top: 3rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .product-title {
+        font-size: 2rem;
+      }
+
+      .product-info-wrapper {
+        margin-top: 2rem;
+      }
+
+      .product-gallery {
+        position: relative;
+        top: 0;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+      }
+
+      .product-features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====== Premium Navbar ====== -->
+  <nav class="navbar navbar-expand-lg navbar-premium sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Caking</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="products.html">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#gallery">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control search-box me-2" type="search" placeholder="Search products..." aria-label="Search">
+          <button class="btn btn-premium" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====== Breadcrumb ====== -->
+  <section class="breadcrumb-section">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-custom">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="list.html">Products</a></li>
+          <li class="breadcrumb-item"><a href="#">Custom Cakes</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Chocolate Delight Cake</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ====== Product Detail Section ====== -->
+  <section class="product-detail-section">
+    <div class="container">
+      <div class="row">
+        
+        <!-- Product Gallery -->
+        <div class="col-lg-6">
+          <div class="product-gallery">
+            <div class="main-image-wrapper">
+              <img src="./image/s2_d8314e19-80cc-4836-a346-4db65fdea857_1.png" class="main-image" id="mainImage" alt="Chocolate Delight Cake">
+              <span class="product-badge">Bestseller</span>
+              <button class="wishlist-btn">
+                <i class='bx bx-heart'></i>
+              </button>
+            </div>
+            
+            <div class="thumbnail-gallery">
+              <div class="thumbnail active">
+                <img src="./image/s2_d8314e19-80cc-4836-a346-4db65fdea857_1.png" alt="Thumbnail 1">
+              </div>
+              <div class="thumbnail">
+                <img src="./image/instagram1 (1).jpg" alt="Thumbnail 2">
+              </div>
+              <div class="thumbnail">
+                <img src="./image/instagram2 (1).jpg" alt="Thumbnail 3">
+              </div>
+              <div class="thumbnail">
+                <img src="./image/instagram3.jpg" alt="Thumbnail 4">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="col-lg-6">
+          <div class="product-info-wrapper">
+            <span class="product-category-label">Custom Cakes</span>
+            <h1 class="product-title">Chocolate Delight Cake</h1>
+            
+            <div class="product-rating-section">
+              <div class="stars">
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star-half'></i>
+              </div>
+              <span class="rating-text">4.5</span>
+              <span class="review-count">(47 reviews)</span>
+              <a href="#reviews" class="review-link">Write a review</a>
+            </div>
+
+            <div class="price-section">
+              <span class="current-price">$45.00</span>
+              <span class="original-price">$60.00</span>
+              <span class="discount-badge">Save 25%</span>
+            </div>
+
+            <p class="product-description">
+              Indulge in our signature Chocolate Delight Cake, featuring rich chocolate layers with creamy ganache frosting. 
+              Handcrafted with premium Belgian chocolate and finished with elegant decorations. Perfect for birthdays, 
+              celebrations, or any moment that deserves something special.
+            </p>
+
+            <!-- Size Options -->
+            <div class="option-group">
+              <div class="option-label">Select Size:</div>
+              <div class="size-options">
+                <button class="option-btn">6 inch (Serves 6-8)</button>
+                <button class="option-btn active">8 inch (Serves 10-12)</button>
+                <button class="option-btn">10 inch (Serves 15-20)</button>
+                <button class="option-btn">12 inch (Serves 25-30)</button>
+              </div>
+            </div>
+
+            <!-- Flavor Options -->
+            <div class="option-group">
+              <div class="option-label">Cake Flavor:</div>
+              <div class="flavor-options">
+                <button class="option-btn active">Dark Chocolate</button>
+                <button class="option-btn">Milk Chocolate</button>
+                <button class="option-btn">White Chocolate</button>
+                <button class="option-btn">Mixed Berry</button>
+              </div>
+            </div>
+
+            <!-- Quantity -->
+            <div class="quantity-selector">
+              <span class="option-label">Quantity:</span>
+              <div class="quantity-controls">
+                <button class="qty-btn" id="decreaseQty">
+                  <i class='bx bx-minus'></i>
+                </button>
+                <input type="number" class="qty-input" value="1" min="1" id="qtyInput" readonly>
+                <button class="qty-btn" id="increaseQty">
+                  <i class='bx bx-plus'></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+              <button class="btn-add-cart">
+                <i class='bx bx-cart'></i>
+                Add to Cart
+              </button>
+              <button class="btn-buy-now">
+                Buy Now
+              </button>
+            </div>
+
+            <!-- Product Features -->
+            <div class="product-features">
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class='bx bx-check-shield'></i>
+                </div>
+                <div class="feature-text">
+                  <h6>Quality Guaranteed</h6>
+                  <p>Premium ingredients</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class='bx bx-time'></i>
+                </div>
+                <div class="feature-text">
+                  <h6>Fresh Daily</h6>
+                  <p>Baked to order</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class='bx bx-package'></i>
+                </div>
+                <div class="feature-text">
+                  <h6>Free Delivery</h6>
+                  <p>On orders over $50</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class='bx bx-support'></i>
+                </div>
+                <div class="feature-text">
+                  <h6>24/7 Support</h6>
+                  <p>We're here to help</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Share Section -->
+            <div class="share-section">
+              <span class="share-label">Share:</span>
+              <div class="share-icons">
+                <button class="share-btn">
+                  <i class='bx bxl-facebook'></i>
+                </button>
+                <button class="share-btn">
+                  <i class='bx bxl-twitter'></i>
+                </button>
+                <button class="share-btn">
+                  <i class='bx bxl-pinterest'></i>
+                </button>
+                <button class="share-btn">
+                  <i class='bx bxl-whatsapp'></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Tabs -->
+      <div class="product-tabs-section">
+        <ul class="nav nav-tabs" id="productTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button">
+              Description
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button">
+              Specifications
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="ingredients-tab" data-bs-toggle="tab" data-bs-target="#ingredients" type="button">
+              Ingredients
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button">
+              Reviews (47)
+            </button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="productTabsContent">
+          
+          <!-- Description Tab -->
+          <div class="tab-pane fade show active" id="description" role="tabpanel">
+            <div class="tab-content-box">
+              <h4>Product Description</h4>
+              <p>
+                Our Chocolate Delight Cake is a masterpiece of confectionery art, crafted with passion and precision by our expert pastry chefs. 
+                Each layer is baked to perfection using premium Belgian dark chocolate, creating a rich and indulgent flavor profile that chocolate 
+                lovers dream about.
+              </p>
+              <p>
+                The cake features multiple layers of moist chocolate sponge, generously filled with silky chocolate ganache and finished with 
+                a glossy chocolate coating. Every cake is decorated with elegant chocolate shavings, fresh berries, and edible gold accents, 
+                making it not just delicious but also a stunning centerpiece for your celebration.
+              </p>
+              <p>
+                We use only the finest ingredients sourced from trusted suppliers. Our cakes contain no artificial preservatives or additives, 
+                ensuring you get the purest, most authentic chocolate experience. Each cake is baked fresh to order and can be customized with 
+                your choice of message, decorations, and dietary requirements.
+              </p>
+              <p>
+                Perfect for birthdays, anniversaries, corporate events, or simply treating yourself to something special. Order 24 hours in 
+                advance for same-day pickup or delivery within our service area.
+              </p>
+            </div>
+          </div>
+
+          <!-- Specifications Tab -->
+          <div class="tab-pane fade" id="specifications" role="tabpanel">
+            <div class="tab-content-box">
+              <h4>Product Specifications</h4>
+              <table class="specs-table">
+                <tr>
+                  <td>Product Type</td>
+                  <td>Premium Custom Cake</td>
+                </tr>
+                <tr>
+                  <td>Weight</td>
+                  <td>2.5 kg (8 inch size)</td>
+                </tr>
+                <tr>
+                  <td>Servings</td>
+                  <td>10-12 people (8 inch size)</td>
+                </tr>
+                <tr>
+                  <td>Shelf Life</td>
+                  <td>3 days refrigerated, 2 months frozen</td>
+                </tr>
+                <tr>
+                  <td>Storage</td>
+                  <td>Keep refrigerated at 2-4°C</td>
+                </tr>
+                <tr>
+                  <td>Preparation Time</td>
+                  <td>24 hours advance order required</td>
+                </tr>
+                <tr>
+                  <td>Allergens</td>
+                  <td>Contains eggs, dairy, gluten, nuts</td>
+                </tr>
+                <tr>
+                  <td>Customization</td>
+                  <td>Message, decorations, colors available</td>
+                </tr>
+                <tr>
+                  <td>Dietary Options</td>
+                  <td>Eggless, vegan options available on request</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <!-- Ingredients Tab -->
+          <div class="tab-pane fade" id="ingredients" role="tabpanel">
+            <div class="tab-content-box">
+              <h4>Ingredients</h4>
+              <p><strong>Cake Base:</strong></p>
+              <p>
+                Premium Belgian dark chocolate (72% cocoa), all-purpose flour, organic cane sugar, farm-fresh eggs, 
+                pure butter, whole milk, vanilla extract, baking powder, baking soda, salt
+              </p>
+              
+              <p><strong>Chocolate Ganache Filling:</strong></p>
+              <p>
+                Belgian dark chocolate, heavy cream, butter, vanilla extract, pinch of sea salt
+              </p>
+              
+              <p><strong>Frosting & Decoration:</strong></p>
+              <p>
+                Dark chocolate coating, chocolate shavings, fresh seasonal berries, edible gold leaf, 
+                fondant decorations (optional)
+              </p>
+              
+              <p><strong>Allergen Information:</strong></p>
+              <p>
+                Contains: Eggs, Dairy (milk, butter, cream), Gluten (wheat flour), Tree nuts (may contain traces). 
+                Manufactured in a facility that also processes peanuts and soy products.
+              </p>
+              
+              <p><strong>Nutritional Information (per 100g):</strong></p>
+              <p>
+                Energy: 350 kcal | Protein: 5g | Carbohydrates: 42g | Sugars: 28g | Fat: 18g | 
+                Saturated Fat: 11g | Fiber: 2g | Sodium: 150mg
+              </p>
+            </div>
+          </div>
+
+          <!-- Reviews Tab -->
+          <div class="tab-pane fade" id="reviews" role="tabpanel">
+            <div class="tab-content-box">
+              <h4>Customer Reviews</h4>
+              
+              <!-- Reviews Summary -->
+              <div class="reviews-summary">
+                <div class="rating-overview">
+                  <div class="overall-rating">4.5</div>
+                  <div class="stars">
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star-half'></i>
+                  </div>
+                  <p class="text-muted">Based on 47 reviews</p>
+                </div>
+                
+                <div class="rating-bars">
+                  <div class="rating-bar-item">
+                    <span class="bar-label">5 stars</span>
+                    <div class="bar-wrapper">
+                      <div class="bar-fill" style="width: 75%;"></div>
+                    </div>
+                    <span class="bar-count">35</span>
+                  </div>
+                  <div class="rating-bar-item">
+                    <span class="bar-label">4 stars</span>
+                    <div class="bar-wrapper">
+                      <div class="bar-fill" style="width: 15%;"></div>
+                    </div>
+                    <span class="bar-count">7</span>
+                  </div>
+                  <div class="rating-bar-item">
+                    <span class="bar-label">3 stars</span>
+                    <div class="bar-wrapper">
+                      <div class="bar-fill" style="width: 6%;"></div>
+                    </div>
+                    <span class="bar-count">3</span>
+                  </div>
+                  <div class="rating-bar-item">
+                    <span class="bar-label">2 stars</span>
+                    <div class="bar-wrapper">
+                      <div class="bar-fill" style="width: 4%;"></div>
+                    </div>
+                    <span class="bar-count">2</span>
+                  </div>
+                  <div class="rating-bar-item">
+                    <span class="bar-label">1 star</span>
+                    <div class="bar-wrapper">
+                      <div class="bar-fill" style="width: 0%;"></div>
+                    </div>
+                    <span class="bar-count">0</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Individual Reviews -->
+              <div class="review-card">
+                <div class="review-header">
+                  <div class="reviewer-info">
+                    <div class="reviewer-avatar">SJ</div>
+                    <div>
+                      <div class="reviewer-name">Sarah Johnson</div>
+                      <div class="review-date">October 28, 2025</div>
+                    </div>
+                  </div>
+                  <div class="review-rating">
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                  </div>
+                </div>
+                <p class="review-text">
+                  Absolutely amazing! The chocolate cake was the highlight of my daughter's birthday party. 
+                  Everyone kept asking where we got it from. The layers were moist, the ganache was perfectly 
+                  smooth, and the decoration was stunning. Will definitely order again!
+                </p>
+              </div>
+
+              <div class="review-card">
+                <div class="review-header">
+                  <div class="reviewer-info">
+                    <div class="reviewer-avatar">MR</div>
+                    <div>
+                      <div class="reviewer-name">Michael Roberts</div>
+                      <div class="review-date">October 25, 2025</div>
+                    </div>
+                  </div>
+                  <div class="review-rating">
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                  </div>
+                </div>
+                <p class="review-text">
+                  Best chocolate cake I've ever tasted! The quality of ingredients really shows. Rich flavor 
+                  without being too sweet. Delivery was on time and the packaging was excellent. Highly recommend!
+                </p>
+              </div>
+
+              <div class="review-card">
+                <div class="review-header">
+                  <div class="reviewer-info">
+                    <div class="reviewer-avatar">EC</div>
+                    <div>
+                      <div class="reviewer-name">Emily Chen</div>
+                      <div class="review-date">October 20, 2025</div>
+                    </div>
+                  </div>
+                  <div class="review-rating">
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bx-star'></i>
+                  </div>
+                </div>
+                <p class="review-text">
+                  Very good cake! The chocolate flavor was intense and delicious. Only reason for 4 stars instead 
+                  of 5 is that I wish the ganache filling was a bit thicker. But overall, excellent quality and 
+                  beautiful presentation.
+                </p>
+              </div>
+
+              <button class="btn btn-premium mt-3">Load More Reviews</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Related Products ====== -->
+  <section class="related-products-section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-subtitle">You May Also Like</p>
+        <h2 class="section-title">Related Products</h2>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="./image/instagram1 (1).jpg" class="product-image" alt="Vanilla Dream">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Custom Cakes</div>
+              <h5 class="product-name">
+                <a href="#">Vanilla Dream Cake</a>
+              </h5>
+              <div class="product-price-section">
+                <span class="product-price">$42.00</span>
+                <button class="btn-quick-add">
+                  <i class='bx bx-cart'></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="./image/instagram2 (1).jpg" class="product-image" alt="Red Velvet">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Custom Cakes</div>
+              <h5 class="product-name">
+                <a href="#">Red Velvet Elegance</a>
+              </h5>
+              <div class="product-price-section">
+                <span class="product-price">$40.00</span>
+                <button class="btn-quick-add">
+                  <i class='bx bx-cart'></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="./image/instagram4 (1).jpg" class="product-image" alt="Strawberry">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Custom Cakes</div>
+              <h5 class="product-name">
+                <a href="#">Strawberry Shortcake</a>
+              </h5>
+              <div class="product-price-section">
+                <span class="product-price">$38.00</span>
+                <button class="btn-quick-add">
+                  <i class='bx bx-cart'></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="./image/instagram6 (1).jpg" class="product-image" alt="Tiramisu">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Custom Cakes</div>
+              <h5 class="product-name">
+                <a href="#">Italian Tiramisu</a>
+              </h5>
+              <div class="product-price-section">
+                <span class="product-price">$42.00</span>
+                <button class="btn-quick-add">
+                  <i class='bx bx-cart'></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Premium Footer ====== -->
+  <footer class="footer-premium">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <img src="./image/CakingLogoBlack (2).png" class="footer-logo" alt="Caking Logo">
+          <p class="mb-4">Crafting sweet memories with every bite. Premium artisan cakes and bakery items made with love and the finest ingredients.</p>
+          <div class="social-icons">
+            <i class='bx bxl-facebook-circle'></i>
+            <i class='bx bxl-twitter'></i>
+            <i class='bx bxl-pinterest'></i>
+            <i class='bx bxl-instagram'></i>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Quick Links</h5>
+          <a href="#" class="footer-link">Custom Service</a>
+          <a href="#" class="footer-link">FAQs</a>
+          <a href="#" class="footer-link">Order Tracking</a>
+          <a href="#" class="footer-link">Contact Us</a>
+          <a href="#" class="footer-link">Events</a>
+          <a href="#" class="footer-link">Blog</a>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Services</h5>
+          <a href="#" class="footer-link">Custom Cakes</a>
+          <a href="#" class="footer-link">Wedding Cakes</a>
+          <a href="#" class="footer-link">Corporate Orders</a>
+          <a href="#" class="footer-link">Cake Delivery</a>
+          <a href="#" class="footer-link">Gift Hampers</a>
+          <a href="#" class="footer-link">Cake Classes</a>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Information</h5>
+          <a href="#" class="footer-link">About Us</a>
+          <a href="#" class="footer-link">Delivery Information</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms & Conditions</a>
+          <a href="#" class="footer-link">Careers</a>
+          <a href="#" class="footer-link">Affiliate Program</a>
+        </div>
+      </div>
+
+      <div class="row footer-bottom align-items-center">
+        <div class="col-lg-6 col-md-6 mb-3 mb-md-0">
+          <p class="mb-0">© 2025 Caking Premium Bakery. All Rights Reserved.</p>
+        </div>
+        <div class="col-lg-6 col-md-6 text-end">
+          <img src="./image/paymet (1).png" class="img-fluid" style="max-width: 250px;" alt="Payment Options">
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Thumbnail click functionality
+    document.querySelectorAll('.thumbnail').forEach(thumb => {
+      thumb.addEventListener('click', function() {
+        document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        const imgSrc = this.querySelector('img').src;
+        document.getElementById('mainImage').src = imgSrc;
+      });
+    });
+
+    // Quantity controls
+    document.getElementById('increaseQty').addEventListener('click', function() {
+      const input = document.getElementById('qtyInput');
+      input.value = parseInt(input.value) + 1;
+    });
+
+    document.getElementById('decreaseQty').addEventListener('click', function() {
+      const input = document.getElementById('qtyInput');
+      if (parseInt(input.value) > 1) {
+        input.value = parseInt(input.value) - 1;
+      }
+    });
+
+    // Option buttons
+    document.querySelectorAll('.option-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.parentElement.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Wishlist button
+    document.querySelector('.wishlist-btn').addEventListener('click', function() {
+      const icon = this.querySelector('i');
+      icon.classList.toggle('bx-heart');
+      icon.classList.toggle('bxs-heart');
+    });
+  </script>
+
+</body>
+</html>

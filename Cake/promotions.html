@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promotions Management | Caking Admin</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #8B4513;
+      --secondary-color: #D4AF37;
+      --dark-color: #2C1810;
+      --light-bg: #FFF8F0;
+      --text-dark: #3E2723;
+      --sidebar-width: 280px;
+      --topbar-height: 70px;
+      --success-color: #27AE60;
+      --warning-color: #F39C12;
+      --error-color: #E74C3C;
+      --info-color: #3498DB;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      background: #f5f6fa;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* Sidebar & Topbar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: linear-gradient(180deg, var(--dark-color) 0%, #1a0f0a 100%);
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--secondary-color) 0%, #ffd700 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--dark-color);
+    }
+
+    .logo-text h4 {
+      color: white;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .logo-text p {
+      color: var(--secondary-color);
+      margin: 0;
+      font-size: 0.75rem;
+    }
+
+    .sidebar-menu {
+      padding: 1.5rem 0;
+    }
+
+    .menu-section-title {
+      padding: 1rem 1.5rem 0.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    .menu-item:hover,
+    .menu-item.active {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--secondary-color);
+    }
+
+    .menu-item.active::before {
+      width: 4px;
+    }
+
+    .menu-item i {
+      font-size: 1.3rem;
+      width: 24px;
+    }
+
+    .topbar {
+      position: fixed;
+      left: var(--sidebar-width);
+      top: 0;
+      right: 0;
+      height: var(--topbar-height);
+      background: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      z-index: 999;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .menu-toggle {
+      width: 45px;
+      height: 45px;
+      border: none;
+      background: var(--light-bg);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .breadcrumb-custom {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      background: none;
+      padding: 0;
+    }
+
+    .breadcrumb-custom li {
+      display: flex;
+      align-items: center;
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumb-custom li.active {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .topbar-right {
+      margin-left: auto;
+    }
+
+    .main-content {
+      margin-left: var(--sidebar-width);
+      margin-top: var(--topbar-height);
+      padding: 2rem;
+      min-height: calc(100vh - var(--topbar-height));
+    }
+
+    /* Promotion Stats */
+    .promo-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .stat-icon.active {
+      background: linear-gradient(135deg, var(--success-color) 0%, #1d8348 100%);
+    }
+
+    .stat-icon.scheduled {
+      background: linear-gradient(135deg, var(--info-color) 0%, #2874a6 100%);
+    }
+
+    .stat-icon.expired {
+      background: linear-gradient(135deg, #999 0%, #666 100%);
+    }
+
+    .stat-icon.discount {
+      background: linear-gradient(135deg, var(--warning-color) 0%, #d68910 100%);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark-color);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .tab-btn {
+      padding: 0.65rem 1.25rem;
+      border: 2px solid #e0e0e0;
+      background: white;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .tab-btn.active,
+    .tab-btn:hover {
+      border-color: var(--primary-color);
+      background: var(--light-bg);
+      color: var(--primary-color);
+    }
+
+    .btn-primary-custom {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Promotion Cards */
+    .promotions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .promo-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .promo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .promo-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      padding: 1.5rem;
+      color: white;
+      position: relative;
+    }
+
+    .promo-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .promo-badge.active {
+      background: var(--success-color);
+    }
+
+    .promo-badge.scheduled {
+      background: var(--info-color);
+    }
+
+    .promo-badge.expired {
+      background: #999;
+    }
+
+    .promo-title {
+      font-size: 1.3rem;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .promo-code {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    .promo-body {
+      padding: 1.5rem;
+    }
+
+    .promo-discount {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .promo-discount-label {
+      font-size: 1rem;
+      color: #6b5d57;
+    }
+
+    .promo-description {
+      color: #6b5d57;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .promo-info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .promo-info-row:last-child {
+      border-bottom: none;
+    }
+
+    .promo-info-label {
+      color: #999;
+      font-size: 0.85rem;
+    }
+
+    .promo-info-value {
+      color: var(--dark-color);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .promo-actions {
+      padding: 1rem 1.5rem;
+      background: var(--light-bg);
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 0.65rem;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .action-btn.edit {
+      background: rgba(52, 152, 219, 0.1);
+      color: var(--info-color);
+    }
+
+    .action-btn.edit:hover {
+      background: var(--info-color);
+      color: white;
+    }
+
+    .action-btn.delete {
+      background: rgba(231, 76, 60, 0.1);
+      color: var(--error-color);
+    }
+
+    .action-btn.delete:hover {
+      background: var(--error-color);
+      color: white;
+    }
+
+    /* Modal */
+    .modal-content {
+      border-radius: 20px;
+      border: none;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      padding: 1.5rem 2rem;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .modal-header .btn-close {
+      filter: brightness(0) invert(1);
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label-custom {
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .form-control-custom {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+    }
+
+    .form-control-custom:focus {
+      border-color: var(--secondary-color);
+      outline: none;
+    }
+
+    @media (max-width: 1200px) {
+      .promo-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .promotions-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -280px;
+      }
+
+      .topbar {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .promo-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-bar {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====== Sidebar ====== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <i class='bx bxs-cake'></i>
+        </div>
+        <div class="logo-text">
+          <h4>Caking</h4>
+          <p>ADMIN PANEL</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <div class="menu-section-title">Main Menu</div>
+      
+      <a href="admin-dashboard.html" class="menu-item">
+        <i class='bx bxs-dashboard'></i>
+        <span>Dashboard</span>
+      </a>
+
+      <div class="menu-section-title">Products</div>
+
+      <a href="cake-management.html" class="menu-item">
+        <i class='bx bxs-cake'></i>
+        <span>Cake Management</span>
+      </a>
+
+      <a href="promotions.html" class="menu-item active">
+        <i class='bx bxs-discount'></i>
+        <span>Promotions</span>
+      </a>
+
+      <div class="menu-section-title">Orders</div>
+
+      <a href="orders-management.html" class="menu-item">
+        <i class='bx bxs-shopping-bag'></i>
+        <span>Orders Management</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ====== Top Navbar ====== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="menu-toggle">
+        <i class='bx bx-menu'></i>
+      </button>
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb-custom">
+          <li><i class='bx bx-home-alt'></i></li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>Marketing</li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li class="active">Promotions</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="topbar-right">
+      <div style="color: var(--dark-color); font-weight: 600;">
+        <i class='bx bx-user-circle' style="font-size: 1.5rem;"></i>
+        Admin
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== Main Content ====== -->
+  <main class="main-content">
+    <!-- Page Header -->
+    <div style="margin-bottom: 2rem;">
+      <h1 style="font-size: 2rem; color: var(--dark-color); margin-bottom: 0.5rem;">Promotions & Coupons</h1>
+      <p style="color: #6b5d57;">Create and manage promotional campaigns and discount codes</p>
+    </div>
+
+    <!-- Promotion Stats -->
+    <div class="promo-stats">
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon active">
+            <i class='bx bx-check-circle'></i>
+          </div>
+        </div>
+        <div class="stat-value">12</div>
+        <div class="stat-label">Active Promotions</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon scheduled">
+            <i class='bx bx-time-five'></i>
+          </div>
+        </div>
+        <div class="stat-value">5</div>
+        <div class="stat-label">Scheduled</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon expired">
+            <i class='bx bx-x-circle'></i>
+          </div>
+        </div>
+        <div class="stat-value">23</div>
+        <div class="stat-label">Expired</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon discount">
+            <i class='bx bx-dollar-circle'></i>
+          </div>
+        </div>
+        <div class="stat-value">$8,450</div>
+        <div class="stat-label">Total Discounts Given</div>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <div class="filter-tabs">
+        <button class="tab-btn active">All Promotions</button>
+        <button class="tab-btn">Active</button>
+        <button class="tab-btn">Scheduled</button>
+        <button class="tab-btn">Expired</button>
+      </div>
+      <button class="btn-primary-custom" data-bs-toggle="modal" data-bs-target="#createPromoModal">
+        <i class='bx bx-plus'></i>
+        Create Promotion
+      </button>
+    </div>
+
+    <!-- Promotions Grid -->
+    <div class="promotions-grid">
+      
+      <!-- Promotion Card 1 -->
+      <div class="promo-card">
+        <div class="promo-header">
+          <span class="promo-badge active">Active</span>
+          <h5 class="promo-title">Holiday Season Sale</h5>
+          <div class="promo-code">HOLIDAY25</div>
+        </div>
+        <div class="promo-body">
+          <div class="promo-discount">
+            25%
+            <span class="promo-discount-label">OFF</span>
+          </div>
+          <p class="promo-description">
+            Get 25% off on all cakes and desserts. Perfect for your holiday celebrations!
+          </p>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Valid Until</span>
+            <span class="promo-info-value">Dec 31, 2025</span>
+          </div>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Times Used</span>
+            <span class="promo-info-value">156 / Unlimited</span>
+          </div>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Min. Purchase</span>
+            <span class="promo-info-value">$50.00</span>
+          </div>
+        </div>
+        <div class="promo-actions">
+          <button class="action-btn edit" data-bs-toggle="modal" data-bs-target="#editPromoModal">
+            <i class='bx bx-edit'></i>
+            Edit
+          </button>
+          <button class="action-btn delete" onclick="deletePromo(this)">
+            <i class='bx bx-trash'></i>
+            Delete
+          </button>
+        </div>
+      </div>
+
+      <!-- Promotion Card 2 -->
+      <div class="promo-card">
+        <div class="promo-header">
+          <span class="promo-badge active">Active</span>
+          <h5 class="promo-title">First Order Discount</h5>
+          <div class="promo-code">FIRST15</div>
+        </div>
+        <div class="promo-body">
+          <div class="promo-discount">
+            15%
+            <span class="promo-discount-label">OFF</span>
+          </div>
+          <p class="promo-description">
+            Welcome new customers with 15% off their first order!
+          </p>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Valid Until</span>
+            <span class="promo-info-value">Ongoing</span>
+          </div>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Times Used</span>
+            <span class="promo-info-value">89 / Unlimited</span>
+          </div>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Min. Purchase</span>
+            <span class="promo-info-value">$30.00</span>
+          </div>
+        </div>
+        <div class="promo-actions">
+          <button class="action-btn edit" data-bs-toggle="modal" data-bs-target="#editPromoModal">
+            <i class='bx bx-edit'></i>
+            Edit
+          </button>
+          <button class="action-btn delete" onclick="deletePromo(this)">
+            <i class='bx bx-trash'></i>
+            Delete
+          </button>
+        </div>
+      </div>
+
+      <!-- Promotion Card 3 -->
+      <div class="promo-card">
+        <div class="promo-header">
+          <span class="promo-badge scheduled">Scheduled</span>
+          <h5 class="promo-title">Black Friday Mega Sale</h5>
+          <div class="promo-code">BLACKFRI</div>
+        </div>
+        <div class="promo-body">
+          <div class="promo-discount">
+            40%
+            <span class="promo-discount-label">OFF</span>
+          </div>
+          <p class="promo-description">
+            Our biggest sale of the year! 40% off on all products.
+          </p>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Starts On</span>
+            <span class="promo-info-value">Nov 29, 2025</span>
+          </div>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Times Used</span>
+            <span class="promo-info-value">0 / Unlimited</span>
+          </div>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Min. Purchase</span>
+            <span class="promo-info-value">None</span>
+          </div>
+        </div>
+        <div class="promo-actions">
+          <button class="action-btn edit" data-bs-toggle="modal" data-bs-target="#editPromoModal">
+            <i class='bx bx-edit'></i>
+            Edit
+          </button>
+          <button class="action-btn delete" onclick="deletePromo(this)">
+            <i class='bx bx-trash'></i>
+            Delete
+          </button>
+        </div>
+      </div>
+
+      <!-- Promotion Card 4 -->
+      <div class="promo-card">
+        <div class="promo-header">
+          <span class="promo-badge active">Active</span>
+          <h5 class="promo-title">Free Delivery</h5>
+          <div class="promo-code">FREEDEL</div>
+        </div>
+        <div class="promo-body">
+          <div class="promo-discount" style="font-size: 1.5rem;">
+            Free Delivery
+          </div>
+          <p class="promo-description">
+            Get free delivery on orders above $40. No extra charges!
+          </p>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Valid Until</span>
+            <span class="promo-info-value">Nov 30, 2025</span>
+          </div>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Times Used</span>
+            <span class="promo-info-value">234 / 500</span>
+          </div>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Min. Purchase</span>
+            <span class="promo-info-value">$40.00</span>
+          </div>
+        </div>
+        <div class="promo-actions">
+          <button class="action-btn edit" data-bs-toggle="modal" data-bs-target="#editPromoModal">
+            <i class='bx bx-edit'></i>
+            Edit
+          </button>
+          <button class="action-btn delete" onclick="deletePromo(this)">
+            <i class='bx bx-trash'></i>
+            Delete
+          </button>
+        </div>
+      </div>
+
+      <!-- Promotion Card 5 -->
+      <div class="promo-card">
+        <div class="promo-header">
+          <span class="promo-badge expired">Expired</span>
+          <h5 class="promo-title">Summer Special</h5>
+          <div class="promo-code">SUMMER20</div>
+        </div>
+        <div class="promo-body">
+          <div class="promo-discount">
+            20%
+            <span class="promo-discount-label">OFF</span>
+          </div>
+          <p class="promo-description">
+            Summer sale on selected items. Beat the heat with sweet treats!
+          </p>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Expired On</span>
+            <span class="promo-info-value">Aug 31, 2025</span>
+          </div>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Times Used</span>
+            <span class="promo-info-value">342 / 500</span>
+          </div>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Min. Purchase</span>
+            <span class="promo-info-value">$25.00</span>
+          </div>
+        </div>
+        <div class="promo-actions">
+          <button class="action-btn edit" data-bs-toggle="modal" data-bs-target="#editPromoModal">
+            <i class='bx bx-copy'></i>
+            Duplicate
+          </button>
+          <button class="action-btn delete" onclick="deletePromo(this)">
+            <i class='bx bx-trash'></i>
+            Delete
+          </button>
+        </div>
+      </div>
+
+      <!-- Promotion Card 6 -->
+      <div class="promo-card">
+        <div class="promo-header">
+          <span class="promo-badge active">Active</span>
+          <h5 class="promo-title">Bundle Deal</h5>
+          <div class="promo-code">BUNDLE10</div>
+        </div>
+        <div class="promo-body">
+          <div class="promo-discount">
+            $10
+            <span class="promo-discount-label">OFF</span>
+          </div>
+          <p class="promo-description">
+            Save $10 when you buy 3 or more items together!
+          </p>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Valid Until</span>
+            <span class="promo-info-value">Dec 15, 2025</span>
+          </div>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Times Used</span>
+            <span class="promo-info-value">67 / 200</span>
+          </div>
+          <div class="promo-info-row">
+            <span class="promo-info-label">Min. Purchase</span>
+            <span class="promo-info-value">3 Items</span>
+          </div>
+        </div>
+        <div class="promo-actions">
+          <button class="action-btn edit" data-bs-toggle="modal" data-bs-target="#editPromoModal">
+            <i class='bx bx-edit'></i>
+            Edit
+          </button>
+          <button class="action-btn delete" onclick="deletePromo(this)">
+            <i class='bx bx-trash'></i>
+            Delete
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ====== Create Promotion Modal ====== -->
+  <div class="modal fade" id="createPromoModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create New Promotion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Promotion Name*</label>
+                  <input type="text" class="form-control-custom" placeholder="e.g., Holiday Sale" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Coupon Code*</label>
+                  <input type="text" class="form-control-custom" placeholder="e.g., HOLIDAY25" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label-custom">Description</label>
+              <textarea class="form-control-custom" rows="3" placeholder="Describe your promotion..."></textarea>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Discount Type*</label>
+                  <select class="form-control-custom" required>
+                    <option value="">Select Type</option>
+                    <option>Percentage (%)</option>
+                    <option>Fixed Amount ($)</option>
+                    <option>Free Shipping</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Discount Value*</label>
+                  <input type="number" class="form-control-custom" placeholder="e.g., 25" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Start Date*</label>
+                  <input type="date" class="form-control-custom" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">End Date*</label>
+                  <input type="date" class="form-control-custom" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Minimum Purchase Amount</label>
+                  <input type="number" class="form-control-custom" placeholder="0.00" step="0.01">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Usage Limit</label>
+                  <input type="number" class="form-control-custom" placeholder="Unlimited">
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align: right; margin-top: 1rem;">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 1rem;">Cancel</button>
+              <button type="submit" class="btn-primary-custom">
+                <i class='bx bx-check'></i>
+                Create Promotion
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function deletePromo(button) {
+      if (confirm('Are you sure you want to delete this promotion?')) {
+        const card = button.closest('.promo-card');
+        card.style.opacity = '0';
+        setTimeout(() => card.remove(), 300);
+        alert('Promotion deleted successfully!');
+      }
+    }
+
+    // Tab filtering
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

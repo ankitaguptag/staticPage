@@ -1,435 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caking | Cake & Bakery</title>
+
+  <!-- Bootstrap CSS -->
   <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap JS -->
   <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
-  <script src="./Asset/bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <title>Document</title>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
-<header>
-  <!--start navbar-->
-  <header
-  class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a href="./index.html" class="nav-link px-2 link-secondary text-uppercase">home</a></li>
-      <li><a href="./list.html" class="nav-link px-2 link-secondary">SHOP</a></li>
-      <li><a href="./detail.html" class="nav-link px-2 link-secondary">PRODUCT</a></li>
-      <li><a href="#" class="nav-link px-2 link-secondary">BLOG</a></li>
-      <li><a href="#" class="nav-link px-2 link-secondary">PAGE</a></li>
-    </ul>
-    <div class="col-md-3 mb-2 mb-md-0">
-        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none justify-content-center">
-            <img src="./image/pop/CakingLogoBlack (2).png" alt="" class="img-fluid w-50">
-        </a>
+
+<body>
+
+  <!-- ====== Navbar Start ====== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Cake</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </div>
-    <div class="col-md-3 text-end">
-        <div class="btn-group" role="group">
-            <button type="button" class=" me-3 btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Used
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">EUR</a></li>
-                <li><a class="dropdown-item" href="#">JPY</a></li>
-                <li><a class="dropdown-item" href="#">USD</a></li>
-                <li><a class="dropdown-item" href="#">USD</a></li>
-            </ul>
-        </div>
-        <div class="btn-group" role="group">
-            <button type="button" class="  btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                English
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">hindi</a></li>
-                <li><a class="dropdown-item" href="#"> انکیتا</a></li>
-                <li><a class="dropdown-item" href="#">sdf</a></li>
-                <li><a class="dropdown-item" href="#">USD</a></li>
-            </ul>
-        </div>
-        <div class="btn-group" role="group">
-          <i class='bx bx-search bx-sm'></i>
-          <i class='bx bx-user bx-sm'></i>
-          <i class='bx bx-heart bx-sm'></i>
-          <i class='bx bxl-shopify bx-sm'></i>
-        </div>
-       
-    </div>
-  
-  </header>
-  <!--end navbar-->
-  <div class=" container-fluid">
+  </div>
+</nav>
+  <!-- ====== Navbar End ====== -->
+
+  <!-- ====== Hero Section ====== -->
+  <div class="container-fluid">
     <div class="col-12 position-relative">
       <img src="./image/prll1.png" class="img-fluid" alt="">
-        <div class="position-absolute top-50 start-50 text-white">
-          <h1>cake & Bakery</h1>
-        </div>
-
-
+      <div class="position-absolute top-50 start-50 translate-middle text-white text-center">
+        <h1>Cake & Bakery</h1>
+      </div>
     </div>
-    <div class="row mt-5">
+
+    <!-- ====== About Section ====== -->
+    <div class="row mt-5 align-items-center">
       <div class="col-6">
         <img src="./image/s2_d8314e19-80cc-4836-a346-4db65fdea857_1.png" class="img-fluid" alt="">
       </div>
-      <div class="col-6 ">
-        <h4 class="ms-5 text-warning mb-5">Sweet and tasty</h4>
-        <h1 class="mb-5">Celebrate with Custom <br>Cake</h1>
-        <p class="mb-5">Make your cake the centerpiece of any celebration with our custom cake banners.<br>
-          Perfect for birthdays,
-          weddings, and special occasions. Add a unique touch to<br> your cakes with our handcrafted cake banners. Made
-          with
-          high-quality materials to<br> ensure your cake stands out.</p>
-        <button type="button mb-5" class="btn btn-dark btn-lg">ALL PRODUCT</button>
+      <div class="col-6">
+        <h4 class="text-warning mb-3">Sweet and Tasty</h4>
+        <h1 class="mb-4">Celebrate with Custom Cake</h1>
+        <p class="mb-4">
+          Make your cake the centerpiece of any celebration with our custom cake banners.
+          Perfect for birthdays, weddings, and special occasions. Add a unique touch to
+          your cakes with our handcrafted cake banners made with high-quality materials.
+        </p>
+        <button type="button" class="btn btn-dark btn-lg">ALL PRODUCT</button>
       </div>
     </div>
-    <div class="row">
-      <div class="col mt-5 position-relative">
-        <img src="image/image_585.png" class="img-fluid " alt="">
-        <div class="position-absolute top-50 start-50 text-white">
-          <h1 class="d-flex justify-content-center">Delicious Alternatives</h1>
-          <button type="button" class="btn btn-light btn-lg"> All Product </button>
+
+    <!-- ====== Banner Section ====== -->
+    <div class="row mt-5">
+      <div class="col position-relative">
+        <img src="image/image_585.png" class="img-fluid" alt="">
+        <div class="position-absolute top-50 start-50 translate-middle text-white text-center">
+          <h1>Delicious Alternatives</h1>
+          <button type="button" class="btn btn-light btn-lg mt-3">ALL PRODUCT</button>
         </div>
       </div>
     </div>
-    <div class=" text-center row mt-5">
-      <div class="d-flex justify-content-center">
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-1"
-              type="button" role="tab" aria-controls="pills-home" aria-selected="true">Best Seller</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-2"
-              type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Cake Charm</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-3"
-              type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Cookies</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-4"
-              type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Sweet Bite</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-5"
-              type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Hot Order</button>
-          </li>
-        </ul>
-      </div>
+
+    <!-- ====== Product Tabs Section ====== -->
+    <div class="text-center mt-5">
+      <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#pills-1">Best Seller</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-2">Cake Charm</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-3">Cookies</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-4">Sweet Bite</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-5">Hot Order</button></li>
+      </ul>
 
       <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-home-tab"
-          tabindex="0">
-          <div class="row">
-            <div class="col-3">
-              <img src="./image/Almond-Joy-Delight-1.jpg" class="img-fluid" alt="">
-              <h5>Coconut Cloud Cake</h5>
-              <p>$60.00 $70.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Almond-Joy-Delight-3.jpg" class="img-fluid" alt="">
-              <h5>Coconut Cloud Cake</h5>
-              <p>$60.00 $70.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/1.jpg" class="img-fluid" alt="">
-              <h5>Coconut Cloud Cake</h5>
-              <p>$60.00 $70.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/2.jpg" class="img-fluid" alt="">
-              <h5>Coconut Cloud Cake</h5>
-              <p>$60.00 $70.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Coconut-Cloud-Cake-2.jpg" class="img-fluid" alt="">
-              <h5>Chocolate Symphony Cake</h5>
-              <p>$80.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Coconut-Cloud-Cake-1.jpg" class="img-fluid" alt="">
-              <h5>Chocolate Symphony Cake</h5>
-              <p>$80.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Chocolate-Symphony-Cake-2.jpg" class="img-fluid" alt="">
-              <h5>Chocolate Symphony Cake</h5>
-              <p>$80.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Blueberry-Dream-Cake-2.jpg" class="img-fluid" alt="">
-              <h5>Chocolate Symphony Cake</h5>
-              <p>$80.00</p>
-            </div>
+      
+      </div>
+    </div>
+
+    <!-- ====== Instagram Section ====== -->
+    <div class="row mt-5">
+      <div class="col-2"><img src="./image/instagram1 (1).jpg" class="img-fluid" alt=""></div>
+      <div class="col-2"><img src="./image/instagram2 (1).jpg" class="img-fluid" alt=""></div>
+      <div class="col-2"><img src="./image/instagram3.jpg" class="img-fluid" alt=""></div>
+      <div class="col-2"><img src="./image/instagram4 (1).jpg" class="img-fluid" alt=""></div>
+      <div class="col-2"><img src="./image/instagram5 (1).jpg" class="img-fluid" alt=""></div>
+      <div class="col-2"><img src="./image/instagram6 (1).jpg" class="img-fluid" alt=""></div>
+    </div>
+
+    <!-- ====== Footer Section ====== -->
+    <footer class="mt-5">
+      <div class="row">
+        <div class="col-3 border p-3">
+          <img src="./image/CakingLogoBlack (2).png" class="d-block w-50 mb-3" alt="">
+          <p>Praesent nec nisl a purus blandit viverra. Pellentesque habitant morbi tristique senectus.</p>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Your email address">
+            <span class="input-group-text"><i class='bx bxs-envelope'></i></span>
           </div>
-        </div>
-        <div class="tab-pane fade" id="pills-2" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-          <div class="row">
-            <div class="col-3">
-              <img src="./image/Coconut-Cloud-Cake-2.jpg" class="img-fluid" alt="">
-              <h5>Chocolate Symphony Cake</h5>
-              <p>$80.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Coconut-Cloud-Cake-1.jpg" class="img-fluid" alt="">
-              <h5>Chocolate Symphony Cake</h5>
-              <p>$80.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Chocolate-Symphony-Cake-2.jpg" class="img-fluid" alt="" href="./detail.html">
-              <h5>Chocolate Symphony Cake</h5>
-              <p>$80.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Blueberry-Dream-Cake-2.jpg" class="img-fluid" alt="">
-              <h5>Chocolate Symphony Cake</h5>
-              <p>$80.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Almond-Joy-Delight-1.jpg" class="img-fluid" alt="">
-              <h5>Coconut Cloud Cake</h5>
-              <p>$60.00 $70.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Almond-Joy-Delight-3.jpg" class="img-fluid" alt="">
-              <h5>Coconut Cloud Cake</h5>
-              <p>$60.00 $70.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/1.jpg" class="img-fluid" alt="">
-              <h5>Coconut Cloud Cake</h5>
-              <p>$60.00 $70.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/2.jpg" class="img-fluid" alt="">
-              <h5>Coconut Cloud Cake</h5>
-              <p>$60.00 $70.00</p>
-            </div>
-          </div>
-        </div>
-        <div class="tab-pane fade" id="pills-3" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-          <div class="row">
-            <div class="col-3">
-              <img src="./image/Almond-Joy-Delight-1.jpg" class="img-fluid" alt="">
-              <h5>Coconut Cloud Cake</h5>
-              <p>$60.00 $70.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Blueberry-Dream-Cake-1.jpg" class="img-fluid" alt="">
-              <h5>Cherry Blossom Cake</h5>
-              <p>$40.00 $70.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Blueberry-Dream-Cake-2.jpg" class="img-fluid" alt="">
-              <h5>Chocolate Symphony Cake</h5>
-              <p>$80.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Caramel-Heaven-Cake-1.jpg" class="img-fluid" alt="">
-              <h5>Red Velvet Rapture Cake</h5>
-              <p>$60.00 $70.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Blueberry-Dream-Cake-2.jpg" class="img-fluid" alt="">
-              <h5>Chocolate Symphony Cake</h5>
-              <p>$80.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Honeyed-Bliss-Cake-2.jpg" class="img-fluid" alt="">
-              <h5>Chocolate Symphony Cake</h5>
-              <p>$80.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Honeyed-Bliss-Cake-1.jpg" class="img-fluid" alt="">
-              <h5>Chocolate Symphony Cake</h5>
-              <p>$80.00</p>
-            </div>
-            <div class="col-3">
-              <img src="./image/Almond-Joy-Delight-3.jpg" class="img-fluid" alt="">
-              <h5>Chocolate Symphony Cake</h5>
-              <p>$80.00</p>
-            </div>
-          </div>
-        </div>
-            <div class="tab-pane fade" id="pills-4" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-              <div class="row">
-                <div class="col-3">
-                  <img src="./image/Blueberry-Dream-Cake-2.jpg" class="img-fluid" alt="">
-                  <h5>Chocolate Symphony Cake</h5>
-                  <p>$80.00</p>
-                </div>
-                <div class="col-3">
-                  <img src="./image/Honeyed-Bliss-Cake-2.jpg" class="img-fluid" alt="">
-                  <h5>Chocolate Symphony Cake</h5>
-                  <p>$80.00</p>
-                </div>
-                <div class="col-3">
-                  <img src="./image/Honeyed-Bliss-Cake-1.jpg" class="img-fluid" alt="">
-                  <h5>Chocolate Symphony Cake</h5>
-                  <p>$80.00</p>
-                </div>
-                <div class="col-3">
-                  <img src="./image/Almond-Joy-Delight-3.jpg" class="img-fluid" alt="">
-                  <h5>Chocolate Symphony Cake</h5>
-                  <p>$80.00</p>
-                </div>
-                <div class="col-3">
-                  <img src="./image/Almond-Joy-Delight-1.jpg" class="img-fluid" alt="">
-                  <h5>Coconut Cloud Cake</h5>
-                  <p>$60.00 $70.00</p>
-                </div>
-                <div class="col-3">
-                  <img src="./image/Blueberry-Dream-Cake-1.jpg" class="img-fluid" alt="">
-                  <h5>Cherry Blossom Cake</h5>
-                  <p>$40.00 $70.00</p>
-                </div>
-                <div class="col-3">
-                  <img src="./image/Blueberry-Dream-Cake-2.jpg" class="img-fluid" alt="">
-                  <h5>Chocolate Symphony Cake</h5>
-                  <p>$80.00</p>
-                </div>
-                <div class="col-3">
-                  <img src="./image/Caramel-Heaven-Cake-1.jpg" class="img-fluid" alt="">
-                  <h5>Red Velvet Rapture Cake</h5>
-                  <p>$60.00 $70.00</p>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="pills-5" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">
-              <div class="row">
-                <div class="col-3">
-                  <img src="./image/Caramel-Heaven-Cake-1.jpg" class="img-fluid" alt="">
-                  <h5>Red3 Velvet Rapture Cake</h5>
-                  <p>$630.00 $70.00</p>
-                </div>
-                <div class="col-3">
-                  <img src="./image/instagram2.jpg" class="img-fluid" alt="">
-                  <h5>Red3 Velvet Rapture Cake</h5>
-                  <p>$630.00 $70.00</p>
-                </div>
-                <div class="col-3">
-                  <img src="./image/instagram4.jpg" class="img-fluid" alt="">
-                  <h5>Red3 Velvet Rapture Cake</h5>
-                  <p>$630.00 $70.00</p>
-                </div>
-                <div class="col-3">
-                  <img src="./image/instagram6 (1).jpg" class="img-fluid" alt="">
-                  <h5>Red3 Velvet Rapture Cake</h5>
-                  <p>$630.00 $70.00</p>
-                </div>
-                <div class="col-3">
-                  <img src="./image/Blueberry-Dream-Cake-2.jpg" class="img-fluid" alt="">
-                  <h5>Chocolate Symphony Cake</h5>
-                  <p>$80.00</p>
-                </div>
-                <div class="col-3">
-                  <img src="./image/Honeyed-Bliss-Cake-2.jpg" class="img-fluid" alt="">
-                  <h5>Chocolate Symphony Cake</h5>
-                  <p>$80.00</p>
-                </div>
-                <div class="col-3">
-                  <img src="./image/Honeyed-Bliss-Cake-1.jpg" class="img-fluid" alt="">
-                  <h5>Chocolate Symphony Cake</h5>
-                  <p>$80.00</p>
-                </div>
-                <div class="col-3">
-                  <img src="./image/Almond-Joy-Delight-3.jpg" class="img-fluid" alt="">
-                  <h5>Chocolate Symphony Cake</h5>
-                  <p>$80.00</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class=" container-fluid row mb-5 ">
-         <div class="text-center mt-4">
-          <button type="button mb-4" class="btn btn-dark btn-lg">ALL PRODUCT</button>
-        </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <img src="./image/instagram1 (1).jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-2">
-            <img src="./image/instagram2 (1).jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-2">
-            <img src="./image/instagram3.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-2">
-            <img src="./image/instagram4 (1).jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-2">
-            <img src="./image/instagram5 (1).jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-2">
-            <img src="./image/instagram6 (1).jpg" class="img-fluid" alt="">
-          </div>
-        </div>
-   
-        <div class=" container-fluid row mt-5">
-          <div class="col-3 border">
-            <img src="./image/CakingLogoBlack (2).png" class="d-block w-50" alt="">
-            <p class="mt-3">Praesent nec nisl a purus<br>
-              blandit viverra. PellentesqueM<br>
-              habitant morbi tristique<br>
-              senectuse.</p>
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Your email address" aria-label="Your email address"
-                aria-describedby="basic-addon2">
-              <span class="input-group-text" id="basic-addon2"><i class='bx bxs-envelope '></i></span>
-            </div>
+          <div>
             <i class='bx bxl-xing me-3'></i>
             <i class='bx bx-mail-send me-3'></i>
             <i class='bx bx-basketball me-3'></i>
             <i class='bx bxl-instagram me-3'></i>
           </div>
-          <div class="col-3 border">
-            <h5 class="border-bottom">Info</h5>
-            <p>Custom Service</p>
-            <p>F.A.Q.'s</p>
-            <p> Ordering Tracking</p>
-            <p> Contact Us</p>
-            <p> Events</p>
-            <p> Popular</p>
-          </div>
-          <div class="col-3 border">
-            <h5 class="border-bottom">Services</h5>
-            <p>
-            <p> Popular</p>
-            <p> Services</p>
-            <p> Sitemap</p>
-            <p> Policy</p>
-            <p> Your Account</p>
-            <p> Advanced Search</p>
-            <p> Term & Condition</p>
-            <p> Contact Us</p>
-          </div>
-          <div class="col-3 border">
-            <h5 class="border-bottom">Account</h5>
-            <p>About Us </p>
-            <p> Delivery Information</p>
-            <p> Privacy Policy</p>
-            <p>Discount</p>
-            <p> Custom Service</p>
-            <p>Term & Condition</p>
-          </div>
         </div>
-        <div class=" container-fluid row border-top ">
-          <div class="col-6 mt-3">© Copyright 2024 | Caking By ShopiLaunch. Powered by Shopify.</div>
-          <div class="col-4 mt-3"></div>
-          <div class="col-2 mt-3">
-            <img src="./image/paymet (1).png" class="img-fluid" alt="">
-          </div>
-        </div>
-</header>
 
-<body>
+        <div class="col-3 border p-3">
+          <h5 class="border-bottom pb-2">Info</h5>
+          <p>Custom Service</p>
+          <p>F.A.Q.'s</p>
+          <p>Order Tracking</p>
+          <p>Contact Us</p>
+          <p>Events</p>
+          <p>Popular</p>
+        </div>
+
+        <div class="col-3 border p-3">
+          <h5 class="border-bottom pb-2">Services</h5>
+          <p>Popular</p>
+          <p>Services</p>
+          <p>Sitemap</p>
+          <p>Policy</p>
+          <p>Your Account</p>
+          <p>Advanced Search</p>
+          <p>Terms & Condition</p>
+          <p>Contact Us</p>
+        </div>
+
+        <div class="col-3 border p-3">
+          <h5 class="border-bottom pb-2">Account</h5>
+          <p>About Us</p>
+          <p>Delivery Information</p>
+          <p>Privacy Policy</p>
+          <p>Discount</p>
+          <p>Custom Service</p>
+          <p>Terms & Condition</p>
+        </div>
+      </div>
+
+      <div class="row border-top mt-3 pt-3">
+        <div class="col-6">© 2024 Caking By ShopiLaunch. Powered by Shopify.</div>
+        <div class="col-4"></div>
+        <div class="col-2">
+          <img src="./image/paymet (1).png" class="img-fluid" alt="Payment Options">
+        </div>
+      </div>
+    </footer>
+  </div>
 
 </body>
-
 </html>

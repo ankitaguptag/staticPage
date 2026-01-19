@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caking | Premium Artisan Cake & Bakery</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap JS -->
+  <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link src="./main.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ====== Premium Navbar ====== -->
+  <nav class="navbar navbar-expand-lg navbar-premium sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Caking</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="./index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./list.html">About</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="productsDropdown" role="button" data-bs-toggle="dropdown">
+              Products
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="productsDropdown">
+              <li><a class="dropdown-item" href="#">Custom Cakes</a></li>
+              <li><a class="dropdown-item" href="#">Cupcakes</a></li>
+              <li><a class="dropdown-item" href="#">Cookies</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Special Occasions</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#gallery">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control search-box me-2" type="search" placeholder="Search products..." aria-label="Search">
+          <button class="btn btn-premium" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====== Premium Hero Section ====== -->
+  <section class="hero-section">
+    <img src="./image/prll1.png" alt="Artisan Cakes">
+    <div class="hero-content">
+      <h1>Artisan Cake & Bakery</h1>
+      <p>Handcrafted with Love, Baked to Perfection</p>
+      <button class="btn btn-premium btn-lg">Explore Our Collection</button>
+    </div>
+  </section>
+
+  <!-- ====== Premium About Section ====== -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <div class="about-image">
+            <img src="./image/s2_d8314e19-80cc-4836-a346-4db65fdea857_1.png" class="img-fluid" alt="Custom Cakes">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <p class="section-subtitle">Sweet and Tasty</p>
+          <h2 class="section-title">Celebrate with Custom Cakes</h2>
+          <p class="section-description">
+            Make your cake the centerpiece of any celebration with our custom cake designs. 
+            Perfect for birthdays, weddings, and special occasions, each creation is handcrafted 
+            with premium ingredients and artistic precision. Add a unique touch to your celebrations 
+            with our bespoke cake banners made with high-quality, food-safe materials that make 
+            every moment memorable.
+          </p>
+          <button type="button" class="btn btn-premium btn-lg">View All Products</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Premium Banner Section ====== -->
+  <div class="container">
+    <section class="banner-section">
+      <img src="image/image_585.png" alt="Delicious Alternatives">
+      <div class="banner-content">
+        <h2>Delicious Alternatives</h2>
+        <p class="mb-4">Gluten-Free & Vegan Options Available</p>
+        <button type="button" class="btn btn-premium btn-lg">Discover More</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== Premium Product Tabs Section ====== -->
+  <section class="product-tabs-section">
+    <div class="container">
+      <div class="text-center">
+        <p class="section-subtitle">Our Signature Collection</p>
+        <h2 class="section-title mb-5">Featured Products</h2>
+        
+        <ul class="nav nav-pills mb-5 justify-content-center" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#pills-1">Best Sellers</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-2">Cake Charms</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-3">Cookies</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-4">Sweet Bites</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-5">Hot Orders</button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-1">
+            <div class="row g-4">
+              <!-- Add your product cards here -->
+              <p class="text-muted">Product cards will be displayed here</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Premium Instagram Gallery ====== -->
+  <section class="instagram-section" id="gallery">
+    <div class="container-fluid px-4">
+      <h2 class="instagram-title">Follow Us @CakingBakery</h2>
+      <div class="instagram-grid">
+        <div class="instagram-item">
+          <img src="./image/instagram1 (1).jpg" alt="Instagram 1">
+          <div class="instagram-overlay">
+            <i class='bx bxl-instagram'></i>
+          </div>
+        </div>
+        <div class="instagram-item">
+          <img src="./image/instagram2 (1).jpg" alt="Instagram 2">
+          <div class="instagram-overlay">
+            <i class='bx bxl-instagram'></i>
+          </div>
+        </div>
+        <div class="instagram-item">
+          <img src="./image/instagram3.jpg" alt="Instagram 3">
+          <div class="instagram-overlay">
+            <i class='bx bxl-instagram'></i>
+          </div>
+        </div>
+        <div class="instagram-item">
+          <img src="./image/instagram4 (1).jpg" alt="Instagram 4">
+          <div class="instagram-overlay">
+            <i class='bx bxl-instagram'></i>
+          </div>
+        </div>
+        <div class="instagram-item">
+          <img src="./image/instagram5 (1).jpg" alt="Instagram 5">
+          <div class="instagram-overlay">
+            <i class='bx bxl-instagram'></i>
+          </div>
+        </div>
+        <div class="instagram-item">
+          <img src="./image/instagram6 (1).jpg" alt="Instagram 6">
+          <div class="instagram-overlay">
+            <i class='bx bxl-instagram'></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Premium Footer ====== -->
+  <footer class="footer-premium" id="contact">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <img src="./image/CakingLogoBlack (2).png" class="footer-logo" alt="Caking Logo">
+          <p class="mb-4">Crafting sweet memories with every bite. Premium artisan cakes and bakery items made with love and the finest ingredients.</p>
+          <div class="input-group mb-4">
+            <input type="email" class="form-control newsletter-input" placeholder="Your email address">
+            <button class="input-group-text newsletter-btn" type="button">
+              <i class='bx bxs-send'></i>
+            </button>
+          </div>
+          <div class="social-icons">
+            <i class='bx bxl-facebook-circle'></i>
+            <i class='bx bxl-twitter'></i>
+            <i class='bx bxl-pinterest'></i>
+            <i class='bx bxl-instagram'></i>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Quick Links</h5>
+          <a href="#" class="footer-link">Custom Service</a>
+          <a href="#" class="footer-link">FAQs</a>
+          <a href="#" class="footer-link">Order Tracking</a>
+          <a href="#" class="footer-link">Contact Us</a>
+          <a href="#" class="footer-link">Events</a>
+          <a href="#" class="footer-link">Blog</a>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Services</h5>
+          <a href="#" class="footer-link">Custom Cakes</a>
+          <a href="#" class="footer-link">Wedding Cakes</a>
+          <a href="#" class="footer-link">Corporate Orders</a>
+          <a href="#" class="footer-link">Cake Delivery</a>
+          <a href="#" class="footer-link">Gift Hampers</a>
+          <a href="#" class="footer-link">Cake Classes</a>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Information</h5>
+          <a href="#" class="footer-link">About Us</a>
+          <a href="#" class="footer-link">Delivery Information</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms & Conditions</a>
+          <a href="#" class="footer-link">Careers</a>
+          <a href="#" class="footer-link">Affiliate Program</a>
+        </div>
+      </div>
+
+      <div class="row footer-bottom align-items-center">
+        <div class="col-lg-6 col-md-6 mb-3 mb-md-0">
+          <p class="mb-0">© 2025 Caking Premium Bakery. All Rights Reserved.</p>
+        </div>
+        <div class="col-lg-6 col-md-6 text-end">
+          <img src="./image/paymet (1).png" class="img-fluid" style="max-width: 250px;" alt="Payment Options">
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

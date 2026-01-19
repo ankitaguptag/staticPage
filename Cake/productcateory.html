@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Categories | Caking Admin</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #8B4513;
+      --secondary-color: #D4AF37;
+      --dark-color: #2C1810;
+      --light-bg: #FFF8F0;
+      --text-dark: #3E2723;
+      --sidebar-width: 280px;
+      --topbar-height: 70px;
+      --success-color: #27AE60;
+      --warning-color: #F39C12;
+      --error-color: #E74C3C;
+      --info-color: #3498DB;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      background: #f5f6fa;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* Sidebar & Topbar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: linear-gradient(180deg, var(--dark-color) 0%, #1a0f0a 100%);
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--secondary-color) 0%, #ffd700 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--dark-color);
+    }
+
+    .logo-text h4 {
+      color: white;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .logo-text p {
+      color: var(--secondary-color);
+      margin: 0;
+      font-size: 0.75rem;
+    }
+
+    .sidebar-menu {
+      padding: 1.5rem 0;
+    }
+
+    .menu-section-title {
+      padding: 1rem 1.5rem 0.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    .menu-item:hover,
+    .menu-item.active {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--secondary-color);
+    }
+
+    .menu-item.active::before {
+      width: 4px;
+    }
+
+    .menu-item i {
+      font-size: 1.3rem;
+      width: 24px;
+    }
+
+    .topbar {
+      position: fixed;
+      left: var(--sidebar-width);
+      top: 0;
+      right: 0;
+      height: var(--topbar-height);
+      background: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      z-index: 999;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .menu-toggle {
+      width: 45px;
+      height: 45px;
+      border: none;
+      background: var(--light-bg);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .breadcrumb-custom {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      background: none;
+      padding: 0;
+    }
+
+    .breadcrumb-custom li {
+      display: flex;
+      align-items: center;
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumb-custom li.active {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .topbar-right {
+      margin-left: auto;
+    }
+
+    .main-content {
+      margin-left: var(--sidebar-width);
+      margin-top: var(--topbar-height);
+      padding: 2rem;
+      min-height: calc(100vh - var(--topbar-height));
+    }
+
+    /* Category Stats */
+    .category-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .stat-icon.total {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+    }
+
+    .stat-icon.active {
+      background: linear-gradient(135deg, var(--success-color) 0%, #1d8348 100%);
+    }
+
+    .stat-icon.products {
+      background: linear-gradient(135deg, var(--info-color) 0%, #2874a6 100%);
+    }
+
+    .stat-icon.subcategories {
+      background: linear-gradient(135deg, var(--warning-color) 0%, #d68910 100%);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark-color);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    /* Main Container */
+    .categories-container {
+      display: flex;
+      gap: 2rem;
+    }
+
+    /* Category Tree */
+    .category-tree-container {
+      width: 350px;
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      height: fit-content;
+    }
+
+    .tree-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--light-bg);
+    }
+
+    .tree-header h5 {
+      margin: 0;
+      color: var(--dark-color);
+    }
+
+    .btn-add-category {
+      width: 35px;
+      height: 35px;
+      border-radius: 8px;
+      border: none;
+      background: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .category-tree {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .category-item {
+      margin-bottom: 0.5rem;
+    }
+
+    .category-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .category-label:hover {
+      background: var(--light-bg);
+    }
+
+    .category-label.selected {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .expand-icon {
+      width: 20px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .category-icon {
+      font-size: 1.2rem;
+    }
+
+    .category-name {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .category-count {
+      background: rgba(0, 0, 0, 0.1);
+      padding: 0.2rem 0.5rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .subcategories {
+      list-style: none;
+      padding-left: 2rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    .subcategories.show {
+      display: block;
+    }
+
+    /* Category Grid */
+    .category-grid-container {
+      flex: 1;
+    }
+
+    .grid-header {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .grid-header h5 {
+      margin: 0;
+      color: var(--dark-color);
+    }
+
+    .btn-primary-custom {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .category-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .category-body {
+      padding: 1.25rem;
+    }
+
+    .category-title {
+      font-size: 1.1rem;
+      margin: 0 0 0.5rem 0;
+      color: var(--dark-color);
+    }
+
+    .category-description {
+      color: #6b5d57;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .category-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .product-count {
+      color: var(--primary-color);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .status-badge {
+      padding: 0.3rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .status-badge.active {
+      background: rgba(39, 174, 96, 0.1);
+      color: var(--success-color);
+    }
+
+    .status-badge.inactive {
+      background: rgba(149, 165, 166, 0.1);
+      color: #95a5a6;
+    }
+
+    .category-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    .action-btn.edit {
+      background: rgba(52, 152, 219, 0.1);
+      color: var(--info-color);
+    }
+
+    .action-btn.edit:hover {
+      background: var(--info-color);
+      color: white;
+    }
+
+    .action-btn.delete {
+      background: rgba(231, 76, 60, 0.1);
+      color: var(--error-color);
+    }
+
+    .action-btn.delete:hover {
+      background: var(--error-color);
+      color: white;
+    }
+
+    /* Modal */
+    .modal-content {
+      border-radius: 20px;
+      border: none;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      padding: 1.5rem 2rem;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .modal-header .btn-close {
+      filter: brightness(0) invert(1);
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label-custom {
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .form-control-custom {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+    }
+
+    .form-control-custom:focus {
+      border-color: var(--secondary-color);
+      outline: none;
+    }
+
+    .image-upload {
+      border: 2px dashed #e0e0e0;
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .image-upload:hover {
+      border-color: var(--secondary-color);
+      background: var(--light-bg);
+    }
+
+    @media (max-width: 1200px) {
+      .category-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .categories-container {
+        flex-direction: column;
+      }
+
+      .category-tree-container {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -280px;
+      }
+
+      .topbar {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .category-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .category-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====== Sidebar ====== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <i class='bx bxs-cake'></i>
+        </div>
+        <div class="logo-text">
+          <h4>Caking</h4>
+          <p>ADMIN PANEL</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <div class="menu-section-title">Main Menu</div>
+      
+      <a href="admin-dashboard.html" class="menu-item">
+        <i class='bx bxs-dashboard'></i>
+        <span>Dashboard</span>
+      </a>
+
+      <div class="menu-section-title">Products</div>
+
+      <a href="cake-management.html" class="menu-item">
+        <i class='bx bxs-cake'></i>
+        <span>Cake Management</span>
+      </a>
+
+      <a href="categories.html" class="menu-item active">
+        <i class='bx bxs-category'></i>
+        <span>Product Categories</span>
+      </a>
+
+      <a href="promotions.html" class="menu-item">
+        <i class='bx bxs-discount'></i>
+        <span>Promotions</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ====== Top Navbar ====== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="menu-toggle">
+        <i class='bx bx-menu'></i>
+      </button>
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb-custom">
+          <li><i class='bx bx-home-alt'></i></li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>Products</li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li class="active">Categories</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="topbar-right">
+      <div style="color: var(--dark-color); font-weight: 600;">
+        <i class='bx bx-user-circle' style="font-size: 1.5rem;"></i>
+        Admin
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== Main Content ====== -->
+  <main class="main-content">
+    <!-- Page Header -->
+    <div style="margin-bottom: 2rem;">
+      <h1 style="font-size: 2rem; color: var(--dark-color); margin-bottom: 0.5rem;">Product Categories</h1>
+      <p style="color: #6b5d57;">Organize your products into categories and subcategories</p>
+    </div>
+
+    <!-- Category Stats -->
+    <div class="category-stats">
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon total">
+            <i class='bx bx-category'></i>
+          </div>
+        </div>
+        <div class="stat-value">18</div>
+        <div class="stat-label">Total Categories</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon active">
+            <i class='bx bx-check-circle'></i>
+          </div>
+        </div>
+        <div class="stat-value">15</div>
+        <div class="stat-label">Active Categories</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon products">
+            <i class='bx bx-package'></i>
+          </div>
+        </div>
+        <div class="stat-value">248</div>
+        <div class="stat-label">Total Products</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon subcategories">
+            <i class='bx bx-subdirectory-right'></i>
+          </div>
+        </div>
+        <div class="stat-value">12</div>
+        <div class="stat-label">Subcategories</div>
+      </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="categories-container">
+      
+      <!-- Category Tree -->
+      <div class="category-tree-container">
+        <div class="tree-header">
+          <h5>Category Tree</h5>
+          <button class="btn-add-category" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+            <i class='bx bx-plus'></i>
+          </button>
+        </div>
+
+        <ul class="category-tree">
+          <li class="category-item">
+            <div class="category-label selected">
+              <span class="expand-icon"><i class='bx bx-chevron-down'></i></span>
+              <i class='bx bxs-cake category-icon'></i>
+              <span class="category-name">Custom Cakes</span>
+              <span class="category-count">45</span>
+            </div>
+            <ul class="subcategories show">
+              <li class="category-item">
+                <div class="category-label">
+                  <i class='bx bx-circle category-icon' style="font-size: 0.5rem;"></i>
+                  <span class="category-name">Birthday Cakes</span>
+                  <span class="category-count">18</span>
+                </div>
+              </li>
+              <li class="category-item">
+                <div class="category-label">
+                  <i class='bx bx-circle category-icon' style="font-size: 0.5rem;"></i>
+                  <span class="category-name">Wedding Cakes</span>
+                  <span class="category-count">15</span>
+                </div>
+              </li>
+              <li class="category-item">
+                <div class="category-label">
+                  <i class='bx bx-circle category-icon' style="font-size: 0.5rem;"></i>
+                  <span class="category-name">Anniversary Cakes</span>
+                  <span class="category-count">12</span>
+                </div>
+              </li>
+            </ul>
+          </li>
+
+          <li class="category-item">
+            <div class="category-label">
+              <span class="expand-icon"><i class='bx bx-chevron-right'></i></span>
+              <i class='bx bxs-cake category-icon'></i>
+              <span class="category-name">Cupcakes</span>
+              <span class="category-count">62</span>
+            </div>
+          </li>
+
+          <li class="category-item">
+            <div class="category-label">
+              <span class="expand-icon"><i class='bx bx-chevron-right'></i></span>
+              <i class='bx bxs-cookie category-icon'></i>
+              <span class="category-name">Cookies</span>
+              <span class="category-count">38</span>
+            </div>
+          </li>
+
+          <li class="category-item">
+            <div class="category-label">
+              <span class="expand-icon"><i class='bx bx-chevron-right'></i></span>
+              <i class='bx bx-food-tag category-icon'></i>
+              <span class="category-name">Pastries</span>
+              <span class="category-count">41</span>
+            </div>
+          </li>
+
+          <li class="category-item">
+            <div class="category-label">
+              <span class="expand-icon"><i class='bx bx-chevron-right'></i></span>
+              <i class='bx bx-bowl-hot category-icon'></i>
+              <span class="category-name">Breads</span>
+              <span class="category-count">28</span>
+            </div>
+          </li>
+
+          <li class="category-item">
+            <div class="category-label">
+              <span class="expand-icon"><i class='bx bx-chevron-right'></i></span>
+              <i class='bx bx-cake category-icon'></i>
+              <span class="category-name">Desserts</span>
+              <span class="category-count">34</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Category Grid -->
+      <div class="category-grid-container">
+        <div class="grid-header">
+          <h5>Custom Cakes</h5>
+          <button class="btn-primary-custom" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+            <i class='bx bx-plus'></i>
+            Add Category
+          </button>
+        </div>
+
+        <div class="category-grid">
+          
+          <!-- Category Card 1 -->
+          <div class="category-card">
+            <img src="./image/s2_d8314e19-80cc-4836-a346-4db65fdea857_1.png" class="category-image" alt="Category">
+            <div class="category-body">
+              <h6 class="category-title">Birthday Cakes</h6>
+              <p class="category-description">
+                Celebratory cakes perfect for birthday parties and special occasions.
+              </p>
+              <div class="category-meta">
+                <span class="product-count">18 Products</span>
+                <span class="status-badge active">Active</span>
+              </div>
+              <div class="category-actions">
+                <button class="action-btn edit" data-bs-toggle="modal" data-bs-target="#editCategoryModal">
+                  <i class='bx bx-edit'></i>
+                  Edit
+                </button>
+                <button class="action-btn delete" onclick="deleteCategory(this)">
+                  <i class='bx bx-trash'></i>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category Card 2 -->
+          <div class="category-card">
+            <img src="./image/instagram1 (1).jpg" class="category-image" alt="Category">
+            <div class="category-body">
+              <h6 class="category-title">Wedding Cakes</h6>
+              <p class="category-description">
+                Elegant multi-tier cakes designed for wedding celebrations.
+              </p>
+              <div class="category-meta">
+                <span class="product-count">15 Products</span>
+                <span class="status-badge active">Active</span>
+              </div>
+              <div class="category-actions">
+                <button class="action-btn edit" data-bs-toggle="modal" data-bs-target="#editCategoryModal">
+                  <i class='bx bx-edit'></i>
+                  Edit
+                </button>
+                <button class="action-btn delete" onclick="deleteCategory(this)">
+                  <i class='bx bx-trash'></i>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category Card 3 -->
+          <div class="category-card">
+            <img src="./image/instagram2 (1).jpg" class="category-image" alt="Category">
+            <div class="category-body">
+              <h6 class="category-title">Anniversary Cakes</h6>
+              <p class="category-description">
+                Romantic cakes to celebrate years of love and togetherness.
+              </p>
+              <div class="category-meta">
+                <span class="product-count">12 Products</span>
+                <span class="status-badge active">Active</span>
+              </div>
+              <div class="category-actions">
+                <button class="action-btn edit" data-bs-toggle="modal" data-bs-target="#editCategoryModal">
+                  <i class='bx bx-edit'></i>
+                  Edit
+                </button>
+                <button class="action-btn delete" onclick="deleteCategory(this)">
+                  <i class='bx bx-trash'></i>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ====== Add Category Modal ====== -->
+  <div class="modal fade" id="addCategoryModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New Category</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Category Name*</label>
+                  <input type="text" class="form-control-custom" placeholder="Enter category name" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Parent Category</label>
+                  <select class="form-control-custom">
+                    <option value="">None (Top Level)</option>
+                    <option>Custom Cakes</option>
+                    <option>Cupcakes</option>
+                    <option>Cookies</option>
+                    <option>Pastries</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label-custom">Description</label>
+              <textarea class="form-control-custom" rows="3" placeholder="Enter category description"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label-custom">Category Image</label>
+              <div class="image-upload">
+                <i class='bx bx-cloud-upload' style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <p><strong>Click to upload</strong> or drag and drop</p>
+                <p style="color: #999; font-size: 0.85rem;">PNG, JPG (max. 5MB)</p>
+                <input type="file" style="display: none;" accept="image/*">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Display Order</label>
+                  <input type="number" class="form-control-custom" value="0">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Status</label>
+                  <select class="form-control-custom">
+                    <option selected>Active</option>
+                    <option>Inactive</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align: right;">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 1rem;">Cancel</button>
+              <button type="submit" class="btn-primary-custom">
+                <i class='bx bx-check'></i>
+                Add Category
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function deleteCategory(button) {
+      if (confirm('Are you sure you want to delete this category?')) {
+        const card = button.closest('.category-card');
+        card.style.opacity = '0';
+        setTimeout(() => card.remove(), 300);
+        alert('Category deleted successfully!');
+      }
+    }
+
+    // Tree expand/collapse
+    document.querySelectorAll('.expand-icon').forEach(icon => {
+      icon.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const item = this.closest('.category-item');
+        const subcategories = item.querySelector('.subcategories');
+        const chevron = this.querySelector('i');
+        
+        if (subcategories) {
+          subcategories.classList.toggle('show');
+          chevron.classList.toggle('bx-chevron-down');
+          chevron.classList.toggle('bx-chevron-right');
+        }
+      });
+    });
+
+    // Category selection
+    document.querySelectorAll('.category-label').forEach(label => {
+      label.addEventListener('click', function(e) {
+        if (!e.target.closest('.expand-icon')) {
+          document.querySelectorAll('.category-label').forEach(l => l.classList.remove('selected'));
+          this.classList.add('selected');
+        }
+      });
+    });
+
+    // Image upload
+    document.querySelectorAll('.image-upload').forEach(area => {
+      area.addEventListener('click', function() {
+        this.querySelector('input[type="file"]').click();
+      });
+    });
+  </script>
+
+</body>
+</html>

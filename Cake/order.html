@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders Management | Caking Admin</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap JS -->
+  <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #8B4513;
+      --secondary-color: #D4AF37;
+      --dark-color: #2C1810;
+      --light-bg: #FFF8F0;
+      --text-dark: #3E2723;
+      --sidebar-width: 280px;
+      --topbar-height: 70px;
+      --success-color: #27AE60;
+      --warning-color: #F39C12;
+      --error-color: #E74C3C;
+      --info-color: #3498DB;
+      --pending-color: #F39C12;
+      --processing-color: #3498DB;
+      --completed-color: #27AE60;
+      --cancelled-color: #E74C3C;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      background: #f5f6fa;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* Sidebar & Topbar - Same as before */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: linear-gradient(180deg, var(--dark-color) 0%, #1a0f0a 100%);
+      padding: 0;
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--secondary-color) 0%, #ffd700 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--dark-color);
+    }
+
+    .logo-text h4 {
+      color: white;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .logo-text p {
+      color: var(--secondary-color);
+      margin: 0;
+      font-size: 0.75rem;
+    }
+
+    .sidebar-menu {
+      padding: 1.5rem 0;
+    }
+
+    .menu-section-title {
+      padding: 1rem 1.5rem 0.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    .menu-item:hover,
+    .menu-item.active {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--secondary-color);
+    }
+
+    .menu-item.active::before {
+      width: 4px;
+    }
+
+    .menu-item i {
+      font-size: 1.3rem;
+      width: 24px;
+    }
+
+    .topbar {
+      position: fixed;
+      left: var(--sidebar-width);
+      top: 0;
+      right: 0;
+      height: var(--topbar-height);
+      background: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      z-index: 999;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .menu-toggle {
+      width: 45px;
+      height: 45px;
+      border: none;
+      background: var(--light-bg);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .breadcrumb-custom {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      background: none;
+      padding: 0;
+    }
+
+    .breadcrumb-custom li {
+      display: flex;
+      align-items: center;
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumb-custom li.active {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .topbar-right {
+      margin-left: auto;
+    }
+
+    .main-content {
+      margin-left: var(--sidebar-width);
+      margin-top: var(--topbar-height);
+      padding: 2rem;
+      min-height: calc(100vh - var(--topbar-height));
+    }
+
+    /* Stats Cards */
+    .order-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: white;
+    }
+
+    .stat-icon.pending {
+      background: linear-gradient(135deg, var(--pending-color) 0%, #e67e22 100%);
+    }
+
+    .stat-icon.processing {
+      background: linear-gradient(135deg, var(--processing-color) 0%, #2874a6 100%);
+    }
+
+    .stat-icon.completed {
+      background: linear-gradient(135deg, var(--completed-color) 0%, #1d8348 100%);
+    }
+
+    .stat-icon.cancelled {
+      background: linear-gradient(135deg, var(--cancelled-color) 0%, #c0392b 100%);
+    }
+
+    .stat-details h3 {
+      margin: 0;
+      font-size: 2rem;
+      color: var(--dark-color);
+    }
+
+    .stat-details p {
+      margin: 0;
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    /* Filter Tabs */
+    .filter-tabs {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .tabs-wrapper {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .tab-btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      background: none;
+      color: #6b5d57;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+      border-bottom: 3px solid transparent;
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+      color: var(--primary-color);
+      border-bottom-color: var(--primary-color);
+    }
+
+    .tab-badge {
+      display: inline-block;
+      background: var(--light-bg);
+      color: var(--primary-color);
+      padding: 0.2rem 0.5rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      margin-left: 0.5rem;
+      font-weight: 700;
+    }
+
+    .search-filter-bar {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+    }
+
+    .filter-dropdown {
+      min-width: 180px;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+    }
+
+    /* Orders List */
+    .orders-container {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .order-card {
+      padding: 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.3s ease;
+    }
+
+    .order-card:hover {
+      background: #fafafa;
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+
+    .order-id-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .order-checkbox {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .order-number {
+      font-weight: 700;
+      color: var(--dark-color);
+      font-size: 1.1rem;
+    }
+
+    .order-date {
+      color: #999;
+      font-size: 0.85rem;
+      margin-left: 1rem;
+    }
+
+    .status-badge {
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status-badge.pending {
+      background: rgba(243, 156, 18, 0.1);
+      color: var(--pending-color);
+    }
+
+    .status-badge.processing {
+      background: rgba(52, 152, 219, 0.1);
+      color: var(--processing-color);
+    }
+
+    .status-badge.completed {
+      background: rgba(39, 174, 96, 0.1);
+      color: var(--completed-color);
+    }
+
+    .status-badge.cancelled {
+      background: rgba(231, 76, 60, 0.1);
+      color: var(--cancelled-color);
+    }
+
+    .order-body {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .customer-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .customer-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--light-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .customer-details h6 {
+      margin: 0 0 0.25rem 0;
+      color: var(--dark-color);
+      font-size: 0.95rem;
+    }
+
+    .customer-details p {
+      margin: 0;
+      color: #999;
+      font-size: 0.85rem;
+    }
+
+    .order-items {
+      color: #6b5d57;
+    }
+
+    .order-items strong {
+      color: var(--dark-color);
+    }
+
+    .order-amount {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .payment-method {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    .order-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn-view,
+    .btn-process,
+    .btn-cancel {
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .btn-view {
+      background: rgba(52, 152, 219, 0.1);
+      color: var(--info-color);
+    }
+
+    .btn-view:hover {
+      background: var(--info-color);
+      color: white;
+    }
+
+    .btn-process {
+      background: rgba(39, 174, 96, 0.1);
+      color: var(--success-color);
+    }
+
+    .btn-process:hover {
+      background: var(--success-color);
+      color: white;
+    }
+
+    .btn-cancel {
+      background: rgba(231, 76, 60, 0.1);
+      color: var(--error-color);
+    }
+
+    .btn-cancel:hover {
+      background: var(--error-color);
+      color: white;
+    }
+
+    /* Order Detail Modal */
+    .modal-content {
+      border-radius: 20px;
+      border: none;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      padding: 1.5rem 2rem;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .modal-header .btn-close {
+      filter: brightness(0) invert(1);
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .order-timeline {
+      position: relative;
+      padding-left: 3rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 2rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.25rem;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background: #e0e0e0;
+    }
+
+    .timeline-item:last-child::before {
+      display: none;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -2.75rem;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid #e0e0e0;
+    }
+
+    .timeline-dot.active {
+      border-color: var(--success-color);
+      background: var(--success-color);
+    }
+
+    .timeline-content h6 {
+      margin: 0 0 0.25rem 0;
+      color: var(--dark-color);
+    }
+
+    .timeline-content p {
+      margin: 0;
+      color: #999;
+      font-size: 0.85rem;
+    }
+
+    .order-summary-card {
+      background: var(--light-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary-color);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      border-top: 2px solid rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 1200px) {
+      .order-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .order-body {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -280px;
+      }
+
+      .topbar {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .order-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====== Sidebar ====== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <i class='bx bxs-cake'></i>
+        </div>
+        <div class="logo-text">
+          <h4>Caking</h4>
+          <p>ADMIN PANEL</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <div class="menu-section-title">Main Menu</div>
+      
+      <a href="admin-dashboard.html" class="menu-item">
+        <i class='bx bxs-dashboard'></i>
+        <span>Dashboard</span>
+      </a>
+
+      <div class="menu-section-title">Products</div>
+
+      <a href="cake-management.html" class="menu-item">
+        <i class='bx bxs-cake'></i>
+        <span>Cake Management</span>
+      </a>
+
+      <a href="orders-management.html" class="menu-item active">
+        <i class='bx bxs-shopping-bag'></i>
+        <span>Orders Management</span>
+      </a>
+
+      <a href="#" class="menu-item">
+        <i class='bx bxs-user-detail'></i>
+        <span>Customer List</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ====== Top Navbar ====== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="menu-toggle">
+        <i class='bx bx-menu'></i>
+      </button>
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb-custom">
+          <li><i class='bx bx-home-alt'></i></li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>Orders</li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li class="active">Orders Management</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="topbar-right">
+      <div style="color: var(--dark-color); font-weight: 600;">
+        <i class='bx bx-user-circle' style="font-size: 1.5rem;"></i>
+        Admin
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== Main Content ====== -->
+  <main class="main-content">
+    <!-- Page Header -->
+    <div style="margin-bottom: 2rem;">
+      <h1 style="font-size: 2rem; color: var(--dark-color); margin-bottom: 0.5rem;">Orders Management</h1>
+      <p style="color: #6b5d57;">Monitor and process all customer orders</p>
+    </div>
+
+    <!-- Order Stats -->
+    <div class="order-stats">
+      <div class="stat-card">
+        <div class="stat-icon pending">
+          <i class='bx bx-time-five'></i>
+        </div>
+        <div class="stat-details">
+          <h3>24</h3>
+          <p>Pending Orders</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon processing">
+          <i class='bx bx-loader-alt'></i>
+        </div>
+        <div class="stat-details">
+          <h3>18</h3>
+          <p>Processing</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon completed">
+          <i class='bx bx-check-circle'></i>
+        </div>
+        <div class="stat-details">
+          <h3>356</h3>
+          <p>Completed</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon cancelled">
+          <i class='bx bx-x-circle'></i>
+        </div>
+        <div class="stat-details">
+          <h3>12</h3>
+          <p>Cancelled</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+      <div class="tabs-wrapper">
+        <button class="tab-btn active">
+          All Orders
+          <span class="tab-badge">410</span>
+        </button>
+        <button class="tab-btn">
+          Pending
+          <span class="tab-badge">24</span>
+        </button>
+        <button class="tab-btn">
+          Processing
+          <span class="tab-badge">18</span>
+        </button>
+        <button class="tab-btn">
+          Completed
+          <span class="tab-badge">356</span>
+        </button>
+        <button class="tab-btn">
+          Cancelled
+          <span class="tab-badge">12</span>
+        </button>
+      </div>
+
+      <div class="search-filter-bar">
+        <div class="search-box">
+          <i class='bx bx-search'></i>
+          <input type="text" placeholder="Search by order ID, customer name...">
+        </div>
+        <select class="filter-dropdown">
+          <option>Date Range</option>
+          <option>Today</option>
+          <option>This Week</option>
+          <option>This Month</option>
+          <option>Custom Range</option>
+        </select>
+        <select class="filter-dropdown">
+          <option>Payment Method</option>
+          <option>Credit Card</option>
+          <option>PayPal</option>
+          <option>Cash on Delivery</option>
+        </select>
+        <select class="filter-dropdown">
+          <option>Sort By</option>
+          <option>Newest First</option>
+          <option>Oldest First</option>
+          <option>Amount: High to Low</option>
+          <option>Amount: Low to High</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Orders List -->
+    <div class="orders-container">
+      <!-- Order 1 -->
+      <div class="order-card">
+        <div class="order-header">
+          <div class="order-id-section">
+            <input type="checkbox" class="order-checkbox">
+            <span class="order-number">#ORD-2547</span>
+            <span class="order-date">
+              <i class='bx bx-calendar'></i>
+              Nov 05, 2025 10:30 AM
+            </span>
+          </div>
+          <span class="status-badge pending">Pending</span>
+        </div>
+
+        <div class="order-body">
+          <div class="customer-info">
+            <div class="customer-avatar">SJ</div>
+            <div class="customer-details">
+              <h6>Sarah Johnson</h6>
+              <p>sarah.johnson@email.com</p>
+              <p><i class='bx bx-phone'></i> +1 (555) 123-4567</p>
+            </div>
+          </div>
+
+          <div class="order-items">
+            <strong>3 Items</strong>
+            <p>Chocolate Delight Cake</p>
+            <p>Vanilla Cupcakes x2</p>
+          </div>
+
+          <div class="order-amount">$93.00</div>
+
+          <div class="payment-method">
+            <i class='bx bx-credit-card'></i>
+            Credit Card
+          </div>
+        </div>
+
+        <div class="order-footer">
+          <div style="color: #6b5d57; font-size: 0.9rem;">
+            <i class='bx bx-map'></i>
+            123 Main St, New York, NY 10001
+          </div>
+          <div class="action-buttons">
+            <button class="btn-view" data-bs-toggle="modal" data-bs-target="#orderDetailModal">
+              <i class='bx bx-show'></i>
+              View Details
+            </button>
+            <button class="btn-process">
+              <i class='bx bx-check'></i>
+              Process Order
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order 2 -->
+      <div class="order-card">
+        <div class="order-header">
+          <div class="order-id-section">
+            <input type="checkbox" class="order-checkbox">
+            <span class="order-number">#ORD-2546</span>
+            <span class="order-date">
+              <i class='bx bx-calendar'></i>
+              Nov 05, 2025 09:15 AM
+            </span>
+          </div>
+          <span class="status-badge processing">Processing</span>
+        </div>
+
+        <div class="order-body">
+          <div class="customer-info">
+            <div class="customer-avatar">MR</div>
+            <div class="customer-details">
+              <h6>Michael Roberts</h6>
+              <p>michael.r@email.com</p>
+              <p><i class='bx bx-phone'></i> +1 (555) 234-5678</p>
+            </div>
+          </div>
+
+          <div class="order-items">
+            <strong>2 Items</strong>
+            <p>Red Velvet Cake</p>
+            <p>Chocolate Chip Cookies</p>
+          </div>
+
+          <div class="order-amount">$58.00</div>
+
+          <div class="payment-method">
+            <i class='bx bxl-paypal'></i>
+            PayPal
+          </div>
+        </div>
+
+        <div class="order-footer">
+          <div style="color: #6b5d57; font-size: 0.9rem;">
+            <i class='bx bx-map'></i>
+            456 Oak Ave, Brooklyn, NY 11201
+          </div>
+          <div class="action-buttons">
+            <button class="btn-view" data-bs-toggle="modal" data-bs-target="#orderDetailModal">
+              <i class='bx bx-show'></i>
+              View Details
+            </button>
+            <button class="btn-process">
+              <i class='bx bx-package'></i>
+              Mark as Ready
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order 3 -->
+      <div class="order-card">
+        <div class="order-header">
+          <div class="order-id-section">
+            <input type="checkbox" class="order-checkbox">
+            <span class="order-number">#ORD-2545</span>
+            <span class="order-date">
+              <i class='bx bx-calendar'></i>
+              Nov 04, 2025 04:45 PM
+            </span>
+          </div>
+          <span class="status-badge completed">Completed</span>
+        </div>
+
+        <div class="order-body">
+          <div class="customer-info">
+            <div class="customer-avatar">EC</div>
+            <div class="customer-details">
+              <h6>Emily Chen</h6>
+              <p>emily.chen@email.com</p>
+              <p><i class='bx bx-phone'></i> +1 (555) 345-6789</p>
+            </div>
+          </div>
+
+          <div class="order-items">
+            <strong>4 Items</strong>
+            <p>Strawberry Shortcake</p>
+            <p>Lemon Cookies x3</p>
+          </div>
+
+          <div class="order-amount">$83.00</div>
+
+          <div class="payment-method">
+            <i class='bx bx-credit-card'></i>
+            Credit Card
+          </div>
+        </div>
+
+        <div class="order-footer">
+          <div style="color: #6b5d57; font-size: 0.9rem;">
+            <i class='bx bx-map'></i>
+            789 Elm St, Manhattan, NY 10002
+          </div>
+          <div class="action-buttons">
+            <button class="btn-view" data-bs-toggle="modal" data-bs-target="#orderDetailModal">
+              <i class='bx bx-show'></i>
+              View Details
+            </button>
+            <button class="btn-process" style="background: rgba(52, 152, 219, 0.1); color: var(--info-color);">
+              <i class='bx bx-printer'></i>
+              Print Invoice
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order 4 -->
+      <div class="order-card">
+        <div class="order-header">
+          <div class="order-id-section">
+            <input type="checkbox" class="order-checkbox">
+            <span class="order-number">#ORD-2544</span>
+            <span class="order-date">
+              <i class='bx bx-calendar'></i>
+              Nov 04, 2025 02:20 PM
+            </span>
+          </div>
+          <span class="status-badge cancelled">Cancelled</span>
+        </div>
+
+        <div class="order-body">
+          <div class="customer-info">
+            <div class="customer-avatar">DW</div>
+            <div class="customer-details">
+              <h6>David Wilson</h6>
+              <p>david.w@email.com</p>
+              <p><i class='bx bx-phone'></i> +1 (555) 456-7890</p>
+            </div>
+          </div>
+
+          <div class="order-items">
+            <strong>1 Item</strong>
+            <p>Tiramisu Cake</p>
+          </div>
+
+          <div class="order-amount">$42.00</div>
+
+          <div class="payment-method">
+            <i class='bx bx-money'></i>
+            Cash on Delivery
+          </div>
+        </div>
+
+        <div class="order-footer">
+          <div style="color: #6b5d57; font-size: 0.9rem;">
+            <i class='bx bx-info-circle'></i>
+            Cancelled by customer
+          </div>
+          <div class="action-buttons">
+            <button class="btn-view" data-bs-toggle="modal" data-bs-target="#orderDetailModal">
+              <i class='bx bx-show'></i>
+              View Details
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ====== Order Detail Modal ====== -->
+  <div class="modal fade" id="orderDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h5 class="modal-title">Order Details - #ORD-2547</h5>
+            <p style="margin: 0; opacity: 0.9; font-size: 0.9rem;">Placed on Nov 05, 2025 at 10:30 AM</p>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Customer Information -->
+          <div style="margin-bottom: 2rem;">
+            <h6 style="color: var(--dark-color); margin-bottom: 1rem;">Customer Information</h6>
+            <div class="customer-info" style="background: var(--light-bg); padding: 1rem; border-radius: 10px;">
+              <div class="customer-avatar">SJ</div>
+              <div class="customer-details">
+                <h6>Sarah Johnson</h6>
+                <p><i class='bx bx-envelope'></i> sarah.johnson@email.com</p>
+                <p><i class='bx bx-phone'></i> +1 (555) 123-4567</p>
+                <p><i class='bx bx-map'></i> 123 Main St, New York, NY 10001</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Items -->
+          <div style="margin-bottom: 2rem;">
+            <h6 style="color: var(--dark-color); margin-bottom: 1rem;">Order Items</h6>
+            <table style="width: 100%;">
+              <thead style="background: var(--light-bg);">
+                <tr>
+                  <th style="padding: 0.75rem; text-align: left;">Product</th>
+                  <th style="padding: 0.75rem; text-align: center;">Quantity</th>
+                  <th style="padding: 0.75rem; text-align: right;">Price</th>
+                  <th style="padding: 0.75rem; text-align: right;">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid #f0f0f0;">
+                  <td style="padding: 1rem;">Chocolate Delight Cake</td>
+                  <td style="padding: 1rem; text-align: center;">1</td>
+                  <td style="padding: 1rem; text-align: right;">$45.00</td>
+                  <td style="padding: 1rem; text-align: right; font-weight: 600;">$45.00</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f0f0f0;">
+                  <td style="padding: 1rem;">Vanilla Cupcakes</td>
+                  <td style="padding: 1rem; text-align: center;">2</td>
+                  <td style="padding: 1rem; text-align: right;">$24.00</td>
+                  <td style="padding: 1rem; text-align: right; font-weight: 600;">$48.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Order Summary -->
+          <div class="order-summary-card">
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span>$93.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Delivery Fee</span>
+              <span>$5.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Tax (10%)</span>
+              <span>$9.30</span>
+            </div>
+            <div class="summary-row">
+              <span>Total Amount</span>
+              <span>$107.30</span>
+            </div>
+          </div>
+
+          <!-- Order Timeline -->
+          <div style="margin-top: 2rem;">
+            <h6 style="color: var(--dark-color); margin-bottom: 1.5rem;">Order Timeline</h6>
+            <div class="order-timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot active"></div>
+                <div class="timeline-content">
+                  <h6>Order Placed</h6>
+                  <p>Nov 05, 2025 at 10:30 AM</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <h6>Payment Confirmed</h6>
+                  <p>Pending</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <h6>Preparing Order</h6>
+                  <p>Pending</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <h6>Out for Delivery</h6>
+                  <p>Pending</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <h6>Delivered</h6>
+                  <p>Pending</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+            <button class="btn-process" style="flex: 1;">
+              <i class='bx bx-check-circle'></i>
+              Confirm Order
+            </button>
+            <button class="btn-view" style="flex: 1;">
+              <i class='bx bx-printer'></i>
+              Print Invoice
+            </button>
+            <button class="btn-cancel" style="flex: 1;">
+              <i class='bx bx-x-circle'></i>
+              Cancel Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

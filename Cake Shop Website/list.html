@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Products | Caking Premium Bakery</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap JS -->
+  <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link href="./list.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ====== Premium Navbar ====== -->
+  <nav class="navbar navbar-expand-lg navbar-premium sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Caking</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./list.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="./detail.html">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#gallery">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control search-box me-2" type="search" placeholder="Search products..." aria-label="Search">
+          <button class="btn btn-premium" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====== Page Header ====== -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Our Premium Collection</h1>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-custom">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Products</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ====== Products Section ====== -->
+  <section class="products-section py-5">
+    <div class="container">
+      <div class="row">
+        
+        <!-- Sidebar Filters -->
+        <div class="col-lg-3">
+          <div class="sidebar">
+            <h4 class="filter-title">Filters</h4>
+
+            <!-- Category Filter -->
+            <div class="filter-section">
+              <h6>Categories</h6>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="cat1" checked>
+                <label class="form-check-label" for="cat1">
+                  Custom Cakes
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="cat2">
+                <label class="form-check-label" for="cat2">
+                  Cupcakes
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="cat3">
+                <label class="form-check-label" for="cat3">
+                  Cookies
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="cat4">
+                <label class="form-check-label" for="cat4">
+                  Pastries
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="cat5">
+                <label class="form-check-label" for="cat5">
+                  Breads
+                </label>
+              </div>
+            </div>
+
+            <!-- Price Filter -->
+            <div class="filter-section">
+              <h6>Price Range</h6>
+              <div class="price-inputs">
+                <input type="number" class="form-control" placeholder="Min" value="0">
+                <input type="number" class="form-control" placeholder="Max" value="100">
+              </div>
+            </div>
+
+            <!-- Dietary Filter -->
+            <div class="filter-section">
+              <h6>Dietary Options</h6>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="diet1">
+                <label class="form-check-label" for="diet1">
+                  Gluten-Free
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="diet2">
+                <label class="form-check-label" for="diet2">
+                  Vegan
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="diet3">
+                <label class="form-check-label" for="diet3">
+                  Sugar-Free
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="diet4">
+                <label class="form-check-label" for="diet4">
+                  Organic
+                </label>
+              </div>
+            </div>
+
+            <!-- Occasion Filter -->
+            <div class="filter-section">
+              <h6>Occasions</h6>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="occ1">
+                <label class="form-check-label" for="occ1">
+                  Birthday
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="occ2">
+                <label class="form-check-label" for="occ2">
+                  Wedding
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="occ3">
+                <label class="form-check-label" for="occ3">
+                  Anniversary
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="occ4">
+                <label class="form-check-label" for="occ4">
+                  Corporate
+                </label>
+              </div>
+            </div>
+
+            <button class="btn btn-premium btn-filter">Apply Filters</button>
+          </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="col-lg-9">
+          
+          <!-- Toolbar -->
+          <div class="products-toolbar">
+            <div class="results-count">
+              Showing <strong>1–12</strong> of <strong>48</strong> results
+            </div>
+            
+            <div class="d-flex gap-3 align-items-center flex-wrap">
+              <div class="view-options">
+                <button class="view-btn active" title="Grid View">
+                  <i class='bx bx-grid-alt'></i>
+                </button>
+                <button class="view-btn" title="List View">
+                  <i class='bx bx-list-ul'></i>
+                </button>
+              </div>
+
+              <select class="form-select sort-dropdown">
+                <option selected>Sort by: Featured</option>
+                <option value="1">Price: Low to High</option>
+                <option value="2">Price: High to Low</option>
+                <option value="3">Newest First</option>
+                <option value="4">Best Selling</option>
+                <option value="5">Top Rated</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Products Grid -->
+          <div class="row g-4">
+            
+            <!-- Product Card 1 -->
+            <div class="col-lg-4 col-md-6">
+              <div class="product-card">
+                <div class="product-image-wrapper">
+                  <img src="./image/s2_d8314e19-80cc-4836-a346-4db65fdea857_1.png" class="product-image" alt="Chocolate Delight Cake">
+                  <div class="product-badges">
+                    <span class="badge-bestseller">Bestseller</span>
+                  </div>
+                  <div class="product-actions">
+                    <button class="action-btn" title="Quick View">
+                      <i class='bx bx-show'></i>
+                    </button>
+                    <button class="action-btn" title="Add to Wishlist">
+                      <i class='bx bx-heart'></i>
+                    </button>
+                    <button class="action-btn" title="Compare">
+                      <i class='bx bx-git-compare'></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-category">Custom Cakes</div>
+                  <h5 class="product-title">
+                    <a href="#">Chocolate Delight Cake</a>
+                  </h5>
+                  <p class="product-description">
+                    Rich chocolate layers with creamy ganache frosting, perfect for any celebration.
+                  </p>
+                  <div class="product-rating">
+                    <div class="stars">
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star-half'></i>
+                    </div>
+                    <span class="rating-count">(47 reviews)</span>
+                  </div>
+                  <div class="product-footer">
+                    <div class="product-price">
+                      <span class="price-current">$45.00</span>
+                    </div>
+                    <button class="btn-add-cart">
+                      <i class='bx bx-cart'></i>
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="col-lg-4 col-md-6">
+              <div class="product-card">
+                <div class="product-image-wrapper">
+                  <img src="./image/instagram1 (1).jpg" class="product-image" alt="Vanilla Dream Cupcakes">
+                  <div class="product-badges">
+                    <span class="badge-new">New</span>
+                  </div>
+                  <div class="product-actions">
+                    <button class="action-btn" title="Quick View">
+                      <i class='bx bx-show'></i>
+                    </button>
+                    <button class="action-btn" title="Add to Wishlist">
+                      <i class='bx bx-heart'></i>
+                    </button>
+                    <button class="action-btn" title="Compare">
+                      <i class='bx bx-git-compare'></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-category">Cupcakes</div>
+                  <h5 class="product-title">
+                    <a href="#">Vanilla Dream Cupcakes</a>
+                  </h5>
+                  <p class="product-description">
+                    Light and fluffy vanilla cupcakes topped with buttercream swirls.
+                  </p>
+                  <div class="product-rating">
+                    <div class="stars">
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                    </div>
+                    <span class="rating-count">(32 reviews)</span>
+                  </div>
+                  <div class="product-footer">
+                    <div class="product-price">
+                      <span class="price-current">$24.00</span>
+                    </div>
+                    <button class="btn-add-cart">
+                      <i class='bx bx-cart'></i>
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="col-lg-4 col-md-6">
+              <div class="product-card">
+                <div class="product-image-wrapper">
+                  <img src="./image/instagram2 (1).jpg" class="product-image" alt="Red Velvet Cake">
+                  <div class="product-badges">
+                    <span class="badge-sale">-20%</span>
+                  </div>
+                  <div class="product-actions">
+                    <button class="action-btn" title="Quick View">
+                      <i class='bx bx-show'></i>
+                    </button>
+                    <button class="action-btn" title="Add to Wishlist">
+                      <i class='bx bx-heart'></i>
+                    </button>
+                    <button class="action-btn" title="Compare">
+                      <i class='bx bx-git-compare'></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-category">Custom Cakes</div>
+                  <h5 class="product-title">
+                    <a href="#">Red Velvet Elegance</a>
+                  </h5>
+                  <p class="product-description">
+                    Classic red velvet with cream cheese frosting and elegant decorations.
+                  </p>
+                  <div class="product-rating">
+                    <div class="stars">
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bx-star'></i>
+                    </div>
+                    <span class="rating-count">(28 reviews)</span>
+                  </div>
+                  <div class="product-footer">
+                    <div class="product-price">
+                      <span class="price-current">$40.00</span>
+                      <span class="price-original">$50.00</span>
+                    </div>
+                    <button class="btn-add-cart">
+                      <i class='bx bx-cart'></i>
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Card 4 -->
+            <div class="col-lg-4 col-md-6">
+              <div class="product-card">
+                <div class="product-image-wrapper">
+                  <img src="./image/instagram3.jpg" class="product-image" alt="Lemon Bliss Cookies">
+                  <div class="product-actions">
+                    <button class="action-btn" title="Quick View">
+                      <i class='bx bx-show'></i>
+                    </button>
+                    <button class="action-btn" title="Add to Wishlist">
+                      <i class='bx bx-heart'></i>
+                    </button>
+                    <button class="action-btn" title="Compare">
+                      <i class='bx bx-git-compare'></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-category">Cookies</div>
+                  <h5 class="product-title">
+                    <a href="#">Lemon Bliss Cookies</a>
+                  </h5>
+                  <p class="product-description">
+                    Zesty lemon cookies with a delicate glaze, perfect for tea time.
+                  </p>
+                  <div class="product-rating">
+                    <div class="stars">
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star-half'></i>
+                    </div>
+                    <span class="rating-count">(19 reviews)</span>
+                  </div>
+                  <div class="product-footer">
+                    <div class="product-price">
+                      <span class="price-current">$15.00</span>
+                    </div>
+                    <button class="btn-add-cart">
+                      <i class='bx bx-cart'></i>
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Card 5 -->
+            <div class="col-lg-4 col-md-6">
+              <div class="product-card">
+                <div class="product-image-wrapper">
+                  <img src="./image/instagram4 (1).jpg" class="product-image" alt="Strawberry Shortcake">
+                  <div class="product-badges">
+                    <span class="badge-bestseller">Bestseller</span>
+                  </div>
+                  <div class="product-actions">
+                    <button class="action-btn" title="Quick View">
+                      <i class='bx bx-show'></i>
+                    </button>
+                    <button class="action-btn" title="Add to Wishlist">
+                      <i class='bx bx-heart'></i>
+                    </button>
+                    <button class="action-btn" title="Compare">
+                      <i class='bx bx-git-compare'></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-category">Custom Cakes</div>
+                  <h5 class="product-title">
+                    <a href="#">Strawberry Shortcake</a>
+                  </h5>
+                  <p class="product-description">
+                    Fresh strawberries layered with whipped cream and vanilla sponge.
+                  </p>
+                  <div class="product-rating">
+                    <div class="stars">
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                    </div>
+                    <span class="rating-count">(56 reviews)</span>
+                  </div>
+                  <div class="product-footer">
+                    <div class="product-price">
+                      <span class="price-current">$38.00</span>
+                    </div>
+                    <button class="btn-add-cart">
+                      <i class='bx bx-cart'></i>
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Card 6 -->
+            <div class="col-lg-4 col-md-6">
+              <div class="product-card">
+                <div class="product-image-wrapper">
+                  <img src="./image/instagram5 (1).jpg" class="product-image" alt="Chocolate Chip Cookies">
+                  <div class="product-actions">
+                    <button class="action-btn" title="Quick View">
+                      <i class='bx bx-show'></i>
+                    </button>
+                    <button class="action-btn" title="Add to Wishlist">
+                      <i class='bx bx-heart'></i>
+                    </button>
+                    <button class="action-btn" title="Compare">
+                      <i class='bx bx-git-compare'></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-category">Cookies</div>
+                  <h5 class="product-title">
+                    <a href="#">Classic Chocolate Chip</a>
+                  </h5>
+                  <p class="product-description">
+                    Traditional chocolate chip cookies with premium Belgian chocolate.
+                  </p>
+                  <div class="product-rating">
+                    <div class="stars">
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                    </div>
+                    <span class="rating-count">(64 reviews)</span>
+                  </div>
+                  <div class="product-footer">
+                    <div class="product-price">
+                      <span class="price-current">$18.00</span>
+                    </div>
+                    <button class="btn-add-cart">
+                      <i class='bx bx-cart'></i>
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Card 7 -->
+            <div class="col-lg-4 col-md-6">
+              <div class="product-card">
+                <div class="product-image-wrapper">
+                  <img src="./image/instagram6 (1).jpg" class="product-image" alt="Tiramisu Cake">
+                  <div class="product-badges">
+                    <span class="badge-new">New</span>
+                  </div>
+                  <div class="product-actions">
+                    <button class="action-btn" title="Quick View">
+                      <i class='bx bx-show'></i>
+                    </button>
+                    <button class="action-btn" title="Add to Wishlist">
+                      <i class='bx bx-heart'></i>
+                    </button>
+                    <button class="action-btn" title="Compare">
+                      <i class='bx bx-git-compare'></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-category">Custom Cakes</div>
+                  <h5 class="product-title">
+                    <a href="#">Italian Tiramisu Cake</a>
+                  </h5>
+                  <p class="product-description">
+                    Authentic Italian tiramisu with espresso-soaked ladyfingers.
+                  </p>
+                  <div class="product-rating">
+                    <div class="stars">
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star-half'></i>
+                    </div>
+                    <span class="rating-count">(41 reviews)</span>
+                  </div>
+                  <div class="product-footer">
+                    <div class="product-price">
+                      <span class="price-current">$42.00</span>
+                    </div>
+                    <button class="btn-add-cart">
+                      <i class='bx bx-cart'></i>
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Card 8 -->
+            <div class="col-lg-4 col-md-6">
+              <div class="product-card">
+                <div class="product-image-wrapper">
+                  <img src="./image/s2_d8314e19-80cc-4836-a346-4db65fdea857_1.png" class="product-image" alt="Blueberry Muffins">
+                  <div class="product-actions">
+                    <button class="action-btn" title="Quick View">
+                      <i class='bx bx-show'></i>
+                    </button>
+                    <button class="action-btn" title="Add to Wishlist">
+                      <i class='bx bx-heart'></i>
+                    </button>
+                    <button class="action-btn" title="Compare">
+                      <i class='bx bx-git-compare'></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-category">Pastries</div>
+                  <h5 class="product-title">
+                    <a href="#">Fresh Blueberry Muffins</a>
+                  </h5>
+                  <p class="product-description">
+                    Moist muffins bursting with fresh blueberries and topped with crumble.
+                  </p>
+                  <div class="product-rating">
+                    <div class="stars">
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bx-star'></i>
+                    </div>
+                    <span class="rating-count">(23 reviews)</span>
+                  </div>
+                  <div class="product-footer">
+                    <div class="product-price">
+                      <span class="price-current">$16.00</span>
+                    </div>
+                    <button class="btn-add-cart">
+                      <i class='bx bx-cart'></i>
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Card 9 -->
+            <div class="col-lg-4 col-md-6">
+              <div class="product-card">
+                <div class="product-image-wrapper">
+                  <img src="./image/instagram1 (1).jpg" class="product-image" alt="Carrot Cake">
+                  <div class="product-badges">
+                    <span class="badge-sale">-15%</span>
+                  </div>
+                  <div class="product-actions">
+                    <button class="action-btn" title="Quick View">
+                      <i class='bx bx-show'></i>
+                    </button>
+                    <button class="action-btn" title="Add to Wishlist">
+                      <i class='bx bx-heart'></i>
+                    </button>
+                    <button class="action-btn" title="Compare">
+                      <i class='bx bx-git-compare'></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-category">Custom Cakes</div>
+                  <h5 class="product-title">
+                    <a href="#">Spiced Carrot Cake</a>
+                  </h5>
+                  <p class="product-description">
+                    Moist carrot cake with walnuts and cream cheese frosting.
+                  </p>
+                  <div class="product-rating">
+                    <div class="stars">
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                      <i class='bx bxs-star'></i>
+                    </div>
+                    <span class="rating-count">(38 reviews)</span>
+                  </div>
+                  <div class="product-footer">
+                    <div class="product-price">
+                      <span class="price-current">$34.00</span>
+                      <span class="price-original">$40.00</span>
+                    </div>
+                    <button class="btn-add-cart">
+                      <i class='bx bx-cart'></i>
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination-wrapper">
+            <nav aria-label="Product pagination">
+              <ul class="pagination">
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1">
+                    <i class='bx bx-chevron-left'></i>
+                  </a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">4</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">
+                    <i class='bx bx-chevron-right'></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Premium Footer ====== -->
+  <footer class="footer-premium">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <img src="./image/CakingLogoBlack (2).png" class="footer-logo" alt="Caking Logo">
+          <p class="mb-4">Crafting sweet memories with every bite. Premium artisan cakes and bakery items made with love and the finest ingredients.</p>
+          <div class="social-icons">
+            <i class='bx bxl-facebook-circle'></i>
+            <i class='bx bxl-twitter'></i>
+            <i class='bx bxl-pinterest'></i>
+            <i class='bx bxl-instagram'></i>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Quick Links</h5>
+          <a href="#" class="footer-link">Custom Service</a>
+          <a href="#" class="footer-link">FAQs</a>
+          <a href="#" class="footer-link">Order Tracking</a>
+          <a href="#" class="footer-link">Contact Us</a>
+          <a href="#" class="footer-link">Events</a>
+          <a href="#" class="footer-link">Blog</a>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Services</h5>
+          <a href="#" class="footer-link">Custom Cakes</a>
+          <a href="#" class="footer-link">Wedding Cakes</a>
+          <a href="#" class="footer-link">Corporate Orders</a>
+          <a href="#" class="footer-link">Cake Delivery</a>
+          <a href="#" class="footer-link">Gift Hampers</a>
+          <a href="#" class="footer-link">Cake Classes</a>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Information</h5>
+          <a href="#" class="footer-link">About Us</a>
+          <a href="#" class="footer-link">Delivery Information</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms & Conditions</a>
+          <a href="#" class="footer-link">Careers</a>
+          <a href="#" class="footer-link">Affiliate Program</a>
+        </div>
+      </div>
+
+      <div class="row footer-bottom align-items-center">
+        <div class="col-lg-6 col-md-6 mb-3 mb-md-0">
+          <p class="mb-0">© 2025 Caking Premium Bakery. All Rights Reserved.</p>
+        </div>
+        <div class="col-lg-6 col-md-6 text-end">
+          <img src="./image/paymet (1).png" class="img-fluid" style="max-width: 250px;" alt="Payment Options">
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

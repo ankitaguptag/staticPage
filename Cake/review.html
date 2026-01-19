@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reviews Management | Caking Admin</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #8B4513;
+      --secondary-color: #D4AF37;
+      --dark-color: #2C1810;
+      --light-bg: #FFF8F0;
+      --text-dark: #3E2723;
+      --sidebar-width: 280px;
+      --topbar-height: 70px;
+      --success-color: #27AE60;
+      --warning-color: #F39C12;
+      --error-color: #E74C3C;
+      --info-color: #3498DB;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      background: #f5f6fa;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* Sidebar & Topbar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: linear-gradient(180deg, var(--dark-color) 0%, #1a0f0a 100%);
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--secondary-color) 0%, #ffd700 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--dark-color);
+    }
+
+    .logo-text h4 {
+      color: white;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .logo-text p {
+      color: var(--secondary-color);
+      margin: 0;
+      font-size: 0.75rem;
+    }
+
+    .sidebar-menu {
+      padding: 1.5rem 0;
+    }
+
+    .menu-section-title {
+      padding: 1rem 1.5rem 0.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    .menu-item:hover,
+    .menu-item.active {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--secondary-color);
+    }
+
+    .menu-item.active::before {
+      width: 4px;
+    }
+
+    .menu-item i {
+      font-size: 1.3rem;
+      width: 24px;
+    }
+
+    .menu-badge {
+      background: var(--error-color);
+      color: white;
+      padding: 0.2rem 0.5rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .topbar {
+      position: fixed;
+      left: var(--sidebar-width);
+      top: 0;
+      right: 0;
+      height: var(--topbar-height);
+      background: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      z-index: 999;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .menu-toggle {
+      width: 45px;
+      height: 45px;
+      border: none;
+      background: var(--light-bg);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .breadcrumb-custom {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      background: none;
+      padding: 0;
+    }
+
+    .breadcrumb-custom li {
+      display: flex;
+      align-items: center;
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumb-custom li.active {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .topbar-right {
+      margin-left: auto;
+    }
+
+    .main-content {
+      margin-left: var(--sidebar-width);
+      margin-top: var(--topbar-height);
+      padding: 2rem;
+      min-height: calc(100vh - var(--topbar-height));
+    }
+
+    /* Review Stats */
+    .review-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .stat-icon.total {
+      background: linear-gradient(135deg, #3498DB 0%, #2874a6 100%);
+    }
+
+    .stat-icon.approved {
+      background: linear-gradient(135deg, #27AE60 0%, #1d8348 100%);
+    }
+
+    .stat-icon.pending {
+      background: linear-gradient(135deg, #F39C12 0%, #d68910 100%);
+    }
+
+    .stat-icon.average {
+      background: linear-gradient(135deg, var(--secondary-color) 0%, #ffd700 100%);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark-color);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .filter-controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-item {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .filter-input,
+    .filter-select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+    }
+
+    /* Reviews Container */
+    .reviews-container {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .review-card {
+      padding: 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.3s ease;
+    }
+
+    .review-card:hover {
+      background: #fafafa;
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .reviewer-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--info-color) 0%, #2874a6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .reviewer-details h6 {
+      margin: 0 0 0.25rem 0;
+      color: var(--dark-color);
+      font-size: 0.95rem;
+    }
+
+    .reviewer-details p {
+      margin: 0;
+      color: #999;
+      font-size: 0.85rem;
+    }
+
+    .review-status {
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .review-status.approved {
+      background: rgba(39, 174, 96, 0.1);
+      color: var(--success-color);
+    }
+
+    .review-status.pending {
+      background: rgba(243, 156, 18, 0.1);
+      color: var(--warning-color);
+    }
+
+    .review-status.rejected {
+      background: rgba(231, 76, 60, 0.1);
+      color: var(--error-color);
+    }
+
+    .review-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .stars {
+      display: flex;
+      color: var(--secondary-color);
+      font-size: 1.1rem;
+    }
+
+    .review-product {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem;
+      background: var(--light-bg);
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .product-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .product-name {
+      font-weight: 600;
+      color: var(--dark-color);
+    }
+
+    .review-text {
+      color: #6b5d57;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .review-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .review-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .action-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .action-btn.approve {
+      background: rgba(39, 174, 96, 0.1);
+      color: var(--success-color);
+    }
+
+    .action-btn.approve:hover {
+      background: var(--success-color);
+      color: white;
+    }
+
+    .action-btn.reject {
+      background: rgba(231, 76, 60, 0.1);
+      color: var(--error-color);
+    }
+
+    .action-btn.reject:hover {
+      background: var(--error-color);
+      color: white;
+    }
+
+    .action-btn.reply {
+      background: rgba(52, 152, 219, 0.1);
+      color: var(--info-color);
+    }
+
+    .action-btn.reply:hover {
+      background: var(--info-color);
+      color: white;
+    }
+
+    .action-btn.delete {
+      background: rgba(231, 76, 60, 0.1);
+      color: var(--error-color);
+    }
+
+    .action-btn.delete:hover {
+      background: var(--error-color);
+      color: white;
+    }
+
+    .review-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      color: #999;
+      font-size: 0.85rem;
+    }
+
+    .review-meta i {
+      color: var(--secondary-color);
+    }
+
+    /* Modal */
+    .modal-content {
+      border-radius: 20px;
+      border: none;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      padding: 1.5rem 2rem;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .modal-header .btn-close {
+      filter: brightness(0) invert(1);
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label-custom {
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .form-control-custom {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+    }
+
+    .btn-primary-custom {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1200px) {
+      .review-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -280px;
+      }
+
+      .topbar {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .review-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====== Sidebar ====== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <i class='bx bxs-cake'></i>
+        </div>
+        <div class="logo-text">
+          <h4>Caking</h4>
+          <p>ADMIN PANEL</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <div class="menu-section-title">Main Menu</div>
+      
+      <a href="admin-dashboard.html" class="menu-item">
+        <i class='bx bxs-dashboard'></i>
+        <span>Dashboard</span>
+      </a>
+
+      <div class="menu-section-title">Management</div>
+
+      <a href="cake-management.html" class="menu-item">
+        <i class='bx bxs-cake'></i>
+        <span>Cake Management</span>
+      </a>
+
+      <a href="orders-management.html" class="menu-item">
+        <i class='bx bxs-shopping-bag'></i>
+        <span>Orders Management</span>
+      </a>
+
+      <a href="user-management.html" class="menu-item">
+        <i class='bx bxs-user-detail'></i>
+        <span>User Management</span>
+      </a>
+
+      <div class="menu-section-title">Customers</div>
+
+      <a href="reviews-management.html" class="menu-item active">
+        <i class='bx bxs-message-dots'></i>
+        <span>Reviews</span>
+        <span class="menu-badge">8</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ====== Top Navbar ====== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="menu-toggle">
+        <i class='bx bx-menu'></i>
+      </button>
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb-custom">
+          <li><i class='bx bx-home-alt'></i></li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>Customers</li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li class="active">Reviews Management</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="topbar-right">
+      <div style="color: var(--dark-color); font-weight: 600;">
+        <i class='bx bx-user-circle' style="font-size: 1.5rem;"></i>
+        Admin
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== Main Content ====== -->
+  <main class="main-content">
+    <!-- Page Header -->
+    <div style="margin-bottom: 2rem;">
+      <h1 style="font-size: 2rem; color: var(--dark-color); margin-bottom: 0.5rem;">Reviews Management</h1>
+      <p style="color: #6b5d57;">Monitor and moderate customer reviews</p>
+    </div>
+
+    <!-- Review Stats -->
+    <div class="review-stats">
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon total">
+            <i class='bx bx-message-dots'></i>
+          </div>
+        </div>
+        <div class="stat-value">247</div>
+        <div class="stat-label">Total Reviews</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon approved">
+            <i class='bx bx-check-circle'></i>
+          </div>
+        </div>
+        <div class="stat-value">231</div>
+        <div class="stat-label">Approved</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon pending">
+            <i class='bx bx-time-five'></i>
+          </div>
+        </div>
+        <div class="stat-value">8</div>
+        <div class="stat-label">Pending Approval</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon average">
+            <i class='bx bx-star'></i>
+          </div>
+        </div>
+        <div class="stat-value">4.7</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <div class="filter-controls">
+        <div class="filter-item">
+          <input type="text" class="filter-input" placeholder="Search reviews...">
+        </div>
+        <div class="filter-item">
+          <select class="filter-select">
+            <option>All Status</option>
+            <option>Approved</option>
+            <option>Pending</option>
+            <option>Rejected</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <select class="filter-select">
+            <option>All Ratings</option>
+            <option>5 Stars</option>
+            <option>4 Stars</option>
+            <option>3 Stars</option>
+            <option>2 Stars</option>
+            <option>1 Star</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <select class="filter-select">
+            <option>All Products</option>
+            <option>Chocolate Delight Cake</option>
+            <option>Vanilla Cupcakes</option>
+            <option>Red Velvet Cake</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <select class="filter-select">
+            <option>Sort by: Newest</option>
+            <option>Sort by: Oldest</option>
+            <option>Sort by: Highest Rating</option>
+            <option>Sort by: Lowest Rating</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews List -->
+    <div class="reviews-container">
+      <!-- Review 1 - Pending -->
+      <div class="review-card">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar">SJ</div>
+            <div class="reviewer-details">
+              <h6>Sarah Johnson</h6>
+              <p>Nov 05, 2025 at 10:30 AM</p>
+            </div>
+          </div>
+          <span class="review-status pending">Pending</span>
+        </div>
+
+        <div class="review-rating">
+          <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+          </div>
+          <span style="font-weight: 600; color: var(--dark-color);">5.0</span>
+        </div>
+
+        <div class="review-product">
+          <img src="./image/s2_d8314e19-80cc-4836-a346-4db65fdea857_1.png" class="product-img" alt="Product">
+          <span class="product-name">Chocolate Delight Cake</span>
+        </div>
+
+        <p class="review-text">
+          Absolutely amazing! This cake was the highlight of my daughter's birthday party. The chocolate was rich and moist, and the presentation was stunning. Everyone asked where I got it from. Highly recommend!
+        </p>
+
+        <div class="review-footer">
+          <div class="review-meta">
+            <span><i class='bx bx-like'></i> 0 Helpful</span>
+            <span><i class='bx bx-message'></i> 0 Replies</span>
+          </div>
+          <div class="review-actions">
+            <button class="action-btn approve" onclick="approveReview(this)">
+              <i class='bx bx-check'></i>
+              Approve
+            </button>
+            <button class="action-btn reply" data-bs-toggle="modal" data-bs-target="#replyModal">
+              <i class='bx bx-reply'></i>
+              Reply
+            </button>
+            <button class="action-btn reject" onclick="rejectReview(this)">
+              <i class='bx bx-x'></i>
+              Reject
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 2 - Approved -->
+      <div class="review-card">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar">MR</div>
+            <div class="reviewer-details">
+              <h6>Michael Roberts</h6>
+              <p>Nov 04, 2025 at 03:15 PM</p>
+            </div>
+          </div>
+          <span class="review-status approved">Approved</span>
+        </div>
+
+        <div class="review-rating">
+          <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bx-star'></i>
+          </div>
+          <span style="font-weight: 600; color: var(--dark-color);">4.0</span>
+        </div>
+
+        <div class="review-product">
+          <img src="./image/instagram1 (1).jpg" class="product-img" alt="Product">
+          <span class="product-name">Vanilla Dream Cupcakes</span>
+        </div>
+
+        <p class="review-text">
+          Very good cupcakes! The vanilla flavor is authentic and not too sweet. My only minor complaint is that I wish they came in larger sizes. Otherwise, perfect for a party!
+        </p>
+
+        <div class="review-footer">
+          <div class="review-meta">
+            <span><i class='bx bx-like'></i> 12 Helpful</span>
+            <span><i class='bx bx-message'></i> 1 Reply</span>
+          </div>
+          <div class="review-actions">
+            <button class="action-btn reply" data-bs-toggle="modal" data-bs-target="#replyModal">
+              <i class='bx bx-reply'></i>
+              Reply
+            </button>
+            <button class="action-btn delete" onclick="deleteReview(this)">
+              <i class='bx bx-trash'></i>
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 3 - Pending -->
+      <div class="review-card">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar">EC</div>
+            <div class="reviewer-details">
+              <h6>Emily Chen</h6>
+              <p>Nov 04, 2025 at 11:20 AM</p>
+            </div>
+          </div>
+          <span class="review-status pending">Pending</span>
+        </div>
+
+        <div class="review-rating">
+          <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star-half'></i>
+          </div>
+          <span style="font-weight: 600; color: var(--dark-color);">4.5</span>
+        </div>
+
+        <div class="review-product">
+          <img src="./image/instagram2 (1).jpg" class="product-img" alt="Product">
+          <span class="product-name">Red Velvet Elegance</span>
+        </div>
+
+        <p class="review-text">
+          Beautiful cake with a lovely presentation. The cream cheese frosting was perfectly balanced. Delivery was on time and the packaging kept everything fresh. Will definitely order again!
+        </p>
+
+        <div class="review-footer">
+          <div class="review-meta">
+            <span><i class='bx bx-like'></i> 0 Helpful</span>
+            <span><i class='bx bx-message'></i> 0 Replies</span>
+          </div>
+          <div class="review-actions">
+            <button class="action-btn approve" onclick="approveReview(this)">
+              <i class='bx bx-check'></i>
+              Approve
+            </button>
+            <button class="action-btn reply" data-bs-toggle="modal" data-bs-target="#replyModal">
+              <i class='bx bx-reply'></i>
+              Reply
+            </button>
+            <button class="action-btn reject" onclick="rejectReview(this)">
+              <i class='bx bx-x'></i>
+              Reject
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 4 - Approved -->
+      <div class="review-card">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar">DW</div>
+            <div class="reviewer-details">
+              <h6>David Wilson</h6>
+              <p>Nov 03, 2025 at 02:45 PM</p>
+            </div>
+          </div>
+          <span class="review-status approved">Approved</span>
+        </div>
+
+        <div class="review-rating">
+          <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+          </div>
+          <span style="font-weight: 600; color: var(--dark-color);">5.0</span>
+        </div>
+
+        <div class="review-product">
+          <img src="./image/instagram3.jpg" class="product-img" alt="Product">
+          <span class="product-name">Lemon Bliss Cookies</span>
+        </div>
+
+        <p class="review-text">
+          These lemon cookies are incredible! The perfect balance of sweet and tangy. Fresh, soft, and absolutely delicious. Best cookies I've had in years!
+        </p>
+
+        <div class="review-footer">
+          <div class="review-meta">
+            <span><i class='bx bx-like'></i> 24 Helpful</span>
+            <span><i class='bx bx-message'></i> 2 Replies</span>
+          </div>
+          <div class="review-actions">
+            <button class="action-btn reply" data-bs-toggle="modal" data-bs-target="#replyModal">
+              <i class='bx bx-reply'></i>
+              Reply
+            </button>
+            <button class="action-btn delete" onclick="deleteReview(this)">
+              <i class='bx bx-trash'></i>
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ====== Reply Modal ====== -->
+  <div class="modal fade" id="replyModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Reply to Review</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label class="form-label-custom">Your Reply</label>
+              <textarea class="form-control-custom" rows="5" placeholder="Write your response to the customer..."></textarea>
+            </div>
+            <div style="text-align: right;">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 1rem;">Cancel</button>
+              <button type="submit" class="btn-primary-custom">
+                <i class='bx bx-send'></i>
+                Send Reply
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function approveReview(button) {
+      const reviewCard = button.closest('.review-card');
+      const statusBadge = reviewCard.querySelector('.review-status');
+      statusBadge.textContent = 'Approved';
+      statusBadge.className = 'review-status approved';
+      
+      // Update buttons
+      const actionsDiv = reviewCard.querySelector('.review-actions');
+      actionsDiv.innerHTML = `
+        <button class="action-btn reply" data-bs-toggle="modal" data-bs-target="#replyModal">
+          <i class='bx bx-reply'></i>
+          Reply
+        </button>
+        <button class="action-btn delete" onclick="deleteReview(this)">
+          <i class='bx bx-trash'></i>
+          Delete
+        </button>
+      `;
+      
+      alert('Review approved successfully!');
+    }
+
+    function rejectReview(button) {
+      if (confirm('Are you sure you want to reject this review?')) {
+        const reviewCard = button.closest('.review-card');
+        reviewCard.style.opacity = '0';
+        setTimeout(() => reviewCard.remove(), 300);
+        alert('Review rejected.');
+      }
+    }
+
+    function deleteReview(button) {
+      if (confirm('Are you sure you want to delete this review? This action cannot be undone.')) {
+        const reviewCard = button.closest('.review-card');
+        reviewCard.style.opacity = '0';
+        setTimeout(() => reviewCard.remove(), 300);
+        alert('Review deleted.');
+      }
+    }
+  </script>
+
+</body>
+</html>

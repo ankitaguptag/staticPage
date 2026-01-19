@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store Settings | Caking Admin</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #8B4513;
+      --secondary-color: #D4AF37;
+      --dark-color: #2C1810;
+      --light-bg: #FFF8F0;
+      --text-dark: #3E2723;
+      --sidebar-width: 280px;
+      --topbar-height: 70px;
+      --success-color: #27AE60;
+      --warning-color: #F39C12;
+      --error-color: #E74C3C;
+      --info-color: #3498DB;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      background: #f5f6fa;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* Sidebar & Topbar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: linear-gradient(180deg, var(--dark-color) 0%, #1a0f0a 100%);
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--secondary-color) 0%, #ffd700 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--dark-color);
+    }
+
+    .logo-text h4 {
+      color: white;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .logo-text p {
+      color: var(--secondary-color);
+      margin: 0;
+      font-size: 0.75rem;
+    }
+
+    .sidebar-menu {
+      padding: 1.5rem 0;
+    }
+
+    .menu-section-title {
+      padding: 1rem 1.5rem 0.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    .menu-item:hover,
+    .menu-item.active {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--secondary-color);
+    }
+
+    .menu-item.active::before {
+      width: 4px;
+    }
+
+    .menu-item i {
+      font-size: 1.3rem;
+      width: 24px;
+    }
+
+    .topbar {
+      position: fixed;
+      left: var(--sidebar-width);
+      top: 0;
+      right: 0;
+      height: var(--topbar-height);
+      background: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      z-index: 999;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .menu-toggle {
+      width: 45px;
+      height: 45px;
+      border: none;
+      background: var(--light-bg);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .breadcrumb-custom {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      background: none;
+      padding: 0;
+    }
+
+    .breadcrumb-custom li {
+      display: flex;
+      align-items: center;
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumb-custom li.active {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .topbar-right {
+      margin-left: auto;
+    }
+
+    .main-content {
+      margin-left: var(--sidebar-width);
+      margin-top: var(--topbar-height);
+      padding: 2rem;
+      min-height: calc(100vh - var(--topbar-height));
+    }
+
+    /* Settings Navigation */
+    .settings-container {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .settings-nav {
+      width: 250px;
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      height: fit-content;
+      position: sticky;
+      top: 90px;
+    }
+
+    .settings-nav-title {
+      font-size: 1.1rem;
+      color: var(--dark-color);
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--light-bg);
+    }
+
+    .settings-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      color: #6b5d57;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+    }
+
+    .settings-nav-item:hover,
+    .settings-nav-item.active {
+      background: var(--light-bg);
+      color: var(--primary-color);
+    }
+
+    .settings-nav-item i {
+      font-size: 1.3rem;
+    }
+
+    /* Settings Content */
+    .settings-content {
+      flex: 1;
+    }
+
+    .settings-section {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--light-bg);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: var(--dark-color);
+      margin: 0;
+    }
+
+    .section-description {
+      color: #6b5d57;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label-custom {
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.5rem;
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    .form-control-custom {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .form-control-custom:focus {
+      border-color: var(--secondary-color);
+      outline: none;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    }
+
+    .form-help-text {
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 0.5rem;
+    }
+
+    /* Toggle Switch */
+    .toggle-switch {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: var(--light-bg);
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .toggle-info h6 {
+      margin: 0 0 0.25rem 0;
+      color: var(--dark-color);
+      font-size: 0.95rem;
+    }
+
+    .toggle-info p {
+      margin: 0;
+      color: #6b5d57;
+      font-size: 0.85rem;
+    }
+
+    .switch {
+      position: relative;
+      width: 55px;
+      height: 28px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--success-color);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(27px);
+    }
+
+    /* Image Upload */
+    .image-upload-area {
+      border: 2px dashed #e0e0e0;
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .image-upload-area:hover {
+      border-color: var(--secondary-color);
+      background: var(--light-bg);
+    }
+
+    .upload-icon {
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .current-logo {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+    }
+
+    /* Color Picker */
+    .color-picker-group {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .color-preview {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      border: 2px solid #e0e0e0;
+      cursor: pointer;
+    }
+
+    /* Business Hours */
+    .hours-row {
+      display: grid;
+      grid-template-columns: 150px 1fr 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem;
+      background: var(--light-bg);
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .day-label {
+      font-weight: 600;
+      color: var(--dark-color);
+    }
+
+    /* Notification Settings */
+    .notification-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .notification-item:hover {
+      border-color: var(--primary-color);
+      background: var(--light-bg);
+    }
+
+    /* Buttons */
+    .btn-primary-custom {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary-custom:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(139, 69, 19, 0.4);
+    }
+
+    .btn-secondary-custom {
+      background: white;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      padding: 0.85rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary-custom:hover {
+      background: var(--light-bg);
+    }
+
+    .save-bar {
+      position: fixed;
+      bottom: 0;
+      left: var(--sidebar-width);
+      right: 0;
+      background: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      z-index: 998;
+    }
+
+    @media (max-width: 992px) {
+      .settings-container {
+        flex-direction: column;
+      }
+
+      .settings-nav {
+        width: 100%;
+        position: relative;
+        top: 0;
+      }
+
+      .sidebar {
+        left: -280px;
+      }
+
+      .topbar {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .save-bar {
+        left: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====== Sidebar ====== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <i class='bx bxs-cake'></i>
+        </div>
+        <div class="logo-text">
+          <h4>Caking</h4>
+          <p>ADMIN PANEL</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <div class="menu-section-title">Main Menu</div>
+      
+      <a href="admin-dashboard.html" class="menu-item">
+        <i class='bx bxs-dashboard'></i>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="analytics.html" class="menu-item">
+        <i class='bx bxs-analyse'></i>
+        <span>Analytics</span>
+      </a>
+
+      <div class="menu-section-title">Management</div>
+
+      <a href="cake-management.html" class="menu-item">
+        <i class='bx bxs-cake'></i>
+        <span>Cake Management</span>
+      </a>
+
+      <a href="orders-management.html" class="menu-item">
+        <i class='bx bxs-shopping-bag'></i>
+        <span>Orders Management</span>
+      </a>
+
+      <a href="user-management.html" class="menu-item">
+        <i class='bx bxs-user-detail'></i>
+        <span>User Management</span>
+      </a>
+
+      <div class="menu-section-title">Settings</div>
+
+      <a href="store-settings.html" class="menu-item active">
+        <i class='bx bxs-store'></i>
+        <span>Store Settings</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ====== Top Navbar ====== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="menu-toggle">
+        <i class='bx bx-menu'></i>
+      </button>
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb-custom">
+          <li><i class='bx bx-home-alt'></i></li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>Settings</li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li class="active">Store Settings</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="topbar-right">
+      <div style="color: var(--dark-color); font-weight: 600;">
+        <i class='bx bx-user-circle' style="font-size: 1.5rem;"></i>
+        Admin
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== Main Content ====== -->
+  <main class="main-content">
+    <!-- Page Header -->
+    <div style="margin-bottom: 2rem;">
+      <h1 style="font-size: 2rem; color: var(--dark-color); margin-bottom: 0.5rem;">Store Settings</h1>
+      <p style="color: #6b5d57;">Configure your store information and preferences</p>
+    </div>
+
+    <div class="settings-container">
+      <!-- Settings Navigation -->
+      <div class="settings-nav">
+        <h6 class="settings-nav-title">Settings</h6>
+        <a href="#general" class="settings-nav-item active" onclick="showSection('general')">
+          <i class='bx bx-store'></i>
+          General
+        </a>
+        <a href="#branding" class="settings-nav-item" onclick="showSection('branding')">
+          <i class='bx bx-palette'></i>
+          Branding
+        </a>
+        <a href="#contact" class="settings-nav-item" onclick="showSection('contact')">
+          <i class='bx bx-phone'></i>
+          Contact Info
+        </a>
+        <a href="#hours" class="settings-nav-item" onclick="showSection('hours')">
+          <i class='bx bx-time'></i>
+          Business Hours
+        </a>
+        <a href="#delivery" class="settings-nav-item" onclick="showSection('delivery')">
+          <i class='bx bx-package'></i>
+          Delivery Settings
+        </a>
+        <a href="#payment" class="settings-nav-item" onclick="showSection('payment')">
+          <i class='bx bx-credit-card'></i>
+          Payment Methods
+        </a>
+        <a href="#notifications" class="settings-nav-item" onclick="showSection('notifications')">
+          <i class='bx bx-bell'></i>
+          Notifications
+        </a>
+        <a href="#seo" class="settings-nav-item" onclick="showSection('seo')">
+          <i class='bx bx-search-alt'></i>
+          SEO Settings
+        </a>
+      </div>
+
+      <!-- Settings Content -->
+      <div class="settings-content">
+        
+        <!-- General Settings -->
+        <div class="settings-section" id="general">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">General Settings</h5>
+              <p class="section-description">Basic store information and configuration</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">Store Name*</label>
+                <input type="text" class="form-control-custom" value="Caking Premium Bakery" required>
+                <p class="form-help-text">This name will appear on your storefront and invoices</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">Store Tagline</label>
+                <input type="text" class="form-control-custom" value="Crafting Sweet Memories">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Store Description</label>
+            <textarea class="form-control-custom" rows="4" placeholder="Describe your bakery...">Premium artisan cakes and bakery items made with love and the finest ingredients.</textarea>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">Currency</label>
+                <select class="form-control-custom">
+                  <option>USD ($)</option>
+                  <option>EUR (€)</option>
+                  <option>GBP (£)</option>
+                  <option>INR (₹)</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">Timezone</label>
+                <select class="form-control-custom">
+                  <option>America/New_York (EST)</option>
+                  <option>America/Los_Angeles (PST)</option>
+                  <option>Europe/London (GMT)</option>
+                  <option>Asia/Kolkata (IST)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Language</label>
+            <select class="form-control-custom">
+              <option>English</option>
+              <option>Spanish</option>
+              <option>French</option>
+              <option>German</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Branding Settings -->
+        <div class="settings-section" id="branding" style="display: none;">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">Branding & Appearance</h5>
+              <p class="section-description">Customize your store's visual identity</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Store Logo</label>
+            <div class="text-center mb-3">
+              <img src="./image/CakingLogoBlack (2).png" class="current-logo" alt="Current Logo">
+            </div>
+            <div class="image-upload-area">
+              <i class='bx bx-cloud-upload upload-icon'></i>
+              <h6>Click to upload new logo</h6>
+              <p style="color: #999; margin: 0;">PNG, JPG (max. 2MB) - Recommended: 200x200px</p>
+              <input type="file" style="display: none;" accept="image/*">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Primary Brand Color</label>
+            <div class="color-picker-group">
+              <input type="color" value="#8B4513" class="form-control-custom" style="width: 100px; height: 50px; padding: 0.25rem;">
+              <input type="text" class="form-control-custom" value="#8B4513" style="flex: 1;">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Secondary Color</label>
+            <div class="color-picker-group">
+              <input type="color" value="#D4AF37" class="form-control-custom" style="width: 100px; height: 50px; padding: 0.25rem;">
+              <input type="text" class="form-control-custom" value="#D4AF37" style="flex: 1;">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Favicon</label>
+            <div class="image-upload-area">
+              <i class='bx bx-cloud-upload upload-icon'></i>
+              <h6>Upload Favicon</h6>
+              <p style="color: #999; margin: 0;">ICO, PNG (16x16px or 32x32px)</p>
+              <input type="file" style="display: none;" accept=".ico,.png">
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="settings-section" id="contact" style="display: none;">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">Contact Information</h5>
+              <p class="section-description">How customers can reach you</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">Email Address*</label>
+                <input type="email" class="form-control-custom" value="info@caking.com" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">Phone Number*</label>
+                <input type="tel" class="form-control-custom" value="+1 (234) 567-890" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Store Address</label>
+            <input type="text" class="form-control-custom" placeholder="Street Address" value="123 Main Street">
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">City</label>
+                <input type="text" class="form-control-custom" value="New York">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="form-label-custom">State</label>
+                <input type="text" class="form-control-custom" value="NY">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="form-label-custom">ZIP Code</label>
+                <input type="text" class="form-control-custom" value="10001">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Social Media Links</label>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <i class='bx bxl-facebook' style="font-size: 1.5rem; color: #1877F2;"></i>
+                  <input type="url" class="form-control-custom" placeholder="Facebook URL">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <i class='bx bxl-instagram' style="font-size: 1.5rem; color: #E4405F;"></i>
+                  <input type="url" class="form-control-custom" placeholder="Instagram URL">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <i class='bx bxl-twitter' style="font-size: 1.5rem; color: #1DA1F2;"></i>
+                  <input type="url" class="form-control-custom" placeholder="Twitter URL">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <i class='bx bxl-pinterest' style="font-size: 1.5rem; color: #E60023;"></i>
+                  <input type="url" class="form-control-custom" placeholder="Pinterest URL">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business Hours -->
+        <div class="settings-section" id="hours" style="display: none;">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">Business Hours</h5>
+              <p class="section-description">Set your store operating hours</p>
+            </div>
+          </div>
+
+          <div class="hours-row">
+            <div class="day-label">Monday</div>
+            <input type="time" class="form-control-custom" value="09:00">
+            <input type="time" class="form-control-custom" value="18:00">
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="hours-row">
+            <div class="day-label">Tuesday</div>
+            <input type="time" class="form-control-custom" value="09:00">
+            <input type="time" class="form-control-custom" value="18:00">
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="hours-row">
+            <div class="day-label">Wednesday</div>
+            <input type="time" class="form-control-custom" value="09:00">
+            <input type="time" class="form-control-custom" value="18:00">
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="hours-row">
+            <div class="day-label">Thursday</div>
+            <input type="time" class="form-control-custom" value="09:00">
+            <input type="time" class="form-control-custom" value="18:00">
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="hours-row">
+            <div class="day-label">Friday</div>
+            <input type="time" class="form-control-custom" value="09:00">
+            <input type="time" class="form-control-custom" value="20:00">
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="hours-row">
+            <div class="day-label">Saturday</div>
+            <input type="time" class="form-control-custom" value="10:00">
+            <input type="time" class="form-control-custom" value="16:00">
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="hours-row">
+            <div class="day-label">Sunday</div>
+            <input type="time" class="form-control-custom" value="10:00">
+            <input type="time" class="form-control-custom" value="14:00">
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Delivery Settings -->
+        <div class="settings-section" id="delivery" style="display: none;">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">Delivery Settings</h5>
+              <p class="section-description">Configure delivery options and fees</p>
+            </div>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Enable Home Delivery</h6>
+              <p>Allow customers to order for home delivery</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">Delivery Fee</label>
+                <input type="number" class="form-control-custom" value="5.00" step="0.01">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">Free Delivery Above</label>
+                <input type="number" class="form-control-custom" value="50.00" step="0.01">
+                <p class="form-help-text">Minimum order value for free delivery</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">Delivery Radius (km)</label>
+                <input type="number" class="form-control-custom" value="10">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">Estimated Delivery Time</label>
+                <input type="text" class="form-control-custom" value="30-45 minutes">
+              </div>
+            </div>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Enable Store Pickup</h6>
+              <p>Allow customers to pick up orders from store</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="settings-section" id="payment" style="display: none;">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">Payment Methods</h5>
+              <p class="section-description">Configure accepted payment options</p>
+            </div>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Credit/Debit Cards</h6>
+              <p>Accept payments via Visa, Mastercard, Amex</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>PayPal</h6>
+              <p>Accept payments through PayPal</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Cash on Delivery</h6>
+              <p>Accept cash payment upon delivery</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Apple Pay</h6>
+              <p>Accept payments via Apple Pay</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Google Pay</h6>
+              <p>Accept payments via Google Pay</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="settings-section" id="notifications" style="display: none;">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">Notification Preferences</h5>
+              <p class="section-description">Manage your notification settings</p>
+            </div>
+          </div>
+
+          <h6 style="margin-bottom: 1rem; color: var(--dark-color);">Email Notifications</h6>
+
+          <div class="notification-item">
+            <div>
+              <h6 style="margin: 0 0 0.25rem 0; color: var(--dark-color);">New Orders</h6>
+              <p style="margin: 0; color: #6b5d57; font-size: 0.85rem;">Get notified when new orders are placed</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="notification-item">
+            <div>
+              <h6 style="margin: 0 0 0.25rem 0; color: var(--dark-color);">Low Stock Alerts</h6>
+              <p style="margin: 0; color: #6b5d57; font-size: 0.85rem;">Receive alerts when inventory is running low</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="notification-item">
+            <div>
+              <h6 style="margin: 0 0 0.25rem 0; color: var(--dark-color);">Customer Reviews</h6>
+              <p style="margin: 0; color: #6b5d57; font-size: 0.85rem;">Get notified about new customer reviews</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="notification-item">
+            <div>
+              <h6 style="margin: 0 0 0.25rem 0; color: var(--dark-color);">Marketing Updates</h6>
+              <p style="margin: 0; color: #6b5d57; font-size: 0.85rem;">Receive tips and updates about growing your business</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- SEO Settings -->
+        <div class="settings-section" id="seo" style="display: none;">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">SEO Settings</h5>
+              <p class="section-description">Optimize your store for search engines</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Meta Title</label>
+            <input type="text" class="form-control-custom" value="Caking Premium Bakery - Artisan Cakes & Desserts">
+            <p class="form-help-text">Recommended: 50-60 characters</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Meta Description</label>
+            <textarea class="form-control-custom" rows="3">Premium artisan cakes and bakery items made with love and the finest ingredients. Order custom cakes, cupcakes, cookies, and more for delivery in New York.</textarea>
+            <p class="form-help-text">Recommended: 150-160 characters</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Meta Keywords</label>
+            <input type="text" class="form-control-custom" value="bakery, custom cakes, cupcakes, desserts, New York">
+            <p class="form-help-text">Separate keywords with commas</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Google Analytics ID</label>
+            <input type="text" class="form-control-custom" placeholder="UA-XXXXXXXXX-X">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Facebook Pixel ID</label>
+            <input type="text" class="form-control-custom" placeholder="Your Facebook Pixel ID">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Save Bar -->
+    <div class="save-bar">
+      <button class="btn-secondary-custom">
+        Cancel
+      </button>
+      <button class="btn-primary-custom" onclick="saveSettings()">
+        <i class='bx bx-save'></i>
+        Save Changes
+      </button>
+    </div>
+  </main>
+
+  <script>
+    function showSection(sectionId) {
+      // Hide all sections
+      document.querySelectorAll('.settings-section').forEach(section => {
+        section.style.display = 'none';
+      });
+      
+      // Show selected section
+      document.getElementById(sectionId).style.display = 'block';
+      
+      // Update active nav item
+      document.querySelectorAll('.settings-nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      event.target.closest('.settings-nav-item').classList.add('active');
+    }
+
+    function saveSettings() {
+      // Simulate save
+      alert('Settings saved successfully!');
+    }
+
+    // Image upload handlers
+    document.querySelectorAll('.image-upload-area').forEach(area => {
+      area.addEventListener('click', function() {
+        this.querySelector('input[type="file"]').click();
+      });
+    });
+  </script>
+
+</body>
+</html>

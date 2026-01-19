@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pistachio Paradise Cake | Caking Premium Bakery</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JS -->
+    <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D4AF37;
+            --accent-color: #FFB6C1;
+            --dark-color: #2C1810;
+            --light-bg: #FFF8F0;
+            --text-dark: #3E2723;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background: #fafafa;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        /* Premium Header */
+        .header-premium {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            flex: 1;
+        }
+
+        .logo-section img {
+            max-width: 150px;
+        }
+
+        .nav-section {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-section .nav-link {
+            color: var(--text-dark);
+            font-weight: 500;
+            padding: 0.5rem 1.5rem;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-section .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-section .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-section .nav-link:hover::after {
+            width: 70%;
+        }
+
+        .utility-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .dropdown-custom {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 0.4rem 0.8rem;
+            background: white;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-custom:hover {
+            border-color: var(--secondary-color);
+        }
+
+        .icon-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #e0e0e0;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .icon-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .icon-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--secondary-color);
+            color: var(--dark-color);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Product Section */
+        .product-detail-section {
+            background: white;
+            padding: 4rem 0;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            position: sticky;
+            top: 120px;
+        }
+
+        .main-image-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            background: var(--light-bg);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .thumbnail-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .thumbnail-item {
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .thumbnail-item:hover,
+        .thumbnail-item.active {
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .thumbnail-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        /* Product Info */
+        .product-info-section {
+            padding-left: 3rem;
+        }
+
+        .product-category {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .stars {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        .rating-text {
+            color: #666;
+            font-size: 0.95rem;
+            margin-left: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .product-description {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #6b5d57;
+            margin-bottom: 2rem;
+        }
+
+        /* Quantity Controls */
+        .purchase-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .qty-btn {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .qty-display {
+            width: 60px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            background: var(--light-bg);
+        }
+
+        .btn-add-cart {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+            color: white;
+            border: none;
+            padding: 0.9rem 3rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .btn-add-cart:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(139, 69, 19, 0.4);
+        }
+
+        /* Product Features */
+        .product-features {
+            background: var(--light-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(139, 69, 19, 0.1);
+        }
+
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .feature-text {
+            flex: 1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        /* Tabs Section */
+        .tabs-section {
+            background: white;
+            padding: 4rem 0;
+        }
+
+        .nav-tabs-custom {
+            border: none;
+            justify-content: center;
+            margin-bottom: 3rem;
+            gap: 1rem;
+        }
+
+        .nav-tabs-custom .nav-link {
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            padding: 0.8rem 2.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .nav-tabs-custom .nav-link:hover {
+            background: var(--light-bg);
+            border-color: var(--secondary-color);
+        }
+
+        .nav-tabs-custom .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .tab-content-custom {
+            padding: 2rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .description-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #6b5d57;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .feature-card-body {
+            padding: 1.5rem;
+        }
+
+        .feature-card-body h5 {
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card-body p {
+            color: #6b5d57;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Related Products */
+        .related-products {
+            padding: 4rem 0;
+            background: var(--light-bg);
+        }
+
+        .related-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 3rem;
+        }
+
+        .product-card-small {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .product-card-small:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card-small img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .product-card-small-body {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .product-card-small-body h5 {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .product-card-small-body .price {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .product-card-small-body .price-original {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 1rem;
+            margin-left: 0.5rem;
+        }
+
+        /* Footer Premium */
+        .footer-premium {
+            background: linear-gradient(135deg, var(--dark-color) 0%, #1a0f0a 100%);
+            color: #d4c5be;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-logo {
+            width: 150px;
+            margin-bottom: 1.5rem;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-premium h5 {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .footer-premium h5::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary-color);
+        }
+
+        .footer-link {
+            color: #d4c5be;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            font-weight: 300;
+        }
+
+        .footer-link:hover {
+            color: var(--secondary-color);
+            padding-left: 10px;
+        }
+
+        .newsletter-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: white;
+            border-radius: 50px 0 0 50px;
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .newsletter-btn {
+            background: var(--secondary-color);
+            border: none;
+            border-radius: 0 50px 50px 0;
+            color: var(--dark-color);
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: #ffd700;
+        }
+
+        .social-icons i {
+            color: #d4c5be;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-icons i:hover {
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Sticky Bottom Bar */
+        .sticky-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            z-index: 999;
+            display: none;
+        }
+
+        .sticky-bottom-bar.show {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .sticky-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sticky-product-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sticky-product-info img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .sticky-product-info h6 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .sticky-product-info .price {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .product-info-section {
+                padding-left: 0;
+                margin-top: 2rem;
+            }
+
+            .image-gallery {
+                position: relative;
+                top: 0;
+            }
+
+            .product-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .purchase-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-add-cart {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Premium Header -->
+    <header class="header-premium">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo-section text-center">
+                    <a href="./index.html">
+                        <img src="./image/pop/CakingLogoBlack (2).png" alt="Caking Logo">
+                    </a>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="nav-section">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a href="./index.html" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./list.html" class="nav-link">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./detail.html" class="nav-link">Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Contact</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Utility Section -->
+                <div class="utility-section">
+                    <div class="btn-group">
+                        <button type="button" class="dropdown-custom dropdown-toggle" data-bs-toggle="dropdown">
+                            USD
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">EUR</a></li>
+                            <li><a class="dropdown-item" href="#">JPY</a></li>
+                            <li><a class="dropdown-item" href="#">USD</a></li>
+                            <li><a class="dropdown-item" href="#">GBP</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="dropdown-custom dropdown-toggle" data-bs-toggle="dropdown">
+                            EN
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">English</a></li>
+                            <li><a class="dropdown-item" href="#">Hindi</a></li>
+                            <li><a class="dropdown-item" href="#">Arabic</a></li>
+                            <li><a class="dropdown-item" href="#">Spanish</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="icon-group">
+                        <div class="icon-btn">
+                            <i class='bx bx-search'></i>
+                        </div>
+                        <div class="icon-btn">
+                            <i class='bx bx-user'></i>
+                        </div>
+                        <div class="icon-btn">
+                            <i class='bx bx-heart'></i>
+                            <span class="icon-badge">3</span>
+                        </div>
+                        <div class="icon-btn">
+                            <i class='bx bx-cart'></i>
+                            <span class="icon-badge">2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-section">
+        <div class="container">
+            <div class="row">
+                <!-- Image Gallery -->
+                <div class="col-lg-6">
+                    <div class="image-gallery">
+                        <div class="main-image-wrapper">
+                            <img src="./image/de/Coconut-Cloud-Cake-2.jpg" class="main-image" id="mainImage" alt="Pistachio Paradise Cake">
+                        </div>
+                        <div class="thumbnail-gallery">
+                            <div class="thumbnail-item active" onclick="changeImage('./image/de/Coconut-Cloud-Cake-2.jpg', this)">
+                                <img src="./image/de/Coconut-Cloud-Cake-2.jpg" alt="View 1">
+                            </div>
+                            <div class="thumbnail-item" onclick="changeImage('./image/de/Coconut-Cloud-Cake-1 (1).jpg', this)">
+                                <img src="./image/de/Coconut-Cloud-Cake-1 (1).jpg" alt="View 2">
+                            </div>
+                            <div class="thumbnail-item" onclick="changeImage('./image/de/Coconut-Cloud-Cake-3 (1).jpg', this)">
+                                <img src="./image/de/Coconut-Cloud-Cake-3 (1).jpg" alt="View 3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Information -->
+                <div class="col-lg-6">
+                    <div class="product-info-section">
+                        <div class="product-category">Premium Cakes</div>
+                        <h1 class="product-title">Pistachio Paradise Cake</h1>
+                        
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star-half'></i>
+                            </div>
+                            <span class="rating-text">(4.5) • 124 Reviews</span>
+                        </div>
+
+                        <div class="product-price">$100.00</div>
+
+                        <p class="product-description">
+                            Discover a world of deliciousness with our mouth-watering cakes, crafted to perfection 
+                            with the finest ingredients. From classic favorites to innovative creations, our cakes 
+                            are designed to make every celebration unforgettable. Each layer is infused with rich 
+                            pistachio flavor, topped with silky cream frosting and garnished with real pistachio pieces.
+                        </p>
+
+                        <!-- Purchase Controls -->
+                        <div class="purchase-controls">
+                            <div class="quantity-selector">
+                                <button class="qty-btn" onclick="decrementQty()">−</button>
+                                <div class="qty-display" id="qtyDisplay">1</div>
+                                <button class="qty-btn" onclick="incrementQty()">+</button>
+                            </div>
+                            <button class="btn-add-cart">
+                                <i class='bx bx-cart'></i>
+                                Add to Cart
+                            </button>
+                        </div>
+
+                        <!-- Product Features -->
+                        <div class="product-features">
+                            <div class="feature-item">
+                                <i class='bx bxs-truck feature-icon'></i>
+                                <div class="feature-text">
+                                    <strong>Free Shipping</strong><br>
+                                    Estimate delivery times: 3-6 days (United States), 12-26 days (International)
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <i class='bx bxs-package feature-icon'></i>
+                                <div class="feature-text">
+                                    <strong>Easy Returns</strong><br>
+                                    Return within 45 days of purchase. Duties & taxes are non-refundable.
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <i class='bx bxs-badge-check feature-icon'></i>
+                                <div class="feature-text">
+                                    <strong>Premium Quality</strong><br>
+                                    Made with organic ingredients and premium Belgian chocolate
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <i class='bx bxs-heart feature-icon'></i>
+                                <div class="feature-text">
+                                    <strong>Handcrafted with Love</strong><br>
+                                    Each cake is carefully crafted by our expert pastry chefs
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tabs Section -->
+    <section class="tabs-section">
+        <div class="container">
+            <!-- Tabs Navigation -->
+            <ul class="nav nav-tabs nav-tabs-custom" id="productTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab" 
+                            data-bs-target="#description" type="button" role="tab">
+                        Description
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="shipping-tab" data-bs-toggle="tab" 
+                            data-bs-target="#shipping" type="button" role="tab">
+                        Shipping & Returns
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" 
+                            data-bs-target="#reviews" type="button" role="tab">
+                        Reviews (124)
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tabs Content -->
+            <div class="tab-content tab-content-custom" id="productTabsContent">
+                
+                <!-- Description Tab -->
+                <div class="tab-pane fade show active" id="description" role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="description-text">
+                                Experience the exotic taste of our Pistachio Paradise Cake, a masterpiece that combines 
+                                rich pistachio flavor with delicate sponge layers and luxurious cream frosting. Each bite 
+                                transports you to a world of culinary excellence, where traditional baking techniques meet 
+                                modern innovation. Handcrafted by our expert pastry chefs using only the finest ingredients, 
+                                this cake represents the pinnacle of artisan bakery craftsmanship.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-lg-6">
+                            <h3 class="section-title">Outstanding Features</h3>
+                            <p class="description-text">
+                                Our Pistachio Paradise Cake stands out for its exceptional quality and attention to detail. 
+                                Every element is carefully selected to ensure the perfect balance of flavor, texture, and 
+                                visual appeal.
+                            </p>
+                            <ul class="list-unstyled">
+                                <li class="mb-3"><i class='bx bx-check-circle' style="color: var(--secondary-color); margin-right: 0.5rem;"></i>
+                                    <strong>Premium Ingredients:</strong> Made with authentic Turkish pistachios and organic flour</li>
+                                <li class="mb-3"><i class='bx bx-check-circle' style="color: var(--secondary-color); margin-right: 0.5rem;"></i>
+                                    <strong>Expert Craftsmanship:</strong> Handcrafted by certified pastry chefs with 15+ years experience</li>
+                                <li class="mb-3"><i class='bx bx-check-circle' style="color: var(--secondary-color); margin-right: 0.5rem;"></i>
+                                    <strong>Fresh Guarantee:</strong> Baked fresh daily and delivered within 24 hours</li>
+                                <li class="mb-3"><i class='bx bx-check-circle' style="color: var(--secondary-color); margin-right: 0.5rem;"></i>
+                                    <strong>Customizable:</strong> Available with personalized messages and decorations</li>
+                                <li class="mb-3"><i class='bx bx-check-circle' style="color: var(--secondary-color); margin-right: 0.5rem;"></i>
+                                    <strong>Perfect Presentation:</strong> Elegantly packaged in premium gift boxes</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <img src="./image/de/image_547.png" class="img-fluid rounded-3 shadow" alt="Product Details">
+                        </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <h3 class="section-title">Supreme Quality Standards</h3>
+                            <p class="description-text">
+                                We maintain the highest standards in every aspect of our cake production. From sourcing 
+                                ingredients to final packaging, quality control is our top priority.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row g-4 mt-2">
+                        <div class="col-lg-4">
+                            <div class="feature-card">
+                                <img src="./image/de/Strawberry-Cream-Delight-1.jpg" alt="Premium Ingredients">
+                                <div class="feature-card-body">
+                                    <h5>Premium Ingredients</h5>
+                                    <p>We source only the finest pistachios from trusted suppliers, ensuring authentic 
+                                       flavor and superior quality in every bite.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="feature-card">
+                                <img src="./image/de/Strawberry-Cream-Delight-3.jpg" alt="Expert Baking">
+                                <div class="feature-card-body">
+                                    <h5>Artisan Techniques</h5>
+                                    <p>Our master bakers use time-honored techniques combined with modern methods to 
+                                       achieve perfect texture and exceptional taste.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="feature-card">
+                                <img src="./image/de/Raspberry-Swirl-Delight-1.jpg" alt="Perfect Presentation">
+                                <div class="feature-card-body">
+                                    <h5>Beautiful Presentation</h5>
+                                    <p>Each cake is a work of art, carefully decorated and packaged to create a stunning 
+                                       visual experience that matches its delicious taste.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shipping Tab -->
+                <div class="tab-pane fade" id="shipping" role="tabpanel">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <h3 class="section-title">Shipping Information</h3>
+                            <p class="description-text">
+                                We offer fast and reliable shipping to ensure your cake arrives fresh and in perfect condition.
+                            </p>
+                            
+                            <div class="feature-card mb-4">
+                                <div class="feature-card-body">
+                                    <h5><i class='bx bxs-truck' style="color: var(--secondary-color); margin-right: 0.5rem;"></i>Delivery Times</h5>
+                                    <ul class="list-unstyled mt-3">
+                                        <li class="mb-2">🇺🇸 <strong>United States:</strong> 3-6 business days</li>
+                                        <li class="mb-2">🌎 <strong>International:</strong> 12-26 business days</li>
+                                        <li class="mb-2">⚡ <strong>Express Shipping:</strong> 1-2 business days (additional fee)</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="feature-card mb-4">
+                                <div class="feature-card-body">
+                                    <h5><i class='bx bxs-package' style="color: var(--secondary-color); margin-right: 0.5rem;"></i>Return Policy</h5>
+                                    <p class="mt-3">
+                                        Returns are accepted within <strong>45 days</strong> of purchase. Please email us 
+                                        before returning any items. Duties & taxes are non-refundable. All products must be 
+                                        returned in their original packaging and condition.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="feature-card">
+                                <div class="feature-card-body">
+                                    <h5><i class='bx bxs-shield-alt-2' style="color: var(--secondary-color); margin-right: 0.5rem;"></i>Quality Guarantee</h5>
+                                    <p class="mt-3">
+                                        All cakes are carefully packaged with temperature-controlled materials to ensure 
+                                        freshness during transit. If your cake arrives damaged or not to your satisfaction, 
+                                        please contact us within 24 hours for a full refund or replacement.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <p class="mt-4 text-center">
+                                For more details, check out our complete 
+                                <a href="#" style="color: var(--primary-color); text-decoration: underline;">
+                                    Terms & Conditions
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reviews Tab -->
+                <div class="tab-pane fade" id="reviews" role="tabpanel">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <h3 class="section-title text-center">Customer Reviews</h3>
+                            <p class="text-center description-text">
+                                See what our customers are saying about Pistachio Paradise Cake
+                            </p>
+                            <div class="text-center mb-5">
+                                <div class="stars" style="font-size: 2rem;">
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star-half'></i>
+                                </div>
+                                <p class="mt-2"><strong>4.5 out of 5</strong> based on 124 reviews</p>
+                            </div>
+
+                            <div class="feature-card mb-3">
+                                <div class="feature-card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <h6 class="mb-1">Sarah Johnson</h6>
+                                            <div class="stars">
+                                                <i class='bx bxs-star'></i>
+                                                <i class='bx bxs-star'></i>
+                                                <i class='bx bxs-star'></i>
+                                                <i class='bx bxs-star'></i>
+                                                <i class='bx bxs-star'></i>
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">2 days ago</small>
+                                    </div>
+                                    <p class="mb-0">Absolutely delicious! The pistachio flavor was perfect, not too sweet. 
+                                       Highly recommend for special occasions.</p>
+                                </div>
+                            </div>
+
+                            <div class="feature-card mb-3">
+                                <div class="feature-card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <h6 class="mb-1">Michael Chen</h6>
+                                            <div class="stars">
+                                                <i class='bx bxs-star'></i>
+                                                <i class='bx bxs-star'></i>
+                                                <i class='bx bxs-star'></i>
+                                                <i class='bx bxs-star'></i>
+                                                <i class='bx bx-star'></i>
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">1 week ago</small>
+                                    </div>
+                                    <p class="mb-0">Great cake! Arrived fresh and well-packaged. The presentation was 
+                                       beautiful. Only wish it was a bit larger for the price.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="related-products">
+        <div class="container">
+            <h2 class="related-title">You Might Also Like</h2>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="product-card-small">
+                        <img src="./image/de/2.jpg" alt="Cherry Blossom Cake">
+                        <div class="product-card-small-body">
+                            <h5>Cherry Blossom Cake</h5>
+                            <div>
+                                <span class="price">$40.00</span>
+                                <span class="price-original">$70.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="product-card-small">
+                        <img src="./image/de/Almond-Joy-Delight-3.jpg" alt="Coconut Cloud Cake">
+                        <div class="product-card-small-body">
+                            <h5>Coconut Cloud Cake</h5>
+                            <div>
+                                <span class="price">$60.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="product-card-small">
+                        <img src="./image/de/Chocolate-Symphony-Cake-1.jpg" alt="Chocolate Symphony">
+                        <div class="product-card-small-body">
+                            <h5>Chocolate Symphony</h5>
+                            <div>
+                                <span class="price">$80.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="product-card-small">
+                        <img src="./image/de/Chocolate-Symphony-Cake-2.jpg" alt="Vanilla Dream">
+                        <div class="product-card-small-body">
+                            <h5>Vanilla Dream Cake</h5>
+                            <div>
+                                <span class="price">$55.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Premium -->
+    <footer class="footer-premium">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <img src="./image/pop/CakingLogoBlack (2).png" class="footer-logo" alt="Caking Logo">
+                    <p class="mb-4">Crafting sweet memories with every bite. Premium artisan cakes and bakery items made with love and the finest ingredients.</p>
+                    <div class="input-group mb-4">
+                        <input type="email" class="form-control newsletter-input" placeholder="Your email address">
+                        <button class="input-group-text newsletter-btn" type="button">
+                            <i class='bx bxs-send'></i>
+                        </button>
+                    </div>
+                    <div class="social-icons">
+                        <i class='bx bxl-facebook-circle'></i>
+                        <i class='bx bxl-twitter'></i>
+                        <i class='bx bxl-pinterest'></i>
+                        <i class='bx bxl-instagram'></i>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5>Info</h5>
+                    <a href="#" class="footer-link">Custom Service</a>
+                    <a href="#" class="footer-link">F.A.Q.'s</a>
+                    <a href="#" class="footer-link">Order Tracking</a>
+                    <a href="#" class="footer-link">Contact Us</a>
+                    <a href="#" class="footer-link">Events</a>
+                    <a href="#" class="footer-link">Popular</a>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5>Services</h5>
+                    <a href="#" class="footer-link">Popular</a>
+                    <a href="#" class="footer-link">Services</a>
+                    <a href="#" class="footer-link">Sitemap</a>
+                    <a href="#" class="footer-link">Policy</a>
+                    <a href="#" class="footer-link">Your Account</a>
+                    <a href="#" class="footer-link">Advanced Search</a>
+                    <a href="#" class="footer-link">Terms & Condition</a>
+                    <a href="#" class="footer-link">Contact Us</a>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5>Account</h5>
+                    <a href="#" class="footer-link">About Us</a>
+                    <a href="#" class="footer-link">Delivery Information</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Discount</a>
+                    <a href="#" class="footer-link">Custom Service</a>
+                    <a href="#" class="footer-link">Terms & Condition</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="mb-0">© 2025 Caking Premium Bakery. All Rights Reserved. Powered by Excellence.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky Bottom Bar -->
+    <div class="sticky-bottom-bar" id="stickyBar">
+        <div class="container">
+            <div class="sticky-content">
+                <div class="sticky-product-info">
+                    <img src="./image/de/Coconut-Cloud-Cake-2 (1).jpg" alt="Pistachio Paradise Cake">
+                    <div>
+                        <h6>Pistachio Paradise Cake</h6>
+                        <span class="price">$100.00</span>
+                    </div>
+                </div>
+                <div class="purchase-controls">
+                    <div class="quantity-selector">
+                        <button class="qty-btn">−</button>
+                        <div class="qty-display">1</div>
+                        <button class="qty-btn">+</button>
+                    </div>
+                    <button class="btn-add-cart">
+                        <i class='bx bx-cart'></i>
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quantity Control
+        let quantity = 1;
+
+        function incrementQty() {
+            quantity++;
+            document.getElementById('qtyDisplay').textContent = quantity;
+        }
+
+        function decrementQty() {
+            if (quantity > 1) {
+                quantity--;
+                document.getElementById('qtyDisplay').textContent = quantity;
+            }
+        }
+
+        // Image Gallery
+        function changeImage(src, element) {
+            document.getElementById('mainImage').src = src;
+            
+            // Remove active class from all thumbnails
+            document.querySelectorAll('.thumbnail-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active class to clicked thumbnail
+            element.classList.add('active');
+        }
+
+        // Sticky Bottom Bar
+        window.addEventListener('scroll', function() {
+            const productSection = document.querySelector('.product-detail-section');
+            const stickyBar = document.getElementById('stickyBar');
+            const productSectionBottom = productSection.offsetTop + productSection.offsetHeight;
+            
+            if (window.scrollY > productSectionBottom) {
+                stickyBar.classList.add('show');
+            } else {
+                stickyBar.classList.remove('show');
+            }
+        });
+    </script>
+
+</body>
+
+</html>

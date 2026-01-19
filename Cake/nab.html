@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caking | Premium Artisan Cake & Bakery</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap JS -->
+  <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #8B4513;
+      --secondary-color: #D4AF37;
+      --accent-color: #FFB6C1;
+      --dark-color: #2C1810;
+      --light-bg: #FFF8F0;
+      --text-dark: #3E2723;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      background: var(--dark-color);
+      color: white;
+      padding: 0.75rem 0;
+      font-size: 0.9rem;
+    }
+
+    .top-bar-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .top-bar-left,
+    .top-bar-right {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .top-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .top-bar-item:hover {
+      color: var(--secondary-color);
+    }
+
+    .top-bar-item i {
+      font-size: 1.1rem;
+    }
+
+    /* Enhanced Navbar */
+    .navbar-premium {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color) !important;
+      letter-spacing: 1px;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      color: var(--text-dark) !important;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem !important;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--primary-color) !important;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 80%;
+    }
+
+    /* Navbar Icons */
+    .navbar-icons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-icon-btn {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--light-bg);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-icon-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+    }
+
+    .cart-badge,
+    .wishlist-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--secondary-color);
+      color: var(--dark-color);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .user-dropdown {
+      position: relative;
+    }
+
+    .user-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .user-avatar:hover {
+      border-color: var(--secondary-color);
+      transform: scale(1.05);
+    }
+
+    /* Auth Buttons */
+    .auth-buttons {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn-login,
+    .btn-signup {
+      padding: 0.65rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 2px solid var(--primary-color);
+    }
+
+    .btn-login {
+      background: white;
+      color: var(--primary-color);
+    }
+
+    .btn-login:hover {
+      background: var(--light-bg);
+      transform: translateY(-2px);
+    }
+
+    .btn-signup {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .btn-signup:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(139, 69, 19, 0.4);
+    }
+
+    /* Search Bar */
+    .search-container {
+      position: relative;
+      flex: 1;
+      max-width: 500px;
+    }
+
+    .search-box {
+      width: 100%;
+      border-radius: 50px;
+      border: 2px solid #e0e0e0;
+      padding: 0.75rem 3rem 0.75rem 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .search-box:focus {
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+      outline: none;
+    }
+
+    .search-btn {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .search-btn:hover {
+      background: var(--dark-color);
+    }
+
+    /* Modal Styling */
+    .modal-content {
+      border-radius: 20px;
+      border: none;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      border: none;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .modal-header .btn-close {
+      filter: brightness(0) invert(1);
+      opacity: 1;
+    }
+
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .modal-subtitle {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      margin-top: 0.5rem;
+    }
+
+    .modal-body {
+      padding: 2.5rem;
+    }
+
+    /* Form Styling */
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .form-control-custom {
+      width: 100%;
+      padding: 0.85rem 1rem 0.85rem 3rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control-custom:focus {
+      border-color: var(--secondary-color);
+      outline: none;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-color);
+      font-size: 1.2rem;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #999;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .password-toggle:hover {
+      color: var(--primary-color);
+    }
+
+    .form-check-custom {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-check-custom input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .form-check-custom label {
+      cursor: pointer;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 1.5rem 0;
+      color: #999;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .divider span {
+      padding: 0 1rem;
+      font-size: 0.9rem;
+    }
+
+    .social-login {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .social-btn {
+      padding: 0.85rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .social-btn:hover {
+      border-color: var(--primary-color);
+      background: var(--light-bg);
+      transform: translateY(-2px);
+    }
+
+    .social-btn i {
+      font-size: 1.3rem;
+    }
+
+    .social-btn.google {
+      color: #DB4437;
+    }
+
+    .social-btn.facebook {
+      color: #1877F2;
+    }
+
+    .modal-footer-text {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #6b5d57;
+    }
+
+    .modal-footer-text a {
+      color: var(--primary-color);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .modal-footer-text a:hover {
+      color: var(--dark-color);
+      text-decoration: underline;
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin-top: -0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .forgot-password a {
+      color: var(--primary-color);
+      font-size: 0.9rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .top-bar {
+        display: none;
+      }
+
+      .search-container {
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+
+      .navbar-icons {
+        margin-top: 1rem;
+        justify-content: center;
+      }
+
+      .auth-buttons {
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      .btn-login,
+      .btn-signup {
+        flex: 1;
+      }
+
+      .social-login {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .modal-body {
+        padding: 1.5rem;
+      }
+
+      .modal-header {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====== Top Bar ====== -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-content">
+        <div class="top-bar-left">
+          <a href="tel:+1234567890" class="top-bar-item">
+            <i class='bx bx-phone'></i>
+            <span>+1 (234) 567-890</span>
+          </a>
+          <a href="mailto:info@caking.com" class="top-bar-item">
+            <i class='bx bx-envelope'></i>
+            <span>info@caking.com</span>
+          </a>
+        </div>
+        <div class="top-bar-right">
+          <a href="#" class="top-bar-item">
+            <i class='bx bx-map'></i>
+            <span>Store Locator</span>
+          </a>
+          <a href="#" class="top-bar-item">
+            <i class='bx bx-package'></i>
+            <span>Track Order</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Enhanced Navbar ====== -->
+  <nav class="navbar navbar-expand-lg navbar-premium">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Caking</a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <!-- Main Navigation -->
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              Products
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="products.html">All Products</a></li>
+              <li><a class="dropdown-item" href="#">Custom Cakes</a></li>
+              <li><a class="dropdown-item" href="#">Cupcakes</a></li>
+              <li><a class="dropdown-item" href="#">Cookies</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Special Occasions</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#gallery">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+
+        <!-- Search Bar -->
+        <div class="search-container me-3">
+          <input type="search" class="search-box" placeholder="Search for cakes, cookies...">
+          <button class="search-btn">
+            <i class='bx bx-search'></i>
+          </button>
+        </div>
+
+        <!-- Navbar Icons & Auth -->
+        <div class="navbar-icons">
+          <!-- Wishlist Icon -->
+          <button class="nav-icon-btn" title="Wishlist" onclick="window.location.href='wishlist.html'">
+            <i class='bx bx-heart'></i>
+            <span class="wishlist-badge">3</span>
+          </button>
+
+          <!-- Cart Icon -->
+          <button class="nav-icon-btn" title="Shopping Cart" onclick="window.location.href='cart.html'">
+            <i class='bx bx-cart'></i>
+            <span class="cart-badge">2</span>
+          </button>
+
+          <!-- Auth Buttons (shown when not logged in) -->
+          <div class="auth-buttons" id="authButtons">
+            <button class="btn-login" data-bs-toggle="modal" data-bs-target="#loginModal">
+              Login
+            </button>
+            <button class="btn-signup" data-bs-toggle="modal" data-bs-target="#signupModal">
+              Sign Up
+            </button>
+          </div>
+
+          <!-- User Avatar (shown when logged in - hidden by default) -->
+          <div class="user-dropdown" id="userDropdown" style="display: none;">
+            <div class="user-avatar" data-bs-toggle="dropdown">
+              JD
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#"><i class='bx bx-user'></i> My Profile</a></li>
+              <li><a class="dropdown-item" href="#"><i class='bx bx-shopping-bag'></i> My Orders</a></li>
+              <li><a class="dropdown-item" href="wishlist.html"><i class='bx bx-heart'></i> Wishlist</a></li>
+              <li><a class="dropdown-item" href="#"><i class='bx bx-cog'></i> Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" onclick="logout()"><i class='bx bx-log-out'></i> Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====== Login Modal ====== -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h5 class="modal-title" id="loginModalLabel">Welcome Back!</h5>
+            <p class="modal-subtitle mb-0">Login to access your account</p>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <!-- Email Field -->
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <div style="position: relative;">
+                <i class='bx bx-envelope input-icon'></i>
+                <input type="email" class="form-control-custom" placeholder="Enter your email" required>
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <div style="position: relative;">
+                <i class='bx bx-lock-alt input-icon'></i>
+                <input type="password" class="form-control-custom" id="loginPassword" placeholder="Enter your password" required>
+                <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
+                  <i class='bx bx-show'></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Forgot Password -->
+            <div class="forgot-password">
+              <a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" data-bs-dismiss="modal">Forgot Password?</a>
+            </div>
+
+            <!-- Remember Me -->
+            <div class="form-check-custom mb-3">
+              <input type="checkbox" id="rememberMe">
+              <label for="rememberMe">Remember me for 30 days</label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-submit">
+              <i class='bx bx-log-in'></i> Login to Account
+            </button>
+          </form>
+
+          <!-- Divider -->
+          <div class="divider">
+            <span>Or continue with</span>
+          </div>
+
+          <!-- Social Login -->
+          <div class="social-login">
+            <button class="social-btn google">
+              <i class='bx bxl-google'></i>
+              Google
+            </button>
+            <button class="social-btn facebook">
+              <i class='bx bxl-facebook'></i>
+              Facebook
+            </button>
+          </div>
+
+          <!-- Footer Text -->
+          <div class="modal-footer-text">
+            Don't have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal">Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Sign Up Modal ====== -->
+  <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h5 class="modal-title" id="signupModalLabel">Create Account</h5>
+            <p class="modal-subtitle mb-0">Join us for sweet experiences</p>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="signupForm">
+            <!-- Full Name Field -->
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <div style="position: relative;">
+                <i class='bx bx-user input-icon'></i>
+                <input type="text" class="form-control-custom" placeholder="Enter your full name" required>
+              </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <div style="position: relative;">
+                <i class='bx bx-envelope input-icon'></i>
+                <input type="email" class="form-control-custom" placeholder="Enter your email" required>
+              </div>
+            </div>
+
+            <!-- Phone Field -->
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <div style="position: relative;">
+                <i class='bx bx-phone input-icon'></i>
+                <input type="tel" class="form-control-custom" placeholder="Enter your phone number" required>
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <div style="position: relative;">
+                <i class='bx bx-lock-alt input-icon'></i>
+                <input type="password" class="form-control-custom" id="signupPassword" placeholder="Create a password" required>
+                <button type="button" class="password-toggle" onclick="togglePassword('signupPassword')">
+                  <i class='bx bx-show'></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="form-group">
+              <label class="form-label">Confirm Password</label>
+              <div style="position: relative;">
+                <i class='bx bx-lock-alt input-icon'></i>
+                <input type="password" class="form-control-custom" id="confirmPassword" placeholder="Confirm your password" required>
+                <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                  <i class='bx bx-show'></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Terms & Conditions -->
+            <div class="form-check-custom mb-3">
+              <input type="checkbox" id="agreeTerms" required>
+              <label for="agreeTerms">I agree to the <a href="#" style="color: var(--primary-color);">Terms & Conditions</a></label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-submit">
+              <i class='bx bx-user-plus'></i> Create Account
+            </button>
+          </form>
+
+          <!-- Divider -->
+          <div class="divider">
+            <span>Or sign up with</span>
+          </div>
+
+          <!-- Social Signup -->
+          <div class="social-login">
+            <button class="social-btn google">
+              <i class='bx bxl-google'></i>
+              Google
+            </button>
+            <button class="social-btn facebook">
+              <i class='bx bxl-facebook'></i>
+              Facebook
+            </button>
+          </div>
+
+          <!-- Footer Text -->
+          <div class="modal-footer-text">
+            Already have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Forgot Password Modal ====== -->
+  <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h5 class="modal-title">Reset Password</h5>
+            <p class="modal-subtitle mb-0">Enter your email to receive reset link</p>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="forgotPasswordForm">
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <div style="position: relative;">
+                <i class='bx bx-envelope input-icon'></i>
+                <input type="email" class="form-control-custom" placeholder="Enter your registered email" required>
+              </div>
+            </div>
+            <button type="submit" class="btn-submit">
+              <i class='bx bx-send'></i> Send Reset Link
+            </button>
+          </form>
+          <div class="modal-footer-text">
+            Remember your password? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Toggle password visibility
+    function togglePassword(inputId) {
+      const input = document.getElementById(inputId);
+      const icon = event.currentTarget.querySelector('i');
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'bx bx-hide';
+      } else {
+        input.type = 'password';
+        icon.className = 'bx bx-show';
+      }
+    }
+
+    // Login form submission
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Simulate login
+      const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+      modal.hide();
+      
+      // Show user dropdown and hide auth buttons
+      document.getElementById('authButtons').style.display = 'none';
+      document.getElementById('userDropdown').style.display = 'block';
+      
+      // Show success message
+      alert('Login successful! Welcome back!');
+    });
+
+    // Signup form submission
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const password = document.getElementById('signupPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+      }
+      
+      // Simulate signup
+      const modal = bootstrap.Modal.getInstance(document.getElementById('signupModal'));
+      modal.hide();
+      
+      alert('Account created successfully! Please login.');
+      
+      // Show login modal
+      setTimeout(() => {
+        const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+        loginModal.show();
+      }, 500);
+    });
+
+    // Forgot password form
+    document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const modal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+      modal.hide();
+      alert('Password reset link has been sent to your email!');
+    });
+
+    // Logout function
+    function logout() {
+      document.getElementById('authButtons').style.display = 'flex';
+      document.getElementById('userDropdown').style.display = 'none';
+      alert('You have been logged out successfully!');
+    }
+
+    // Social login handlers
+    document.querySelectorAll('.social-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const platform = this.textContent.trim();
+        alert(`Signing in with ${platform}...`);
+      });
+    });
+  </script>
+
+</body>
+</html>

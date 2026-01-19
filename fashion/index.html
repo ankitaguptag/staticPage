@@ -14,7 +14,7 @@
 <body>
     <header>
         <!-- Start Nav -->
-        <nav class="navbar p-lg-6 navbar-expand-lg navbar-light bg-light">
+         <nav class="navbar p-lg-6 navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="mx-4">
                     <img src="image/logo-july-dark-1-20220704-030304 (1).svg" alt="" class="src">
@@ -27,13 +27,13 @@
                 <div class="collapse navbar-collapse ms-3" id="navbarScroll">
                     <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active fs-5" aria-current="page" href="./index.html">Home</a>
+                            <a class="nav-link active fs-5" aria-current="page" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fs-5" href="./list.html">Shop</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-5" href="#">Page</a>
+                            <a class="nav-link fs-5" href="./detail.html">Page</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fs-5" href="#">Blog</a>
@@ -43,15 +43,17 @@
                         </li>
                     </ul>
                 </div>
-                <i class= 'me-3 bx bx-search bx-sm'></i>
-                <i class=' me-3 bx bx-user bx-sm'></i>
-                <i class=' me-3 bx bx-heart bx-sm'></i>
+                <i class='me-3 bx bx-search bx-sm'></i>
+                <i class='me-3 bx bx-user bx-sm'></i>
+                <i class='me-3 bx bx-heart bx-sm'></i>
                 <i class='me-3 bx bx-lock-alt bx-sm'></i>
 
             </div>
         </nav>
+<!--End Navbar-->
 
         <!-- Start Carousel -->
+         <div class="container-fluid">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -76,12 +78,12 @@
                 <div class="col-6 "><img src="" class="d-block w-100" alt=""></div>
             </div>
         </div>
-        </div>
+         </div>
     </header>
     <!-- End Carousel -->
 
     <!--first section start-->
-    <div class="row m-3">
+    <div class="row m-3 container-fluid">
         <div class="col-6">
             <h1>Shop by Categories</h1>
         </div>
@@ -90,6 +92,7 @@
     <div class="row m-5">
         <div class="col-3">
             <img src="./image/Mask-Group-2-1-540x840 (1).jpg" class="d-block w-100" alt="...">
+            
         </div>
         <div class="col-3">
             <img src="./image/shirts-1-540x840.jpg" class="d-block w-100" alt="...">
@@ -225,8 +228,9 @@
                 first purchase</h2>       
         </div>
     </div>
+    
     <!--footer-->
-    <div class="row bg-dark  text-white mt-5 ">
+    <div class="row bg-dark  text-white mt-5 container-fluid ">
         <div class="col-2 m-3">
             <h5>About Shop</h5>
             <p>Lorem ipsum dolor sit amet, consectetur<br>
@@ -264,14 +268,18 @@
         </div>
     </div>
 
-    <div class="row bg-dark text-white border-top">
-        <div class="col-6 m-3">
+  <div class="row bg-dark text-white border-top pt-5">
+        <div class="col-4">
             <p>©2022 July. All rights reserved</p>
         </div>
-        <div class="col-6">
-        </div>
-    </div>
+        <div class="col-4">
 
+        </div>
+        <div class="col-4">
+            <img src="./image/DetailImage/payment-logo_e0eb93d9-1f43-41d8-9810-09ed5b649156.webp"   class="d-block w-100"alt="">
+        </div>
+     </div>
+ </div>  
 </body>
 
 </html>

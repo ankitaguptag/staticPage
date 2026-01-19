@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Settings | Caking Admin</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #8B4513;
+      --secondary-color: #D4AF37;
+      --dark-color: #2C1810;
+      --light-bg: #FFF8F0;
+      --text-dark: #3E2723;
+      --sidebar-width: 280px;
+      --topbar-height: 70px;
+      --success-color: #27AE60;
+      --warning-color: #F39C12;
+      --error-color: #E74C3C;
+      --info-color: #3498DB;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      background: #f5f6fa;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* Sidebar & Topbar - Same as previous pages */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: linear-gradient(180deg, var(--dark-color) 0%, #1a0f0a 100%);
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--secondary-color) 0%, #ffd700 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--dark-color);
+    }
+
+    .logo-text h4 {
+      color: white;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .logo-text p {
+      color: var(--secondary-color);
+      margin: 0;
+      font-size: 0.75rem;
+    }
+
+    .sidebar-menu {
+      padding: 1.5rem 0;
+    }
+
+    .menu-section-title {
+      padding: 1rem 1.5rem 0.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    .menu-item:hover,
+    .menu-item.active {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--secondary-color);
+    }
+
+    .menu-item.active::before {
+      width: 4px;
+    }
+
+    .menu-item i {
+      font-size: 1.3rem;
+      width: 24px;
+    }
+
+    .topbar {
+      position: fixed;
+      left: var(--sidebar-width);
+      top: 0;
+      right: 0;
+      height: var(--topbar-height);
+      background: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      z-index: 999;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .menu-toggle {
+      width: 45px;
+      height: 45px;
+      border: none;
+      background: var(--light-bg);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .breadcrumb-custom {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      background: none;
+      padding: 0;
+    }
+
+    .breadcrumb-custom li {
+      display: flex;
+      align-items: center;
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumb-custom li.active {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .topbar-right {
+      margin-left: auto;
+    }
+
+    .main-content {
+      margin-left: var(--sidebar-width);
+      margin-top: var(--topbar-height);
+      padding: 2rem;
+      min-height: calc(100vh - var(--topbar-height));
+    }
+
+    /* Settings Layout */
+    .settings-container {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .settings-nav {
+      width: 250px;
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      height: fit-content;
+      position: sticky;
+      top: 90px;
+    }
+
+    .settings-nav-title {
+      font-size: 1.1rem;
+      color: var(--dark-color);
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--light-bg);
+    }
+
+    .settings-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      color: #6b5d57;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+    }
+
+    .settings-nav-item:hover,
+    .settings-nav-item.active {
+      background: var(--light-bg);
+      color: var(--primary-color);
+    }
+
+    .settings-nav-item i {
+      font-size: 1.3rem;
+    }
+
+    .settings-content {
+      flex: 1;
+    }
+
+    .settings-section {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--light-bg);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: var(--dark-color);
+      margin: 0;
+    }
+
+    .section-description {
+      color: #6b5d57;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label-custom {
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.5rem;
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    .form-control-custom {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control-custom:focus {
+      border-color: var(--secondary-color);
+      outline: none;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    }
+
+    .form-help-text {
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 0.5rem;
+    }
+
+    /* Toggle Switch */
+    .toggle-switch {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem;
+      background: var(--light-bg);
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .toggle-info h6 {
+      margin: 0 0 0.25rem 0;
+      color: var(--dark-color);
+      font-size: 0.95rem;
+    }
+
+    .toggle-info p {
+      margin: 0;
+      color: #6b5d57;
+      font-size: 0.85rem;
+    }
+
+    .switch {
+      position: relative;
+      width: 55px;
+      height: 28px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--success-color);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(27px);
+    }
+
+    /* Alert Box */
+    .alert-box {
+      padding: 1.25rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: start;
+      gap: 1rem;
+    }
+
+    .alert-box.warning {
+      background: rgba(243, 156, 18, 0.1);
+      border-left: 4px solid var(--warning-color);
+    }
+
+    .alert-box.danger {
+      background: rgba(231, 76, 60, 0.1);
+      border-left: 4px solid var(--error-color);
+    }
+
+    .alert-box.info {
+      background: rgba(52, 152, 219, 0.1);
+      border-left: 4px solid var(--info-color);
+    }
+
+    .alert-icon {
+      font-size: 1.5rem;
+    }
+
+    .alert-box.warning .alert-icon {
+      color: var(--warning-color);
+    }
+
+    .alert-box.danger .alert-icon {
+      color: var(--error-color);
+    }
+
+    .alert-box.info .alert-icon {
+      color: var(--info-color);
+    }
+
+    /* Buttons */
+    .btn-primary-custom {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary-custom:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(139, 69, 19, 0.4);
+    }
+
+    .btn-danger {
+      background: var(--error-color);
+      color: white;
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-danger:hover {
+      background: #c0392b;
+      transform: translateY(-2px);
+    }
+
+    .save-bar {
+      position: fixed;
+      bottom: 0;
+      left: var(--sidebar-width);
+      right: 0;
+      background: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      z-index: 998;
+    }
+
+    .backup-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .backup-info h6 {
+      margin: 0 0 0.25rem 0;
+      color: var(--dark-color);
+    }
+
+    .backup-info p {
+      margin: 0;
+      color: #6b5d57;
+      font-size: 0.85rem;
+    }
+
+    .backup-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-icon {
+      width: 35px;
+      height: 35px;
+      border-radius: 8px;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-icon.download {
+      background: rgba(52, 152, 219, 0.1);
+      color: var(--info-color);
+    }
+
+    .btn-icon.download:hover {
+      background: var(--info-color);
+      color: white;
+    }
+
+    .btn-icon.delete {
+      background: rgba(231, 76, 60, 0.1);
+      color: var(--error-color);
+    }
+
+    .btn-icon.delete:hover {
+      background: var(--error-color);
+      color: white;
+    }
+
+    @media (max-width: 992px) {
+      .settings-container {
+        flex-direction: column;
+      }
+
+      .settings-nav {
+        width: 100%;
+        position: relative;
+        top: 0;
+      }
+
+      .sidebar {
+        left: -280px;
+      }
+
+      .topbar {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .save-bar {
+        left: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====== Sidebar ====== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <i class='bx bxs-cake'></i>
+        </div>
+        <div class="logo-text">
+          <h4>Caking</h4>
+          <p>ADMIN PANEL</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <div class="menu-section-title">Main Menu</div>
+      
+      <a href="admin-dashboard.html" class="menu-item">
+        <i class='bx bxs-dashboard'></i>
+        <span>Dashboard</span>
+      </a>
+
+      <div class="menu-section-title">Management</div>
+
+      <a href="cake-management.html" class="menu-item">
+        <i class='bx bxs-cake'></i>
+        <span>Cake Management</span>
+      </a>
+
+      <a href="orders-management.html" class="menu-item">
+        <i class='bx bxs-shopping-bag'></i>
+        <span>Orders Management</span>
+      </a>
+
+      <a href="user-management.html" class="menu-item">
+        <i class='bx bxs-user-detail'></i>
+        <span>User Management</span>
+      </a>
+
+      <div class="menu-section-title">Settings</div>
+
+      <a href="store-settings.html" class="menu-item">
+        <i class='bx bxs-store'></i>
+        <span>Store Settings</span>
+      </a>
+
+      <a href="system-settings.html" class="menu-item active">
+        <i class='bx bxs-cog'></i>
+        <span>System Settings</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ====== Top Navbar ====== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="menu-toggle">
+        <i class='bx bx-menu'></i>
+      </button>
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb-custom">
+          <li><i class='bx bx-home-alt'></i></li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>Settings</li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li class="active">System Settings</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="topbar-right">
+      <div style="color: var(--dark-color); font-weight: 600;">
+        <i class='bx bx-user-circle' style="font-size: 1.5rem;"></i>
+        Admin
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== Main Content ====== -->
+  <main class="main-content">
+    <!-- Page Header -->
+    <div style="margin-bottom: 2rem;">
+      <h1 style="font-size: 2rem; color: var(--dark-color); margin-bottom: 0.5rem;">System Settings</h1>
+      <p style="color: #6b5d57;">Configure system-wide settings and maintenance options</p>
+    </div>
+
+    <div class="settings-container">
+      <!-- Settings Navigation -->
+      <div class="settings-nav">
+        <h6 class="settings-nav-title">Settings</h6>
+        <a href="#general" class="settings-nav-item active" onclick="showSection('general')">
+          <i class='bx bx-cog'></i>
+          General
+        </a>
+        <a href="#security" class="settings-nav-item" onclick="showSection('security')">
+          <i class='bx bx-shield-check'></i>
+          Security
+        </a>
+        <a href="#email" class="settings-nav-item" onclick="showSection('email')">
+          <i class='bx bx-envelope'></i>
+          Email Configuration
+        </a>
+        <a href="#backup" class="settings-nav-item" onclick="showSection('backup')">
+          <i class='bx bx-data'></i>
+          Backup & Restore
+        </a>
+        <a href="#cache" class="settings-nav-item" onclick="showSection('cache')">
+          <i class='bx bx-chip'></i>
+          Cache & Performance
+        </a>
+        <a href="#logs" class="settings-nav-item" onclick="showSection('logs')">
+          <i class='bx bx-file'></i>
+          System Logs
+        </a>
+        <a href="#maintenance" class="settings-nav-item" onclick="showSection('maintenance')">
+          <i class='bx bx-wrench'></i>
+          Maintenance Mode
+        </a>
+        <a href="#advanced" class="settings-nav-item" onclick="showSection('advanced')">
+          <i class='bx bx-code-block'></i>
+          Advanced
+        </a>
+      </div>
+
+      <!-- Settings Content -->
+      <div class="settings-content">
+        
+        <!-- General Settings -->
+        <div class="settings-section" id="general">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">General System Settings</h5>
+              <p class="section-description">Basic system configuration options</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">Application Name</label>
+                <input type="text" class="form-control-custom" value="Caking Admin Panel">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">System Version</label>
+                <input type="text" class="form-control-custom" value="1.0.0" readonly style="background: #f5f5f5;">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">Date Format</label>
+                <select class="form-control-custom">
+                  <option>MM/DD/YYYY</option>
+                  <option>DD/MM/YYYY</option>
+                  <option>YYYY-MM-DD</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">Time Format</label>
+                <select class="form-control-custom">
+                  <option>12 Hour (AM/PM)</option>
+                  <option>24 Hour</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Debug Mode</h6>
+              <p>Enable detailed error messages and logging for troubleshooting</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Auto Updates</h6>
+              <p>Automatically install system updates when available</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Security Settings -->
+        <div class="settings-section" id="security" style="display: none;">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">Security Settings</h5>
+              <p class="section-description">Protect your system with security features</p>
+            </div>
+          </div>
+
+          <div class="alert-box warning">
+            <i class='bx bxs-error-circle alert-icon'></i>
+            <div>
+              <strong>Security Notice:</strong>
+              <p style="margin: 0;">Make sure to enable all security features to protect your admin panel.</p>
+            </div>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Two-Factor Authentication (2FA)</h6>
+              <p>Require 2FA for all admin users</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>SSL/HTTPS Enforcement</h6>
+              <p>Force all connections to use secure HTTPS protocol</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Session Timeout (minutes)</label>
+            <input type="number" class="form-control-custom" value="30">
+            <p class="form-help-text">Users will be logged out after this period of inactivity</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Max Login Attempts</label>
+            <input type="number" class="form-control-custom" value="5">
+            <p class="form-help-text">Account will be locked after failed login attempts</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">IP Whitelist</label>
+            <textarea class="form-control-custom" rows="4" placeholder="Enter IP addresses (one per line)"></textarea>
+            <p class="form-help-text">Only these IP addresses can access the admin panel (leave empty to allow all)</p>
+          </div>
+        </div>
+
+        <!-- Email Configuration -->
+        <div class="settings-section" id="email" style="display: none;">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">Email Configuration</h5>
+              <p class="section-description">Configure SMTP settings for sending emails</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">SMTP Host</label>
+                <input type="text" class="form-control-custom" placeholder="smtp.gmail.com">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">SMTP Port</label>
+                <input type="number" class="form-control-custom" value="587">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">SMTP Username</label>
+                <input type="email" class="form-control-custom" placeholder="your-email@gmail.com">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label-custom">SMTP Password</label>
+                <input type="password" class="form-control-custom" placeholder="••••••••">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">From Email Address</label>
+            <input type="email" class="form-control-custom" value="noreply@caking.com">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">From Name</label>
+            <input type="text" class="form-control-custom" value="Caking Bakery">
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Use SSL Encryption</h6>
+              <p>Enable SSL encryption for SMTP connection</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <button class="btn-primary-custom">
+            <i class='bx bx-send'></i>
+            Send Test Email
+          </button>
+        </div>
+
+        <!-- Backup & Restore -->
+        <div class="settings-section" id="backup" style="display: none;">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">Backup & Restore</h5>
+              <p class="section-description">Manage system backups and restoration</p>
+            </div>
+          </div>
+
+          <div class="alert-box info">
+            <i class='bx bxs-info-circle alert-icon'></i>
+            <div>
+              <strong>Backup Information:</strong>
+              <p style="margin: 0;">Regular backups protect your data. Schedule automatic backups for peace of mind.</p>
+            </div>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Automatic Backups</h6>
+              <p>Enable scheduled automatic backups</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Backup Frequency</label>
+            <select class="form-control-custom">
+              <option>Daily</option>
+              <option>Weekly</option>
+              <option>Monthly</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Backup Retention (days)</label>
+            <input type="number" class="form-control-custom" value="30">
+            <p class="form-help-text">Backups older than this will be automatically deleted</p>
+          </div>
+
+          <div style="margin: 2rem 0;">
+            <button class="btn-primary-custom">
+              <i class='bx bx-data'></i>
+              Create Backup Now
+            </button>
+          </div>
+
+          <h6 style="margin: 2rem 0 1rem 0; color: var(--dark-color);">Recent Backups</h6>
+
+          <div class="backup-item">
+            <div class="backup-info">
+              <h6>Full System Backup - Nov 05, 2025</h6>
+              <p>Size: 245 MB • Type: Automatic</p>
+            </div>
+            <div class="backup-actions">
+              <button class="btn-icon download" title="Download">
+                <i class='bx bx-download'></i>
+              </button>
+              <button class="btn-icon delete" title="Delete">
+                <i class='bx bx-trash'></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="backup-item">
+            <div class="backup-info">
+              <h6>Full System Backup - Nov 04, 2025</h6>
+              <p>Size: 243 MB • Type: Automatic</p>
+            </div>
+            <div class="backup-actions">
+              <button class="btn-icon download" title="Download">
+                <i class='bx bx-download'></i>
+              </button>
+              <button class="btn-icon delete" title="Delete">
+                <i class='bx bx-trash'></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="backup-item">
+            <div class="backup-info">
+              <h6>Database Backup - Nov 01, 2025</h6>
+              <p>Size: 89 MB • Type: Manual</p>
+            </div>
+            <div class="backup-actions">
+              <button class="btn-icon download" title="Download">
+                <i class='bx bx-download'></i>
+              </button>
+              <button class="btn-icon delete" title="Delete">
+                <i class='bx bx-trash'></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cache & Performance -->
+        <div class="settings-section" id="cache" style="display: none;">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">Cache & Performance</h5>
+              <p class="section-description">Optimize system performance and caching</p>
+            </div>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Enable Caching</h6>
+              <p>Cache frequently accessed data to improve performance</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Cache Duration (hours)</label>
+            <input type="number" class="form-control-custom" value="24">
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Image Optimization</h6>
+              <p>Automatically compress and optimize images</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Lazy Loading</h6>
+              <p>Load images only when they appear in viewport</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div style="margin-top: 2rem;">
+            <button class="btn-primary-custom">
+              <i class='bx bx-refresh'></i>
+              Clear All Cache
+            </button>
+          </div>
+        </div>
+
+        <!-- System Logs -->
+        <div class="settings-section" id="logs" style="display: none;">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">System Logs</h5>
+              <p class="section-description">View and manage system activity logs</p>
+            </div>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Enable Logging</h6>
+              <p>Record system activities and errors</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Log Level</label>
+            <select class="form-control-custom">
+              <option>Error Only</option>
+              <option>Warning & Error</option>
+              <option selected>Info, Warning & Error</option>
+              <option>Debug (All)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Log Retention (days)</label>
+            <input type="number" class="form-control-custom" value="30">
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+            <button class="btn-primary-custom">
+              <i class='bx bx-show'></i>
+              View Logs
+            </button>
+            <button class="btn-primary-custom">
+              <i class='bx bx-download'></i>
+              Download Logs
+            </button>
+            <button class="btn-danger">
+              <i class='bx bx-trash'></i>
+              Clear Logs
+            </button>
+          </div>
+        </div>
+
+        <!-- Maintenance Mode -->
+        <div class="settings-section" id="maintenance" style="display: none;">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">Maintenance Mode</h5>
+              <p class="section-description">Enable maintenance mode for system updates</p>
+            </div>
+          </div>
+
+          <div class="alert-box danger">
+            <i class='bx bxs-error-circle alert-icon'></i>
+            <div>
+              <strong>Warning:</strong>
+              <p style="margin: 0;">Enabling maintenance mode will make your store inaccessible to customers.</p>
+            </div>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Maintenance Mode</h6>
+              <p>Enable to show maintenance page to visitors</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Maintenance Message</label>
+            <textarea class="form-control-custom" rows="4">We're currently performing scheduled maintenance. We'll be back shortly!</textarea>
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>Allow Admin Access</h6>
+              <p>Admins can access the site during maintenance</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Estimated Completion Time</label>
+            <input type="datetime-local" class="form-control-custom">
+          </div>
+        </div>
+
+        <!-- Advanced Settings -->
+        <div class="settings-section" id="advanced" style="display: none;">
+          <div class="section-header">
+            <div>
+              <h5 class="section-title">Advanced Settings</h5>
+              <p class="section-description">Advanced configuration options</p>
+            </div>
+          </div>
+
+          <div class="alert-box warning">
+            <i class='bx bxs-error-circle alert-icon'></i>
+            <div>
+              <strong>Caution:</strong>
+              <p style="margin: 0;">These settings are for advanced users only. Incorrect configuration may break your system.</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Database Connection String</label>
+            <input type="text" class="form-control-custom" value="mongodb://localhost:27017/caking" readonly style="background: #f5f5f5;">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">API Base URL</label>
+            <input type="url" class="form-control-custom" value="https://api.caking.com">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Max Upload Size (MB)</label>
+            <input type="number" class="form-control-custom" value="10">
+          </div>
+
+          <div class="toggle-switch">
+            <div class="toggle-info">
+              <h6>API Rate Limiting</h6>
+              <p>Limit API requests per user</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label-custom">Custom CSS</label>
+            <textarea class="form-control-custom" rows="6" placeholder="/* Add custom CSS here */"></textarea>
+          </div>
+
+          <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid var(--light-bg);">
+            <h6 style="color: var(--error-color); margin-bottom: 1rem;">Danger Zone</h6>
+            <button class="btn-danger" onclick="resetSystem()">
+              <i class='bx bx-reset'></i>
+              Reset System to Defaults
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Save Bar -->
+    <div class="save-bar">
+      <button class="btn-primary-custom" onclick="saveSettings()">
+        <i class='bx bx-save'></i>
+        Save Changes
+      </button>
+    </div>
+  </main>
+
+  <script>
+    function showSection(sectionId) {
+      // Hide all sections
+      document.querySelectorAll('.settings-section').forEach(section => {
+        section.style.display = 'none';
+      });
+      
+      // Show selected section
+      document.getElementById(sectionId).style.display = 'block';
+      
+      // Update active nav item
+      document.querySelectorAll('.settings-nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      event.target.closest('.settings-nav-item').classList.add('active');
+    }
+
+    function saveSettings() {
+      alert('Settings saved successfully!');
+    }
+
+    function resetSystem() {
+      if (confirm('Are you sure you want to reset all system settings to defaults? This action cannot be undone.')) {
+        alert('System reset to default settings.');
+      }
+    }
+  </script>
+
+</body>
+</html>

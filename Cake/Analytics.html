@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Dashboard | Caking Admin</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --primary-color: #8B4513;
+      --secondary-color: #D4AF37;
+      --dark-color: #2C1810;
+      --light-bg: #FFF8F0;
+      --text-dark: #3E2723;
+      --sidebar-width: 280px;
+      --topbar-height: 70px;
+      --success-color: #27AE60;
+      --warning-color: #F39C12;
+      --error-color: #E74C3C;
+      --info-color: #3498DB;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      background: #f5f6fa;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* Sidebar & Topbar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: linear-gradient(180deg, var(--dark-color) 0%, #1a0f0a 100%);
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--secondary-color) 0%, #ffd700 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--dark-color);
+    }
+
+    .logo-text h4 {
+      color: white;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .logo-text p {
+      color: var(--secondary-color);
+      margin: 0;
+      font-size: 0.75rem;
+    }
+
+    .sidebar-menu {
+      padding: 1.5rem 0;
+    }
+
+    .menu-section-title {
+      padding: 1rem 1.5rem 0.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    .menu-item:hover,
+    .menu-item.active {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--secondary-color);
+    }
+
+    .menu-item.active::before {
+      width: 4px;
+    }
+
+    .menu-item i {
+      font-size: 1.3rem;
+      width: 24px;
+    }
+
+    .topbar {
+      position: fixed;
+      left: var(--sidebar-width);
+      top: 0;
+      right: 0;
+      height: var(--topbar-height);
+      background: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      z-index: 999;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .menu-toggle {
+      width: 45px;
+      height: 45px;
+      border: none;
+      background: var(--light-bg);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .breadcrumb-custom {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      background: none;
+      padding: 0;
+    }
+
+    .breadcrumb-custom li {
+      display: flex;
+      align-items: center;
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumb-custom li.active {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .topbar-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .date-filter {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--light-bg);
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .main-content {
+      margin-left: var(--sidebar-width);
+      margin-top: var(--topbar-height);
+      padding: 2rem;
+      min-height: calc(100vh - var(--topbar-height));
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      background: var(--light-bg);
+      border-radius: 50%;
+      transform: translate(30%, -30%);
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .stat-icon.revenue {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+    }
+
+    .stat-icon.orders {
+      background: linear-gradient(135deg, #3498DB 0%, #2874a6 100%);
+    }
+
+    .stat-icon.customers {
+      background: linear-gradient(135deg, #27AE60 0%, #1d8348 100%);
+    }
+
+    .stat-icon.products {
+      background: linear-gradient(135deg, #F39C12 0%, #d68910 100%);
+    }
+
+    .stat-trend {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 8px;
+    }
+
+    .stat-trend.up {
+      background: rgba(39, 174, 96, 0.1);
+      color: var(--success-color);
+    }
+
+    .stat-trend.down {
+      background: rgba(231, 76, 60, 0.1);
+      color: var(--error-color);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark-color);
+      margin-bottom: 0.25rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-label {
+      color: #6b5d57;
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Chart Cards */
+    .chart-card {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .chart-title {
+      font-size: 1.3rem;
+      color: var(--dark-color);
+      margin: 0;
+    }
+
+    .chart-filters {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border: 2px solid #e0e0e0;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      border-color: var(--primary-color);
+      background: var(--light-bg);
+      color: var(--primary-color);
+    }
+
+    .chart-container {
+      position: relative;
+      height: 350px;
+    }
+
+    /* Top Products Table */
+    .products-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .products-table thead {
+      background: var(--light-bg);
+    }
+
+    .products-table th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--dark-color);
+      font-size: 0.9rem;
+    }
+
+    .products-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .product-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .product-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .progress-bar-custom {
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      border-radius: 10px;
+    }
+
+    @media (max-width: 1200px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -280px;
+      }
+
+      .topbar {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .chart-container {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====== Sidebar ====== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <i class='bx bxs-cake'></i>
+        </div>
+        <div class="logo-text">
+          <h4>Caking</h4>
+          <p>ADMIN PANEL</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <div class="menu-section-title">Main Menu</div>
+      
+      <a href="admin-dashboard.html" class="menu-item">
+        <i class='bx bxs-dashboard'></i>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="#" class="menu-item active">
+        <i class='bx bxs-analyse'></i>
+        <span>Analytics</span>
+      </a>
+
+      <div class="menu-section-title">Management</div>
+
+      <a href="cake-management.html" class="menu-item">
+        <i class='bx bxs-cake'></i>
+        <span>Cake Management</span>
+      </a>
+
+      <a href="orders-management.html" class="menu-item">
+        <i class='bx bxs-shopping-bag'></i>
+        <span>Orders Management</span>
+      </a>
+
+      <a href="user-management.html" class="menu-item">
+        <i class='bx bxs-user-detail'></i>
+        <span>User Management</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ====== Top Navbar ====== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="menu-toggle">
+        <i class='bx bx-menu'></i>
+      </button>
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb-custom">
+          <li><i class='bx bx-home-alt'></i></li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li class="active">Analytics Dashboard</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="topbar-right">
+      <div class="date-filter">
+        <i class='bx bx-calendar'></i>
+        <span style="font-weight: 600;">Last 30 Days</span>
+        <i class='bx bx-chevron-down'></i>
+      </div>
+      <div style="color: var(--dark-color); font-weight: 600;">
+        <i class='bx bx-user-circle' style="font-size: 1.5rem;"></i>
+        Admin
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== Main Content ====== -->
+  <main class="main-content">
+    <!-- Page Header -->
+    <div style="margin-bottom: 2rem;">
+      <h1 style="font-size: 2rem; color: var(--dark-color); margin-bottom: 0.5rem;">Analytics Dashboard</h1>
+      <p style="color: #6b5d57;">Track your business performance and key metrics</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon revenue">
+            <i class='bx bx-dollar-circle'></i>
+          </div>
+          <div class="stat-trend up">
+            <i class='bx bx-trending-up'></i>
+            +12.5%
+          </div>
+        </div>
+        <div class="stat-value">$24,580</div>
+        <div class="stat-label">Total Revenue</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon orders">
+            <i class='bx bx-shopping-bag'></i>
+          </div>
+          <div class="stat-trend up">
+            <i class='bx bx-trending-up'></i>
+            +8.2%
+          </div>
+        </div>
+        <div class="stat-value">356</div>
+        <div class="stat-label">Total Orders</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon customers">
+            <i class='bx bx-user'></i>
+          </div>
+          <div class="stat-trend up">
+            <i class='bx bx-trending-up'></i>
+            +15.3%
+          </div>
+        </div>
+        <div class="stat-value">1,245</div>
+        <div class="stat-label">Total Customers</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon products">
+            <i class='bx bx-cake'></i>
+          </div>
+          <div class="stat-trend down">
+            <i class='bx bx-trending-down'></i>
+            -3.1%
+          </div>
+        </div>
+        <div class="stat-value">248</div>
+        <div class="stat-label">Products</div>
+      </div>
+    </div>
+
+    <!-- Revenue Chart -->
+    <div class="row g-4 mb-4">
+      <div class="col-lg-8">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h5 class="chart-title">Revenue Overview</h5>
+            <div class="chart-filters">
+              <button class="filter-btn">7D</button>
+              <button class="filter-btn active">30D</button>
+              <button class="filter-btn">3M</button>
+              <button class="filter-btn">1Y</button>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h5 class="chart-title">Order Status</h5>
+          </div>
+          <div class="chart-container">
+            <canvas id="orderStatusChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sales & Categories -->
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h5 class="chart-title">Sales by Category</h5>
+          </div>
+          <div class="chart-container">
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h5 class="chart-title">Customer Growth</h5>
+          </div>
+          <div class="chart-container">
+            <canvas id="customerGrowthChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Products -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <h5 class="chart-title">Top Selling Products</h5>
+      </div>
+      <table class="products-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Sales</th>
+            <th>Revenue</th>
+            <th>Performance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="product-info">
+                <img src="./image/s2_d8314e19-80cc-4836-a346-4db65fdea857_1.png" class="product-img" alt="Cake">
+                <span style="font-weight: 600;">Chocolate Delight Cake</span>
+              </div>
+            </td>
+            <td>Custom Cakes</td>
+            <td>156 Units</td>
+            <td style="font-weight: 700; color: var(--primary-color);">$7,020</td>
+            <td>
+              <div class="progress-bar-custom">
+                <div class="progress-fill" style="width: 85%;"></div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-info">
+                <img src="./image/instagram1 (1).jpg" class="product-img" alt="Cupcakes">
+                <span style="font-weight: 600;">Vanilla Dream Cupcakes</span>
+              </div>
+            </td>
+            <td>Cupcakes</td>
+            <td>243 Units</td>
+            <td style="font-weight: 700; color: var(--primary-color);">$5,832</td>
+            <td>
+              <div class="progress-bar-custom">
+                <div class="progress-fill" style="width: 75%;"></div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-info">
+                <img src="./image/instagram2 (1).jpg" class="product-img" alt="Red Velvet">
+                <span style="font-weight: 600;">Red Velvet Elegance</span>
+              </div>
+            </td>
+            <td>Custom Cakes</td>
+            <td>128 Units</td>
+            <td style="font-weight: 700; color: var(--primary-color);">$5,120</td>
+            <td>
+              <div class="progress-bar-custom">
+                <div class="progress-fill" style="width: 68%;"></div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-info">
+                <img src="./image/instagram5 (1).jpg" class="product-img" alt="Cookies">
+                <span style="font-weight: 600;">Classic Chocolate Chip</span>
+              </div>
+            </td>
+            <td>Cookies</td>
+            <td>387 Units</td>
+            <td style="font-weight: 700; color: var(--primary-color);">$6,966</td>
+            <td>
+              <div class="progress-bar-custom">
+                <div class="progress-fill" style="width: 92%;"></div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-info">
+                <img src="./image/instagram4 (1).jpg" class="product-img" alt="Strawberry">
+                <span style="font-weight: 600;">Strawberry Shortcake</span>
+              </div>
+            </td>
+            <td>Custom Cakes</td>
+            <td>98 Units</td>
+            <td style="font-weight: 700; color: var(--primary-color);">$3,724</td>
+            <td>
+              <div class="progress-bar-custom">
+                <div class="progress-fill" style="width: 55%;"></div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    // Revenue Chart
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    const revenueChart = new Chart(revenueCtx, {
+      type: 'line',
+      data: {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        datasets: [{
+          label: 'Revenue',
+          data: [5200, 6800, 7500, 5080],
+          borderColor: '#8B4513',
+          backgroundColor: 'rgba(139, 69, 19, 0.1)',
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: '#8B4513',
+          pointBorderColor: '#fff',
+          pointBorderWidth: 2,
+          pointRadius: 5
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(value) {
+                return '$' + value;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Order Status Chart
+    const orderStatusCtx = document.getElementById('orderStatusChart').getContext('2d');
+    const orderStatusChart = new Chart(orderStatusCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Completed', 'Processing', 'Pending', 'Cancelled'],
+        datasets: [{
+          data: [356, 18, 24, 12],
+          backgroundColor: ['#27AE60', '#3498DB', '#F39C12', '#E74C3C'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }
+    });
+
+    // Category Chart
+    const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+    const categoryChart = new Chart(categoryCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Custom Cakes', 'Cupcakes', 'Cookies', 'Pastries', 'Breads'],
+        datasets: [{
+          label: 'Sales',
+          data: [12500, 8900, 7600, 5200, 3800],
+          backgroundColor: [
+            'rgba(139, 69, 19, 0.8)',
+            'rgba(52, 152, 219, 0.8)',
+            'rgba(39, 174, 96, 0.8)',
+            'rgba(243, 156, 18, 0.8)',
+            'rgba(231, 76, 60, 0.8)'
+          ],
+          borderRadius: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Customer Growth Chart
+    const customerGrowthCtx = document.getElementById('customerGrowthChart').getContext('2d');
+    const customerGrowthChart = new Chart(customerGrowthCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
+        datasets: [{
+          label: 'New Customers',
+          data: [65, 78, 90, 105, 98, 115, 125, 142, 138, 156, 145],
+          borderColor: '#27AE60',
+          backgroundColor: 'rgba(39, 174, 96, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

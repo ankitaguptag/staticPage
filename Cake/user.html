@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Management | Caking Admin</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="./bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="./bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #8B4513;
+      --secondary-color: #D4AF37;
+      --dark-color: #2C1810;
+      --light-bg: #FFF8F0;
+      --text-dark: #3E2723;
+      --sidebar-width: 280px;
+      --topbar-height: 70px;
+      --success-color: #27AE60;
+      --warning-color: #F39C12;
+      --error-color: #E74C3C;
+      --info-color: #3498DB;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      background: #f5f6fa;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* Sidebar & Topbar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: linear-gradient(180deg, var(--dark-color) 0%, #1a0f0a 100%);
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--secondary-color) 0%, #ffd700 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--dark-color);
+    }
+
+    .logo-text h4 {
+      color: white;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .logo-text p {
+      color: var(--secondary-color);
+      margin: 0;
+      font-size: 0.75rem;
+    }
+
+    .sidebar-menu {
+      padding: 1.5rem 0;
+    }
+
+    .menu-section-title {
+      padding: 1rem 1.5rem 0.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    .menu-item:hover,
+    .menu-item.active {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--secondary-color);
+    }
+
+    .menu-item.active::before {
+      width: 4px;
+    }
+
+    .menu-item i {
+      font-size: 1.3rem;
+      width: 24px;
+    }
+
+    .topbar {
+      position: fixed;
+      left: var(--sidebar-width);
+      top: 0;
+      right: 0;
+      height: var(--topbar-height);
+      background: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      z-index: 999;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .menu-toggle {
+      width: 45px;
+      height: 45px;
+      border: none;
+      background: var(--light-bg);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .breadcrumb-custom {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      background: none;
+      padding: 0;
+    }
+
+    .breadcrumb-custom li {
+      display: flex;
+      align-items: center;
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumb-custom li.active {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .topbar-right {
+      margin-left: auto;
+    }
+
+    .main-content {
+      margin-left: var(--sidebar-width);
+      margin-top: var(--topbar-height);
+      padding: 2rem;
+      min-height: calc(100vh - var(--topbar-height));
+    }
+
+    /* Stats Cards */
+    .user-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .stat-icon {
+      width: 55px;
+      height: 55px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      color: white;
+    }
+
+    .stat-icon.customers {
+      background: linear-gradient(135deg, #3498DB 0%, #2874a6 100%);
+    }
+
+    .stat-icon.admins {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+    }
+
+    .stat-icon.active {
+      background: linear-gradient(135deg, #27AE60 0%, #1d8348 100%);
+    }
+
+    .stat-icon.blocked {
+      background: linear-gradient(135deg: #E74C3C 0%, #c0392b 100%);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark-color);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      color: #6b5d57;
+      font-size: 0.9rem;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .filter-controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: end;
+    }
+
+    .filter-item {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .filter-label {
+      display: block;
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .filter-input,
+    .filter-select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+    }
+
+    .btn-primary-custom {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Users Table */
+    .users-table-wrapper {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .table-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn-action {
+      padding: 0.5rem 1rem;
+      border: 2px solid #e0e0e0;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .users-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .users-table thead {
+      background: var(--light-bg);
+    }
+
+    .users-table th {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--dark-color);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .users-table td {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: middle;
+    }
+
+    .users-table tbody tr:hover {
+      background: #fafafa;
+    }
+
+    .user-cell {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .user-avatar.customer {
+      background: linear-gradient(135deg, #3498DB 0%, #2874a6 100%);
+      color: white;
+    }
+
+    .user-avatar.admin {
+      background: linear-gradient(135deg, var(--secondary-color) 0%, #ffd700 100%);
+      color: var(--dark-color);
+    }
+
+    .user-info h6 {
+      margin: 0 0 0.25rem 0;
+      color: var(--dark-color);
+      font-size: 0.95rem;
+    }
+
+    .user-info p {
+      margin: 0;
+      color: #999;
+      font-size: 0.85rem;
+    }
+
+    .role-badge {
+      padding: 0.35rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .role-badge.customer {
+      background: rgba(52, 152, 219, 0.1);
+      color: var(--info-color);
+    }
+
+    .role-badge.admin {
+      background: rgba(139, 69, 19, 0.1);
+      color: var(--primary-color);
+    }
+
+    .role-badge.super-admin {
+      background: rgba(212, 175, 55, 0.2);
+      color: var(--dark-color);
+    }
+
+    .status-badge {
+      padding: 0.35rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .status-badge.active {
+      background: rgba(39, 174, 96, 0.1);
+      color: var(--success-color);
+    }
+
+    .status-badge.inactive {
+      background: rgba(149, 165, 166, 0.1);
+      color: #95a5a6;
+    }
+
+    .status-badge.blocked {
+      background: rgba(231, 76, 60, 0.1);
+      color: var(--error-color);
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .action-btn {
+      width: 35px;
+      height: 35px;
+      border-radius: 8px;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+    }
+
+    .action-btn.edit {
+      background: rgba(52, 152, 219, 0.1);
+      color: var(--info-color);
+    }
+
+    .action-btn.edit:hover {
+      background: var(--info-color);
+      color: white;
+    }
+
+    .action-btn.delete {
+      background: rgba(231, 76, 60, 0.1);
+      color: var(--error-color);
+    }
+
+    .action-btn.delete:hover {
+      background: var(--error-color);
+      color: white;
+    }
+
+    .action-btn.permissions {
+      background: rgba(243, 156, 18, 0.1);
+      color: var(--warning-color);
+    }
+
+    .action-btn.permissions:hover {
+      background: var(--warning-color);
+      color: white;
+    }
+
+    /* Modal Styling */
+    .modal-content {
+      border-radius: 20px;
+      border: none;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+      color: white;
+      padding: 1.5rem 2rem;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .modal-header .btn-close {
+      filter: brightness(0) invert(1);
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label-custom {
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .form-control-custom {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+    }
+
+    .permission-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .permission-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: var(--light-bg);
+      border-radius: 10px;
+    }
+
+    .permission-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .permission-item label {
+      cursor: pointer;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1200px) {
+      .user-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -280px;
+      }
+
+      .topbar {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .user-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .permission-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====== Sidebar ====== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <i class='bx bxs-cake'></i>
+        </div>
+        <div class="logo-text">
+          <h4>Caking</h4>
+          <p>ADMIN PANEL</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <div class="menu-section-title">Main Menu</div>
+      
+      <a href="admin-dashboard.html" class="menu-item">
+        <i class='bx bxs-dashboard'></i>
+        <span>Dashboard</span>
+      </a>
+
+      <div class="menu-section-title">Management</div>
+
+      <a href="cake-management.html" class="menu-item">
+        <i class='bx bxs-cake'></i>
+        <span>Cake Management</span>
+      </a>
+
+      <a href="orders-management.html" class="menu-item">
+        <i class='bx bxs-shopping-bag'></i>
+        <span>Orders Management</span>
+      </a>
+
+      <a href="user-management.html" class="menu-item active">
+        <i class='bx bxs-user-detail'></i>
+        <span>User Management</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ====== Top Navbar ====== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="menu-toggle">
+        <i class='bx bx-menu'></i>
+      </button>
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb-custom">
+          <li><i class='bx bx-home-alt'></i></li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>Users</li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li class="active">User Management</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="topbar-right">
+      <div style="color: var(--dark-color); font-weight: 600;">
+        <i class='bx bx-user-circle' style="font-size: 1.5rem;"></i>
+        Admin
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== Main Content ====== -->
+  <main class="main-content">
+    <!-- Page Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+      <div>
+        <h1 style="font-size: 2rem; color: var(--dark-color); margin-bottom: 0.5rem;">User Management</h1>
+        <p style="color: #6b5d57;">Manage customers, admins, and user permissions</p>
+      </div>
+      <button class="btn-primary-custom" data-bs-toggle="modal" data-bs-target="#addUserModal">
+        <i class='bx bx-plus'></i>
+        Add New User
+      </button>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="user-stats">
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon customers">
+            <i class='bx bx-user'></i>
+          </div>
+        </div>
+        <div class="stat-value">1,245</div>
+        <div class="stat-label">Total Customers</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon admins">
+            <i class='bx bx-shield-alt-2'></i>
+          </div>
+        </div>
+        <div class="stat-value">8</div>
+        <div class="stat-label">Admin Users</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon active">
+            <i class='bx bx-check-circle'></i>
+          </div>
+        </div>
+        <div class="stat-value">1,198</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon blocked">
+            <i class='bx bx-block'></i>
+          </div>
+        </div>
+        <div class="stat-value">55</div>
+        <div class="stat-label">Blocked Users</div>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <div class="filter-controls">
+        <div class="filter-item">
+          <label class="filter-label">Search Users</label>
+          <input type="text" class="filter-input" placeholder="Search by name, email...">
+        </div>
+        <div class="filter-item">
+          <label class="filter-label">Role</label>
+          <select class="filter-select">
+            <option>All Roles</option>
+            <option>Customer</option>
+            <option>Admin</option>
+            <option>Super Admin</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label class="filter-label">Status</label>
+          <select class="filter-select">
+            <option>All Status</option>
+            <option>Active</option>
+            <option>Inactive</option>
+            <option>Blocked</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label class="filter-label">Join Date</label>
+          <select class="filter-select">
+            <option>All Time</option>
+            <option>Last 7 Days</option>
+            <option>Last 30 Days</option>
+            <option>Last 3 Months</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <button class="btn-primary-custom" style="width: 100%;">
+            <i class='bx bx-filter'></i>
+            Apply Filters
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="users-table-wrapper">
+      <div class="table-header">
+        <h5 style="margin: 0; color: var(--dark-color);">All Users (1,253)</h5>
+        <div class="table-actions">
+          <button class="btn-action">
+            <i class='bx bx-import'></i>
+            Import
+          </button>
+          <button class="btn-action">
+            <i class='bx bx-export'></i>
+            Export
+          </button>
+        </div>
+      </div>
+
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th><input type="checkbox"></th>
+            <th>User</th>
+            <th>Role</th>
+            <th>Orders</th>
+            <th>Joined</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar customer">SJ</div>
+                <div class="user-info">
+                  <h6>Sarah Johnson</h6>
+                  <p>sarah.johnson@email.com</p>
+                </div>
+              </div>
+            </td>
+            <td><span class="role-badge customer">Customer</span></td>
+            <td>24 Orders</td>
+            <td>Oct 15, 2024</td>
+            <td><span class="status-badge active">Active</span></td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn edit" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                  <i class='bx bx-edit'></i>
+                </button>
+                <button class="action-btn delete" onclick="deleteUser(this)">
+                  <i class='bx bx-trash'></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar admin">JD</div>
+                <div class="user-info">
+                  <h6>John Doe</h6>
+                  <p>john.doe@caking.com</p>
+                </div>
+              </div>
+            </td>
+            <td><span class="role-badge super-admin">Super Admin</span></td>
+            <td>-</td>
+            <td>Jan 01, 2024</td>
+            <td><span class="status-badge active">Active</span></td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn permissions" data-bs-toggle="modal" data-bs-target="#permissionsModal">
+                  <i class='bx bx-shield-alt-2'></i>
+                </button>
+                <button class="action-btn edit" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                  <i class='bx bx-edit'></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar customer">MR</div>
+                <div class="user-info">
+                  <h6>Michael Roberts</h6>
+                  <p>michael.r@email.com</p>
+                </div>
+              </div>
+            </td>
+            <td><span class="role-badge customer">Customer</span></td>
+            <td>18 Orders</td>
+            <td>Sep 22, 2024</td>
+            <td><span class="status-badge active">Active</span></td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn edit" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                  <i class='bx bx-edit'></i>
+                </button>
+                <button class="action-btn delete" onclick="deleteUser(this)">
+                  <i class='bx bx-trash'></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar customer">EC</div>
+                <div class="user-info">
+                  <h6>Emily Chen</h6>
+                  <p>emily.chen@email.com</p>
+                </div>
+              </div>
+            </td>
+            <td><span class="role-badge customer">Customer</span></td>
+            <td>32 Orders</td>
+            <td>Aug 10, 2024</td>
+            <td><span class="status-badge blocked">Blocked</span></td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn edit" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                  <i class='bx bx-edit'></i>
+                </button>
+                <button class="action-btn delete" onclick="deleteUser(this)">
+                  <i class='bx bx-trash'></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar admin">AM</div>
+                <div class="user-info">
+                  <h6>Alice Martinez</h6>
+                  <p>alice.m@caking.com</p>
+                </div>
+              </div>
+            </td>
+            <td><span class="role-badge admin">Admin</span></td>
+            <td>-</td>
+            <td>Mar 15, 2024</td>
+            <td><span class="status-badge active">Active</span></td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn permissions" data-bs-toggle="modal" data-bs-target="#permissionsModal">
+                  <i class='bx bx-shield-alt-2'></i>
+                </button>
+                <button class="action-btn edit" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                  <i class='bx bx-edit'></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f0f0f0;">
+        <div style="color: #6b5d57; font-size: 0.9rem;">Showing 1-5 of 1,253 users</div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button style="width: 35px; height: 35px; border: 2px solid #e0e0e0; background: white; border-radius: 8px; cursor: pointer;">
+            <i class='bx bx-chevron-left'></i>
+          </button>
+          <button style="width: 35px; height: 35px; border: 2px solid var(--primary-color); background: var(--primary-color); color: white; border-radius: 8px; cursor: pointer; font-weight: 600;">1</button>
+          <button style="width: 35px; height: 35px; border: 2px solid #e0e0e0; background: white; border-radius: 8px; cursor: pointer;">2</button>
+          <button style="width: 35px; height: 35px; border: 2px solid #e0e0e0; background: white; border-radius: 8px; cursor: pointer;">3</button>
+          <button style="width: 35px; height: 35px; border: 2px solid #e0e0e0; background: white; border-radius: 8px; cursor: pointer;">
+            <i class='bx bx-chevron-right'></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ====== Add User Modal ====== -->
+  <div class="modal fade" id="addUserModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Full Name*</label>
+                  <input type="text" class="form-control-custom" placeholder="Enter full name" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Email Address*</label>
+                  <input type="email" class="form-control-custom" placeholder="Enter email" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Phone Number</label>
+                  <input type="tel" class="form-control-custom" placeholder="+1 (555) 000-0000">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Role*</label>
+                  <select class="form-control-custom" required>
+                    <option value="">Select Role</option>
+                    <option>Customer</option>
+                    <option>Admin</option>
+                    <option>Super Admin</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Password*</label>
+                  <input type="password" class="form-control-custom" placeholder="Enter password" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Confirm Password*</label>
+                  <input type="password" class="form-control-custom" placeholder="Confirm password" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label-custom">Status</label>
+              <select class="form-control-custom">
+                <option>Active</option>
+                <option>Inactive</option>
+              </select>
+            </div>
+
+            <div class="text-end">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 1rem;">Cancel</button>
+              <button type="submit" class="btn-primary-custom">
+                <i class='bx bx-check'></i>
+                Add User
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Edit User Modal ====== -->
+  <div class="modal fade" id="editUserModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Full Name*</label>
+                  <input type="text" class="form-control-custom" value="Sarah Johnson" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Email Address*</label>
+                  <input type="email" class="form-control-custom" value="sarah.johnson@email.com" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Phone Number</label>
+                  <input type="tel" class="form-control-custom" value="+1 (555) 123-4567">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-custom">Role*</label>
+                  <select class="form-control-custom" required>
+                    <option selected>Customer</option>
+                    <option>Admin</option>
+                    <option>Super Admin</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label-custom">Status</label>
+              <select class="form-control-custom">
+                <option selected>Active</option>
+                <option>Inactive</option>
+                <option>Blocked</option>
+              </select>
+            </div>
+
+            <div class="text-end">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 1rem;">Cancel</button>
+              <button type="submit" class="btn-primary-custom">
+                <i class='bx bx-save'></i>
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Permissions Modal ====== -->
+  <div class="modal fade" id="permissionsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Manage Permissions</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <h6 style="color: var(--dark-color); margin-bottom: 1rem;">Assign Permissions for Alice Martinez</h6>
+          
+          <div style="margin-bottom: 2rem;">
+            <h6 style="color: #6b5d57; font-size: 0.9rem; margin-bottom: 1rem;">Product Management</h6>
+            <div class="permission-grid">
+              <div class="permission-item">
+                <input type="checkbox" id="perm1" checked>
+                <label for="perm1">View Products</label>
+              </div>
+              <div class="permission-item">
+                <input type="checkbox" id="perm2" checked>
+                <label for="perm2">Add Products</label>
+              </div>
+              <div class="permission-item">
+                <input type="checkbox" id="perm3" checked>
+                <label for="perm3">Edit Products</label>
+              </div>
+              <div class="permission-item">
+                <input type="checkbox" id="perm4">
+                <label for="perm4">Delete Products</label>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 2rem;">
+            <h6 style="color: #6b5d57; font-size: 0.9rem; margin-bottom: 1rem;">Order Management</h6>
+            <div class="permission-grid">
+              <div class="permission-item">
+                <input type="checkbox" id="perm5" checked>
+                <label for="perm5">View Orders</label>
+              </div>
+              <div class="permission-item">
+                <input type="checkbox" id="perm6" checked>
+                <label for="perm6">Process Orders</label>
+              </div>
+              <div class="permission-item">
+                <input type="checkbox" id="perm7">
+                <label for="perm7">Cancel Orders</label>
+              </div>
+              <div class="permission-item">
+                <input type="checkbox" id="perm8">
+                <label for="perm8">Refund Orders</label>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 2rem;">
+            <h6 style="color: #6b5d57; font-size: 0.9rem; margin-bottom: 1rem;">User Management</h6>
+            <div class="permission-grid">
+              <div class="permission-item">
+                <input type="checkbox" id="perm9" checked>
+                <label for="perm9">View Users</label>
+              </div>
+              <div class="permission-item">
+                <input type="checkbox" id="perm10">
+                <label for="perm10">Add Users</label>
+              </div>
+              <div class="permission-item">
+                <input type="checkbox" id="perm11">
+                <label for="perm11">Edit Users</label>
+              </div>
+              <div class="permission-item">
+                <input type="checkbox" id="perm12">
+                <label for="perm12">Delete Users</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-end">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 1rem;">Cancel</button>
+            <button type="submit" class="btn-primary-custom">
+              <i class='bx bx-save'></i>
+              Save Permissions
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function deleteUser(button) {
+      if (confirm('Are you sure you want to delete this user?')) {
+        const row = button.closest('tr');
+        row.style.opacity = '0';
+        setTimeout(() => row.remove(), 300);
+      }
+    }
+  </script>
+
+</body>
+</html>

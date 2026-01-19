@@ -1,0 +1,222 @@
+/*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700&display=swap");
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  --header-height: 3.5rem;
+
+  --first-color: hsl(28, 88%, 62%);
+  --first-color-alt: hsl(28, 84%, 58%);
+  --title-color: hsl(0, 0%, 95%);
+  --text-color: hsl(0, 0%, 75%);
+  --text-color-light: hsl(0, 0%, 65%);
+  --black-color: hsl(0, 0%, 6%);
+  --body-color: hsl(0, 0%, 6%);
+  --container-color: hsl(0, 0%, 10%);
+
+  --body-font: "Montserrat", sans-serif;
+  --second-font: "Dancing Script", cursive;
+
+  --biggest-font-size: 3rem;
+  --bigger-font-size: 2rem;
+  --h1-font-size: 1.5rem;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1rem;
+  --normal-font-size: .938rem;
+  --small-font-size: .813rem;
+
+  --font-regular: 400;
+  --font-semi-bold: 600;
+  --font-bold: 700;
+
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
+h1,h2,h3 {
+  color: var(--title-color);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/*=============== REUSABLE ===============*/
+.container {
+  max-width: 1120px;
+  margin-inline: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.section {
+  padding: 5rem 0 1rem;
+}
+
+.section__title {
+  font-family: var(--second-font);
+  font-size: var(--bigger-font-size);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/*=============== HEADER ===============*/
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background: transparent;
+  z-index: var(--z-fixed);
+}
+
+.nav {
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__logo {
+  font-family: var(--second-font);
+  font-size: var(--h2-font-size);
+  color: var(--first-color);
+}
+
+/*=============== MOBILE MENU ===============*/
+@media screen and (max-width: 1150px) {
+  .nav__menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    height: 100%;
+    background-color: hsla(0,0%,6%,.2);
+    backdrop-filter: blur(16px);
+    padding: 6rem 3rem;
+    transition: right .4s;
+  }
+}
+
+.show-menu {
+  right: 0;
+}
+
+/*=============== HOME ===============*/
+.home {
+  padding-top: 6.5rem;
+  position: relative;
+}
+
+.home__bg {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.home__shadow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent, hsl(0,0%,6%));
+  z-index: -1;
+}
+
+.home__title {
+  font-family: var(--second-font);
+  font-size: var(--biggest-font-size);
+  margin-bottom: 1.5rem;
+}
+
+/*=============== BUTTON ===============*/
+.button {
+  background-color: var(--first-color);
+  color: var(--black-color);
+  padding: 1rem 2rem;
+  font-weight: var(--font-semi-bold);
+  display: inline-flex;
+}
+
+.button:hover {
+  background-color: var(--first-color-alt);
+}
+
+/*=============== NEW ===============*/
+.new__card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.new__image {
+  width: 150px;
+}
+
+/*=============== ABOUT ===============*/
+.about__data {
+  text-align: center;
+}
+
+.about__img {
+  width: 320px;
+  margin: auto;
+}
+
+/*=============== FAVORITES ===============*/
+.favorite__container {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem 1.5rem;
+}
+
+.favorite__card {
+  position: relative;
+  background-color: var(--container-color);
+  padding: 6rem 1rem 1.5rem;
+  border: 2px solid transparent;
+  transition: border-color .4s;
+}
+
+.favorite__card:hover {
+  border-color: var(--first-color);
+}
+
+.favorite__img {
+  width: 120px;
+  position: absolute;
+  top: -2rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.favorite__button {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 1.25rem;
+}
